@@ -31,27 +31,6 @@
 	<link rel="stylesheet" href="vendor/jquery-ui/jquery-ui.theme.css" />
 	<link rel="stylesheet" href="vendor/bootstrap-multiselect/css/bootstrap-multiselect.css" />
 	<link rel="stylesheet" href="vendor/morris/morris.css" />
-	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css" />
-	<link rel="stylesheet" href="vendor/animate/animate.compat.css">
-	<link rel="stylesheet" href="vendor/font-awesome/css/all.min.css" />
-	<link rel="stylesheet" href="vendor/boxicons/css/boxicons.min.css" />
-	<link rel="stylesheet" href="vendor/magnific-popup/magnific-popup.css" />
-	<link rel="stylesheet" href="vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
-	<link rel="stylesheet" href="vendor/select2/css/select2.css" />
-	<link rel="stylesheet" href="vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
-	<link rel="stylesheet" href="vendor/datatables/media/css/dataTables.bootstrap5.css" />
-	<link rel="stylesheet" href="vendor/magnific-popup.css">
-	<script src="vendor/jquery.min.js"></script>
-	<script src="vendor/jquery.magnific-popup.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-	<!-- Inclua jQuery antes do código Magnific Popup -->
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-	<!-- Inclua a biblioteca Magnific Popup -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
 	<!-- Theme CSS -->
 	<link rel="stylesheet" href="css/theme.css" />
@@ -84,34 +63,28 @@
 
 		<div class="nano">
 			<div class="nano-content">
-				<?php SESSION_START();
+				<?php
+						// Inicia a sessão PHP
+						SESSION_START();
 
-		$id = $_SESSION['iduser'];
-		
-		if ($id==0) {
-					include("menuadmin.php");
-				}
-				else {
-					include("menuuser.php");
-				}
-		?>
+						// Obtém o valor da variável de sessão 'iduser'
+						$id = $_SESSION['iduser'];
+
+						// Verifica o valor de $id para determinar qual menu incluir
+						if ($id == 0) {
+							// Se $id for igual a 0, inclui o menu de administração
+							include("menuadmin.php");
+						} else {
+							// Se $id não for igual a 0, inclui o menu do usuário comum
+							include("menuuser.php");
+								}
+					?>
 
 				<hr class="separator" />
 
 				<hr class="separator" />
 
 			</div>
-
-			<script>
-				// Maintain Scroll Position
-				if (typeof localStorage !== 'undefined') {
-					if (localStorage.getItem('sidebar-left-position') !== null) {
-						var initialPosition = localStorage.getItem('sidebar-left-position'),
-							sidebarLeft = document.querySelector('#sidebar-left .nano-content');
-						sidebarLeft.scrollTop = initialPosition;
-					}
-				}
-			</script>
 
 		</div>
 
@@ -122,7 +95,8 @@
 		<header class="header">
 			<div class="logo-container">
 				<a href="Admin.php" class="logo">
-					<img src="img/logo2.png" width="120" height="35" />
+					<img src="img/logo2.png" width="120" height="35">
+
 				</a>
 
 				<div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html"
@@ -181,101 +155,120 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Listar Clientes</h2>
+					<h2>Inserir Fornecedores</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
 							<li>
-								<a href="admin.html">
+								<a href="index.php">
 									<i class="bx bx-home-alt"></i>
 								</a>
 							</li>
 
-							<li><span>Menu Clientes</span></li>
-							<li><span>Listar Clientes</span></li>
+							<li><span>Menu Fornecedores</span></li>
+							<li><span>Inserir Fornecedores</span></li>
 
 						</ol>
 
-						<a class="sidebar-right-toggle" dclass="sidebar-right-wrapper"><i
+						<a class="sidebar-right-toggle" data-open="sidebar-right"><i
 								class="fas fa-chevron-left"></i></a>
 					</div>
 				</header>
-				<?php
-								//conexão com a base de dados 
-								include "DBConnection.php"; echo "<br>";
-							?>
+
 				<!-- start: page -->
-				<section class="card">
-					<!-- Cabeçalho da tabela -->
-					<header class="card-header">
-						<h2 class="card-title">Lista de Clientes</h2>
-					</header>
 
-					<!-- Corpo da tabela -->
-					<div class="card-body">
-						<div class="row">
-							<div class="col-sm-6">
-								<!-- Conteúdo da coluna -->
-							</div>
+				<div class="bg-light">
+					<div class="form-container">
+						<div class="w-100">
+							<form name="form_ins_prod" id="form_ins_prod" action="inserir_fornecedor.php" method="post">
+								<section class="card">
+									<div class="card-body">
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Nome</label>
+											<div class="col-lg-6">
+												<input name="nome" type="text" class="form-control">
+											</div>
+										</div>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Contacto</label>
+											<div class="col-lg-6">
+												<input name="contacto" type="text" class="form-control">
+											</div>
+										</div>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Email</label>
+											<div class="col-lg-6">
+												<input name="email" type="text" class="form-control">
+											</div>
+										</div>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Endereço</label>
+											<div class="col-lg-6">
+												<input name="endereco" type="text" class="form-control">
+											</div>
+										</div>
+									</div>
+									<footer class="card-footer d-flex justify-content-end">
+										<button name="bt" class="btn btn-primary mx-2">Introduzir</button>
+										<button type="reset" class="btn btn-default mx-2">Limpar</button>
+									</footer>
+								</section>
+							</form>
+							<?php
+								// PHP para processar o formulário e inserir dados no banco de dados
+								$fnome = $fcontacto = $femail = $fendereco = ''; // Inicia as variáveis
+
+									if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
+										// Verificar se todas as caixas foram preenchidas
+										if (empty($_POST["nome"]) || empty($_POST["contacto"]) || empty($_POST["email"]) || empty($_POST["endereco"])) {
+											//Exibe o alerta se nao estiver as caixas todas preenchidas
+											echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+													<strong>Erro!</strong> Preencha todos os campos do formulário.
+													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+												</div>';
+										} else {
+											// Processar o formulário se todas as caixas foram preenchidas
+											$fnome = $_POST["nome"];
+											$fcontacto = $_POST["contacto"];
+											$femail = $_POST["email"];
+											$fendereco = $_POST["endereco"];
+
+											
+
+											// Verificar se o próximo valor de idc já existe na tabela
+											$result = mysqli_query($link, "SELECT MAX(idf) AS max_idf FROM fornecedores");
+											$row = mysqli_fetch_assoc($result);
+											$proximo_idf = $row['max_idf'] + 1;
+
+											// Inserir os dados para a base de dados
+											$query = mysqli_query($link, "INSERT INTO fornecedores (idf, nome, contacto, email, endereco) 
+											VALUES ('$proximo_idf', '$fnome', '$fcontacto', '$femail', '$fendereco')");
+
+											// Exibir um alert se foi bem inserido ou não
+											if ($query) {
+												echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+														<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
+														<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+													</div>';
+											} else {
+												echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+														<strong>Erro!</strong> Houve um problema ao inserir os dados.
+														<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+													</div>';
+											}
+										}
+									}
+					?>
+
 						</div>
-
-						<!-- Tabela para exibir a lista de clientes -->
-						<table class="table table-bordered table-striped mb-0" id="datatable-editable">
-							<thead>
-								<tr>
-									<!-- Cabeçalho da tabela -->
-									<th>ID</th>
-									<th>Nome</th>
-									<th>Telefone</th>
-									<th>Email</th>
-									<th>Morada</th>
-									<th>Ações</th>
-								</tr>
-							</thead>
-
-							<!-- Corpo da tabela -->
-							<tbody>
-								<?php 
-                // Consulta a base de dados para obter os registos dos clientes
-                $query  = "SELECT * FROM clientes ORDER BY idc";
-                $result = mysqli_query($link, $query);
-                
-                // Loop para exibir cada registo na tabela
-                while($row = mysqli_fetch_array($result)){ 
-                ?>
-								<tr>
-									<!-- Exibição de dados do cliente -->
-									<td class="border-b dark:border-dark-5"><?php echo $row['idc'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['nome'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['telefone'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['email'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['morada'] ?></td>
-
-									<!-- Coluna de ações -->
-									<td class="actions text-left">
-										<!-- Link para a página de edição -->
-										<a href="editar_registo.php?id=<?php echo $row['idc']; ?>"
-											class="btn btn-sm btn-sm-custom" title="Editar">
-											<i class="fas fa-pencil-alt" style="color: black;"></i>
-										</a>
-
-										<!-- Formulário para exclusão com alerta de confirmação -->
-										<form method="post" action="apagarregisto.php" style="display:inline;"
-											onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
-											<input type="hidden" name="id" value="<?php echo $row['idc']; ?>">
-											<button type="submit" class="btn btn-sm btn-sm-custom delete-btn"
-												title="Apagar">
-												<i class="fas fa-trash-alt" style="color: black;"></i>
-											</button>
-										</form>
-									</td>
-								</tr>
-								<?php } // Fim do loop ?>
-							</tbody>
-						</table>
-					</div>
-				</section>
 			</section>
+
+		</div>
+		</div>
 		</div>
 
 		<aside id="sidebar-right" class="sidebar-right">
@@ -346,6 +339,7 @@
 			</div>
 
 		</aside>
+
 	</section>
 
 	<section role="main" class="content-body">

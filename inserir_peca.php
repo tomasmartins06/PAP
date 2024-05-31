@@ -31,27 +31,6 @@
 	<link rel="stylesheet" href="vendor/jquery-ui/jquery-ui.theme.css" />
 	<link rel="stylesheet" href="vendor/bootstrap-multiselect/css/bootstrap-multiselect.css" />
 	<link rel="stylesheet" href="vendor/morris/morris.css" />
-	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css" />
-	<link rel="stylesheet" href="vendor/animate/animate.compat.css">
-	<link rel="stylesheet" href="vendor/font-awesome/css/all.min.css" />
-	<link rel="stylesheet" href="vendor/boxicons/css/boxicons.min.css" />
-	<link rel="stylesheet" href="vendor/magnific-popup/magnific-popup.css" />
-	<link rel="stylesheet" href="vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
-	<link rel="stylesheet" href="vendor/select2/css/select2.css" />
-	<link rel="stylesheet" href="vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
-	<link rel="stylesheet" href="vendor/datatables/media/css/dataTables.bootstrap5.css" />
-	<link rel="stylesheet" href="vendor/magnific-popup.css">
-	<script src="vendor/jquery.min.js"></script>
-	<script src="vendor/jquery.magnific-popup.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-	<!-- Inclua jQuery antes do código Magnific Popup -->
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-	<!-- Inclua a biblioteca Magnific Popup -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
 	<!-- Theme CSS -->
 	<link rel="stylesheet" href="css/theme.css" />
@@ -122,7 +101,8 @@
 		<header class="header">
 			<div class="logo-container">
 				<a href="Admin.php" class="logo">
-					<img src="img/logo2.png" width="120" height="35" />
+					<img src="img/logo2.png" width="120" height="35">
+
 				</a>
 
 				<div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html"
@@ -181,101 +161,163 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Listar Clientes</h2>
+					<h2>Inserir Peça</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
 							<li>
-								<a href="admin.html">
+								<a href="index.php">
 									<i class="bx bx-home-alt"></i>
 								</a>
 							</li>
 
-							<li><span>Menu Clientes</span></li>
-							<li><span>Listar Clientes</span></li>
+							<li><span>Inserir Peça</span></li>
 
 						</ol>
 
-						<a class="sidebar-right-toggle" dclass="sidebar-right-wrapper"><i
+						<a class="sidebar-right-toggle" data-open="sidebar-right"><i
 								class="fas fa-chevron-left"></i></a>
 					</div>
 				</header>
-				<?php
-								//conexão com a base de dados 
-								include "DBConnection.php"; echo "<br>";
-							?>
+
 				<!-- start: page -->
-				<section class="card">
-					<!-- Cabeçalho da tabela -->
-					<header class="card-header">
-						<h2 class="card-title">Lista de Clientes</h2>
-					</header>
 
-					<!-- Corpo da tabela -->
-					<div class="card-body">
-						<div class="row">
-							<div class="col-sm-6">
-								<!-- Conteúdo da coluna -->
-							</div>
+				<div class="bg-light">
+					<div class="form-container">
+						<div class="w-100">
+							<form name="form_ins_prod" id="form_ins_prod" action="inserir_peca.php" method="post">
+								<section class="card">
+									<div class="card-body">
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Nome</label>
+											<div class="col-lg-6">
+												<input name="nome" type="text" class="form-control">
+											</div>
+										</div>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Descrição</label>
+											<div class="col-lg-6">
+												<input name="descricao" type="text" class="form-control">
+											</div>
+										</div>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="quantityInput">Quantidade</label>
+											<div class="col-lg-6 d-flex">
+												<input id="quantityInput" name="quantidade" type="number"
+													class="form-control" readonly="readonly" value="0">
+												<div class="btn-group-vertical ms-2">
+													<button type="button" class="btn spinner-up btn-xs btn-default">
+														<i class="fas fa-angle-up"></i>
+													</button>
+													<button type="button" class="btn spinner-down btn-xs btn-default">
+														<i class="fas fa-angle-down"></i>
+													</button>
+												</div>
+											</div>
+										</div>
+										<script>
+											document.addEventListener('DOMContentLoaded', (event) => {
+												const inputQuantidade = document.getElementById('quantityInput');
+												const botaoIncremento = document.querySelector('.spinner-up');
+												const botaoDecremento = document.querySelector('.spinner-down');
+												botaoIncremento.addEventListener('click', () => {
+													let valorAtual = parseInt(inputQuantidade.value, 10);
+													inputQuantidade.value = valorAtual + 1;
+												});
+												botaoDecremento.addEventListener('click', () => {
+													let valorAtual = parseInt(inputQuantidade.value, 10);
+													if (valorAtual > 0) {
+														inputQuantidade.value = valorAtual - 1;
+													}
+												});
+											});
+										</script>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Preço</label>
+											<div class="col-lg-6">
+												<input name="preco" type="text" class="form-control" value="€">
+											</div>
+										</div>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Fornecedor</label>
+											<div class="col-lg-6">
+												<select data-plugin-selectTwo name="id_fornecedor"
+													class="form-control populate">
+													<?php
+														$qry = "Select * from fornecedores order by idf";
+														$result = mysqli_query($link,$qry);
+														while ($row = mysqli_fetch_array($result)) {
+													?>
+													<option value="<?php echo $row['idf']; ?>">
+														<?php echo $row['nome']; ?></option>
+													<?php } ?>
+												</select>
+											</div>
+										</div>
+									</div>
+									<footer class="card-footer d-flex justify-content-end">
+										<button name="bt" class="btn btn-primary mx-2">Introduzir</button>
+										<button type="reset" class="btn btn-default mx-2">Limpar</button>
+										<button type="reset" class="mb-1 mt-1 me-1 btn btn-info">Gerar código
+											QR</button>
+									</footer>
+								</section>
+
+							</form>
+
+							<?php
+								$fidp = $fnome = $fdescricao = $fquantidade = $fpreco = $fid_fornecedor = ''; // Inicialize as variáveis
+
+								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
+									// Verificar se todas as caixas foram preenchidas
+									if (empty($_POST["nome"]) || empty($_POST["descricao"]) || empty($_POST["quantidade"]) || empty($_POST["preco"]) || empty($_POST["id_fornecedor"])) {
+										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+												<strong>Erro!</strong> Preencha todos os campos do formulário.
+												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+											  </div>';
+									} else {
+										// Processar o formulário se todas as caixas foram preenchidas
+										$fnome = $_POST["nome"];
+										$fdescricao = $_POST["descricao"];
+										$fquantidade = $_POST["quantidade"];
+										$fpreco = $_POST["preco"];
+										$fid_fornecedor = $_POST["id_fornecedor"];
+								
+										// Verificar se o próximo valor de idp já existe na tabela
+										$result = mysqli_query($link, "SELECT MAX(idp) AS max_idp FROM pecas");
+										$row = mysqli_fetch_assoc($result);
+										$proximo_idp = $row['max_idp'] + 1;
+								
+										// Inserir os dados
+										$query = mysqli_query($link, "INSERT INTO pecas (idp, nome, descricao, quantidade, preco, id_fornecedor) 
+											VALUES ('$proximo_idp', '$fnome', '$fdescricao', '$fquantidade', '$fpreco', '$fid_fornecedor') ");
+								
+										// Exibir o alerta
+										if ($query) {
+											echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+													<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
+													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+												  </div>';
+										} else {
+											echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+													<strong>Erro!</strong> Houve um problema ao inserir os dados.
+													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+												  </div>';
+										}
+									}
+								}
+								?>
+
 						</div>
-
-						<!-- Tabela para exibir a lista de clientes -->
-						<table class="table table-bordered table-striped mb-0" id="datatable-editable">
-							<thead>
-								<tr>
-									<!-- Cabeçalho da tabela -->
-									<th>ID</th>
-									<th>Nome</th>
-									<th>Telefone</th>
-									<th>Email</th>
-									<th>Morada</th>
-									<th>Ações</th>
-								</tr>
-							</thead>
-
-							<!-- Corpo da tabela -->
-							<tbody>
-								<?php 
-                // Consulta a base de dados para obter os registos dos clientes
-                $query  = "SELECT * FROM clientes ORDER BY idc";
-                $result = mysqli_query($link, $query);
-                
-                // Loop para exibir cada registo na tabela
-                while($row = mysqli_fetch_array($result)){ 
-                ?>
-								<tr>
-									<!-- Exibição de dados do cliente -->
-									<td class="border-b dark:border-dark-5"><?php echo $row['idc'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['nome'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['telefone'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['email'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['morada'] ?></td>
-
-									<!-- Coluna de ações -->
-									<td class="actions text-left">
-										<!-- Link para a página de edição -->
-										<a href="editar_registo.php?id=<?php echo $row['idc']; ?>"
-											class="btn btn-sm btn-sm-custom" title="Editar">
-											<i class="fas fa-pencil-alt" style="color: black;"></i>
-										</a>
-
-										<!-- Formulário para exclusão com alerta de confirmação -->
-										<form method="post" action="apagarregisto.php" style="display:inline;"
-											onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
-											<input type="hidden" name="id" value="<?php echo $row['idc']; ?>">
-											<button type="submit" class="btn btn-sm btn-sm-custom delete-btn"
-												title="Apagar">
-												<i class="fas fa-trash-alt" style="color: black;"></i>
-											</button>
-										</form>
-									</td>
-								</tr>
-								<?php } // Fim do loop ?>
-							</tbody>
-						</table>
-					</div>
-				</section>
 			</section>
+
+		</div>
+		</div>
 		</div>
 
 		<aside id="sidebar-right" class="sidebar-right">
@@ -346,6 +388,7 @@
 			</div>
 
 		</aside>
+
 	</section>
 
 	<section role="main" class="content-body">

@@ -52,7 +52,7 @@
 		<!-- start: header -->
 		<header class="header">
 			<div class="logo-container">
-				<a href="../4.1.0" class="logo">
+				<a href="Admin.php" class="logo">
 					<img src="img/logo2.png" width="120" height="35" />
 				</a>
 
@@ -418,7 +418,7 @@
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
 							<li>
-								<a href="index.html">
+								<a href="index.php">
 									<i class="bx bx-home-alt"></i>
 								</a>
 							</li>

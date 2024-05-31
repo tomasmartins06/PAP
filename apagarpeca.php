@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
     if ($id > 0) {
         // Query SQL para Apagar o registo com base no ID
-        $sql = "DELETE FROM eletrodomesticos WHERE ide = ?";
+        $sql = "DELETE FROM peca WHERE idp = ?";
 
         // Preparação da declaração
         $stmt = $link->prepare($sql);
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
         if ($stmt->execute()) {
             // Redirecionar para a página de listar após a exclusão
-            header("Location: listar_produto.php");
+            header("Location: listar_peca.php");
             exit();
         } else {
             echo "Erro ao Apagar o registo: " . $link->error;

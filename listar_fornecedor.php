@@ -181,7 +181,7 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Listar Clientes</h2>
+					<h2>Listar Fornecedores</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
@@ -191,8 +191,8 @@
 								</a>
 							</li>
 
-							<li><span>Menu Clientes</span></li>
-							<li><span>Listar Clientes</span></li>
+							<li><span>Menu Fornecedores</span></li>
+							<li><span>Listar Fornecedores</span></li>
 
 						</ol>
 
@@ -208,7 +208,7 @@
 				<section class="card">
 					<!-- Cabeçalho da tabela -->
 					<header class="card-header">
-						<h2 class="card-title">Lista de Clientes</h2>
+						<h2 class="card-title">Lista de Fornecedores</h2>
 					</header>
 
 					<!-- Corpo da tabela -->
@@ -226,43 +226,42 @@
 									<!-- Cabeçalho da tabela -->
 									<th>ID</th>
 									<th>Nome</th>
-									<th>Telefone</th>
+									<th>Contacto</th>
 									<th>Email</th>
-									<th>Morada</th>
-									<th>Ações</th>
+									<th>Endereço</th>
 								</tr>
 							</thead>
 
 							<!-- Corpo da tabela -->
 							<tbody>
 								<?php 
-                // Consulta a base de dados para obter os registos dos clientes
-                $query  = "SELECT * FROM clientes ORDER BY idc";
-                $result = mysqli_query($link, $query);
-                
-                // Loop para exibir cada registo na tabela
-                while($row = mysqli_fetch_array($result)){ 
-                ?>
+									// Consulta a base de dados para obter os registos dos clientes
+									$query  = "SELECT * FROM fornecedores ORDER BY idf";
+									$result = mysqli_query($link, $query);
+									
+									// Loop para exibir cada registo na tabela
+									while($row = mysqli_fetch_array($result)){ 
+									?>
 								<tr>
 									<!-- Exibição de dados do cliente -->
-									<td class="border-b dark:border-dark-5"><?php echo $row['idc'] ?></td>
+									<td class="border-b dark:border-dark-5"><?php echo $row['idf'] ?></td>
 									<td class="border-b dark:border-dark-5"><?php echo $row['nome'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['telefone'] ?></td>
+									<td class="border-b dark:border-dark-5"><?php echo $row['contacto'] ?></td>
 									<td class="border-b dark:border-dark-5"><?php echo $row['email'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['morada'] ?></td>
+									<td class="border-b dark:border-dark-5"><?php echo $row['endereco'] ?></td>
 
 									<!-- Coluna de ações -->
 									<td class="actions text-left">
 										<!-- Link para a página de edição -->
-										<a href="editar_registo.php?id=<?php echo $row['idc']; ?>"
+										<a href="editar_fornecedor.php?id=<?php echo $row['idf']; ?>"
 											class="btn btn-sm btn-sm-custom" title="Editar">
 											<i class="fas fa-pencil-alt" style="color: black;"></i>
 										</a>
 
 										<!-- Formulário para exclusão com alerta de confirmação -->
-										<form method="post" action="apagarregisto.php" style="display:inline;"
+										<form method="post" action="apagarfornecedor.php" style="display:inline;"
 											onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
-											<input type="hidden" name="id" value="<?php echo $row['idc']; ?>">
+											<input type="hidden" name="idf" value="<?php echo $row['idf']; ?>">
 											<button type="submit" class="btn btn-sm btn-sm-custom delete-btn"
 												title="Apagar">
 												<i class="fas fa-trash-alt" style="color: black;"></i>

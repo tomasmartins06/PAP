@@ -100,7 +100,7 @@
 		<!-- start: header -->
 		<header class="header">
 			<div class="logo-container">
-				<a href="../4.1.0" class="logo">
+				<a href="Admin.php" class="logo">
 					<img src="img/logo2.png" width="120" height="35" />
 				</a>
 
@@ -142,7 +142,7 @@
 										class="bx bx-lock"></i> Lock Screen</a>
 							</li>
 							<li>
-								<a role="menuitem" tabindex="-1" href="index.html"><i class="bx bx-power-off"></i>
+								<a role="menuitem" tabindex="-1" href="index.php"><i class="bx bx-power-off"></i>
 									Logout</a>
 							</li>
 						</ul>
@@ -165,7 +165,7 @@
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
 							<li>
-								<a href="index.html">
+								<a href="index.php">
 									<i class="bx bx-home-alt"></i>
 								</a>
 							</li>

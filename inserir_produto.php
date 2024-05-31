@@ -143,7 +143,7 @@
 										class="bx bx-lock"></i> Lock Screen</a>
 							</li>
 							<li>
-								<a role="menuitem" tabindex="-1" href="index.html"><i class="bx bx-power-off"></i>
+								<a role="menuitem" tabindex="-1" href="index.php"><i class="bx bx-power-off"></i>
 									Logout</a>
 							</li>
 						</ul>
@@ -166,7 +166,7 @@
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
 							<li>
-								<a href="index.html">
+								<a href="index.php">
 									<i class="bx bx-home-alt"></i>
 								</a>
 							</li>
@@ -212,7 +212,7 @@
 											<div class="col-lg-6">
 												<select data-plugin-selectTwo name="gama" class="form-control populate">
 													<?php
-											// Consulta SQL para selecionar todos os registros da tabela 
+											// Consulta SQL para selecionar todos os registos da tabela 
 											$qry = "select * from gama order by idi";
 
 											// Executa a consulta SQL e armazena o resultado
@@ -268,7 +268,7 @@
 												<select data-plugin-selectTwo name="estado"
 													class="form-control populate">
 													<?php
-											// Consulta SQL para selecionar todos os registros da tabela 
+											// Consulta SQL para selecionar todos os registos da tabela 
 											$qry = "SELECT * FROM estado ORDER BY idt";
 
 											// Executa a consulta SQL e armazena o resultado

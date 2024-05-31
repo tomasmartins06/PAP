@@ -76,5 +76,52 @@
 			</ul>
 		</li>
 
+		<li class="nav-parent">
+			<a class="nav-link">
+				<i class="bx bx-collection" aria-hidden="true"></i>
+				<span>Menu de Peças</span>
+			</a>
+			<ul class="nav nav-children">
+				<li>
+					<a href="inserir_peca.php">
+						Inserir Peça
+					</a>
+				</li>
+
+			</ul>
+			<ul class="nav nav-children" >
+				<li>
+					<a href="listar_peca.php">
+						Listar Peças
+					</a>
+				</li>
+
+			</ul>
+
+		</li>
+		<li class="nav-parent">
+			<a class="nav-link">
+				<i class="bx bx-collection" aria-hidden="true"></i>
+				<span>Menu de Fornecedores</span>
+			</a>
+			<ul class="nav nav-children">
+				<li>
+					<a href="inserir_fornecedor.php">
+						Inserir Fornecedor
+					</a>
+				</li>
+
+			</ul>
+			<ul class="nav nav-children" >
+				<li>
+					<a href="listar_fornecedor.php">
+						Listar Fornecedores
+					</a>
+				</li>
+
+			</ul>
+		</li>
+
+
 	</ul>
 </nav>

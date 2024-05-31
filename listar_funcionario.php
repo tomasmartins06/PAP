@@ -121,7 +121,7 @@
 		<!-- start: header -->
 		<header class="header">
 			<div class="logo-container">
-				<a href="../4.1.0" class="logo">
+				<a href="Admin.php" class="logo">
 					<img src="img/logo2.png" width="120" height="35" />
 				</a>
 
@@ -163,7 +163,7 @@
 										class="bx bx-lock"></i> Lock Screen</a>
 							</li>
 							<li>
-								<a role="menuitem" tabindex="-1" href="index.html"><i class="bx bx-power-off"></i>
+								<a role="menuitem" tabindex="-1" href="index.php"><i class="bx bx-power-off"></i>
 									Logout</a>
 							</li>
 						</ul>
@@ -234,11 +234,11 @@
 							<!-- Corpo da tabela -->
 							<tbody>
 								<?php 
-									// Consulta a base de dados para obter os registros dos clientes
+									// Consulta a base de dados para obter os registos dos clientes
 									$query  = "SELECT * FROM utilizadores ORDER BY id";
 									$result = mysqli_query($link, $query);
 									
-									// Loop para exibir cada registro na tabela
+									// Loop para exibir cada registo na tabela
 									while($row = mysqli_fetch_array($result)){ 
 									?>
 								<tr>
@@ -258,10 +258,10 @@
 
 										<!-- Formulário para exclusão com alerta de confirmação -->
 										<form method="post" action="apagarfuncionario.php" style="display:inline;"
-											onsubmit="return confirm('Tem certeza que deseja apagar este registro?');">
+											onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
 											<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 											<button type="submit" class="btn btn-sm btn-sm-custom delete-btn"
-												title="Excluir">
+												title="Apagar">
 												<i class="fas fa-trash-alt" style="color: black;"></i>
 											</button>
 										</form>

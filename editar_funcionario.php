@@ -95,13 +95,12 @@
 
 	</aside>
 	<section class="body">
-
+		
 		<!-- start: header -->
 		<header class="header">
 			<div class="logo-container">
 				<a href="Admin.php" class="logo">
 					<img src="img/logo2.png" width="120" height="35">
-
 				</a>
 
 				<div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html"
@@ -142,7 +141,7 @@
 										class="bx bx-lock"></i> Lock Screen</a>
 							</li>
 							<li>
-								<a role="menuitem" tabindex="-1" href="index.html"><i class="bx bx-power-off"></i>
+								<a role="menuitem" tabindex="-1" href="index.php"><i class="bx bx-power-off"></i>
 									Logout</a>
 							</li>
 						</ul>
@@ -160,19 +159,19 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Listar Clientes</h2>
+					<h2>Editar Funcionários</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
 							<li>
-								<a href="index.html">
+								<a href="index.php">
 									<i class="bx bx-home-alt"></i>
 								</a>
 							</li>
 
-							<li><span>Menu Clientes</span></li>
-							<li><span>Inserir Clientes</span></li>
-							<li><span>Editar Clientes</span></li>
+							<li><span>Menu Funcionários</span></li>
+							<li><span>Inserir Funcionários</span></li>
+							<li><span>Editar Funcionários</span></li>
 
 						</ol>
 
@@ -196,22 +195,21 @@
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
                 // Processa a edição
                 $id = $_POST['id'];
-                $nome = $_POST['nome'];
-                $telefone = $_POST['telefone'];
-                $email = $_POST['email'];
-                $morada = $_POST['morada'];
+                $user = $_POST['user'];
+                $pass = $_POST['pass'];
+                
 
                 // Query SQL para atualizar o registo com base no ID
-                $sql = "UPDATE clientes SET nome = '$nome', telefone = '$telefone', email = '$email', morada = '$morada' WHERE idc = $id";
+                $sql = "UPDATE utilizadores SET user = '$user', pass = '$pass' WHERE id = $id";
 
                 // Executa a query e verifica se foi bem sucedida
                 if (mysqli_query($link, $sql)) {
                     $showForm = false;
-                    echo "Registro atualizado com sucesso!";
-                    echo '<script>window.location.href = "listar_clientes.php";</script>';
+                    echo "registo atualizado com sucesso!";
+                    echo '<script>window.location.href = "listar_funcionario.php";</script>';
                     exit; // Adicionado para evitar que o restante do código seja executado após o redirecionamento
                 } else {
-                    echo "Erro ao atualizar o registro: " . mysqli_error($link);
+                    echo "Erro ao atualizar o registo: " . mysqli_error($link);
                 }
             }
 
@@ -222,49 +220,33 @@
                 // Página de Edição
                 $id = $_GET['id'];
 
-                // Recupera os dados do registro a ser editado
-                $query = "SELECT * FROM clientes WHERE idc = $id";
+                // Recupera os dados do registo a ser editado
+                $query = "SELECT * FROM utilizadores WHERE id = $id";
                 $result = mysqli_query($link, $query);
 
                 // Verifica se a consulta foi bem-sucedida e exibe o formulário de edição
                 if ($result && $row = mysqli_fetch_assoc($result)) {
                     ?>
 							<!-- Formulário de Edição -->
-							<form method="post" action="editar_registo.php" id="editForm">
+							<form method="post" action="editar_funcionario.php" id="editForm">
 								<section class="card">
 									<div class="card-body">
-										<!-- Campos do formulário preenchidos com os dados do registro -->
-										<input type="hidden" name="id" value="<?php echo $row['idc']; ?>">
+										<!-- Campos do formulário preenchidos com os dados do registo -->
+										<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Nome</label>
+												for="inputDefault">Utilizador</label>
 											<div class="col-lg-6">
-												<input type="text" name="nome" value="<?php echo $row['nome']; ?>"
+												<input type="text" name="user" value="<?php echo $row['user']; ?>"
 													class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Telefone</label>
+												for="inputDefault">Palavra Passe</label>
 											<div class="col-lg-6">
-												<input type="text" name="telefone"
-													value="<?php echo $row['telefone']; ?>" class="form-control">
-											</div>
-										</div>
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Email</label>
-											<div class="col-lg-6">
-												<input type="text" name="email" value="<?php echo $row['email']; ?>"
-													class="form-control">
-											</div>
-										</div>
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Morada</label>
-											<div class="col-lg-6">
-												<input type="text" name="morada" value="<?php echo $row['morada']; ?>"
-													class="form-control">
+												<input type="text" name="pass" value="<?php echo $row['pass']; ?>" 
+												class="form-control">
 											</div>
 										</div>
 									</div>
@@ -275,11 +257,11 @@
 								</section>
 							</form>
 							<?php
-                } 
-            }
-            // Fecha a conexão com o banco de dados
-            mysqli_close($link);
-            ?>
+									} 
+								}
+								// Fecha a conexão com o banco de dados
+								mysqli_close($link);
+								?> 
 						</div>
 					</div>
 				</div>

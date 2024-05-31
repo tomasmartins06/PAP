@@ -142,7 +142,7 @@
 										class="bx bx-lock"></i> Lock Screen</a>
 							</li>
 							<li>
-								<a role="menuitem" tabindex="-1" href="index.html"><i class="bx bx-power-off"></i>
+								<a role="menuitem" tabindex="-1" href="index.php"><i class="bx bx-power-off"></i>
 									Logout</a>
 							</li>
 						</ul>
@@ -160,12 +160,12 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Listar Clientes</h2>
+					<h2>Listar Eletrodoméstico</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
 							<li>
-								<a href="index.html">
+								<a href="index.php">
 									<i class="bx bx-home-alt"></i>
 								</a>
 							</li>
@@ -215,11 +215,11 @@
 				// Executa a query e verifica se foi bem sucedida
 				if (mysqli_stmt_execute($stmt)) {
 					$showForm = false;
-					echo "Registro atualizado com sucesso!";
+					echo "registo atualizado com sucesso!";
 					echo '<script>window.location.href = "listar_produto.php";</script>';
 					exit; // Adicionado para evitar que o restante do código seja executado após o redirecionamento
 				} else {
-					echo "Erro ao atualizar o registro: " . mysqli_error($link);
+					echo "Erro ao atualizar o registo: " . mysqli_error($link);
 				}
 				mysqli_stmt_close($stmt);
 			}
@@ -229,7 +229,7 @@
 				// Página de Edição
 				$id = $_GET['id'];
 			
-				// Recupera os dados do registro a ser editado
+				// Recupera os dados do registo a ser editado
 				$query = "SELECT * FROM eletrodomesticos WHERE ide = ?";
 				$stmt = mysqli_prepare($link, $query);
 				mysqli_stmt_bind_param($stmt, "i", $id);
@@ -243,7 +243,7 @@
 					<form method="post" action="editar_produto.php" id="editForm">
 						<section class="card">
 							<div class="card-body">
-								<!-- Campos do formulário preenchidos com os dados do registro -->
+								<!-- Campos do formulário preenchidos com os dados do registo -->
 								<input type="hidden" name="id" value="<?php echo $row['ide']; ?>">
 								<div class="form-group row pb-4">
 									<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Gama</label>

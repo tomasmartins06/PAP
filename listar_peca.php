@@ -181,7 +181,7 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Listar Clientes</h2>
+					<h2>Listar Peças</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
@@ -191,8 +191,8 @@
 								</a>
 							</li>
 
-							<li><span>Menu Clientes</span></li>
-							<li><span>Listar Clientes</span></li>
+							<li><span>Menu Peças</span></li>
+							<li><span>Listar Peças</span></li>
 
 						</ol>
 
@@ -208,7 +208,7 @@
 				<section class="card">
 					<!-- Cabeçalho da tabela -->
 					<header class="card-header">
-						<h2 class="card-title">Lista de Clientes</h2>
+						<h2 class="card-title">Lista de Peças</h2>
 					</header>
 
 					<!-- Corpo da tabela -->
@@ -226,43 +226,52 @@
 									<!-- Cabeçalho da tabela -->
 									<th>ID</th>
 									<th>Nome</th>
-									<th>Telefone</th>
-									<th>Email</th>
-									<th>Morada</th>
-									<th>Ações</th>
+									<th>Descrição</th>
+									<th>Quantidade</th>
+									<th>Preço</th>
+									<th>Fornecedor</th>
+									<th>Ações</th> <!-- Adicionei essa coluna para as ações -->
 								</tr>
 							</thead>
 
 							<!-- Corpo da tabela -->
 							<tbody>
 								<?php 
-                // Consulta a base de dados para obter os registos dos clientes
-                $query  = "SELECT * FROM clientes ORDER BY idc";
-                $result = mysqli_query($link, $query);
-                
-                // Loop para exibir cada registo na tabela
-                while($row = mysqli_fetch_array($result)){ 
+                    // Consulta a base de dados para obter os registos dos clientes
+                    $query  = "SELECT * FROM pecas ORDER BY idp";
+                    $result = mysqli_query($link, $query);
+                    
+                    // Loop para exibir cada registo na tabela
+                    while($row = mysqli_fetch_array($result)){ 
                 ?>
 								<tr>
 									<!-- Exibição de dados do cliente -->
-									<td class="border-b dark:border-dark-5"><?php echo $row['idc'] ?></td>
+									<td class="border-b dark:border-dark-5"><?php echo $row['idp'] ?></td>
 									<td class="border-b dark:border-dark-5"><?php echo $row['nome'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['telefone'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['email'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['morada'] ?></td>
-
+									<td class="border-b dark:border-dark-5"><?php echo $row['descricao'] ?></td>
+									<td class="border-b dark:border-dark-5"><?php echo $row['quantidade'] ?></td>
+									<td class="border-b dark:border-dark-5"><?php echo $row['preco'] ?></td>
+									<td>
+										<?php
+											$id_fornecedor = $row['id_fornecedor'];
+											$query_nome = "SELECT nome FROM fornecedores WHERE idf = $id_fornecedor";
+											$result_nome = mysqli_query($link, $query_nome);
+											$row_nome = mysqli_fetch_assoc($result_nome);
+											echo $row_nome ? $row_nome['nome'] : "Fornecedor não encontrado";
+										?>
+									</td>
 									<!-- Coluna de ações -->
 									<td class="actions text-left">
 										<!-- Link para a página de edição -->
-										<a href="editar_registo.php?id=<?php echo $row['idc']; ?>"
+										<a href="editar_peca.php?id=<?php echo $row['idp']; ?>"
 											class="btn btn-sm btn-sm-custom" title="Editar">
 											<i class="fas fa-pencil-alt" style="color: black;"></i>
 										</a>
 
 										<!-- Formulário para exclusão com alerta de confirmação -->
-										<form method="post" action="apagarregisto.php" style="display:inline;"
+										<form method="post" action="apagarpeca.php" style="display:inline;"
 											onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
-											<input type="hidden" name="id" value="<?php echo $row['idc']; ?>">
+											<input type="hidden" name="id" value="<?php echo $row['idp']; ?>">
 											<button type="submit" class="btn btn-sm btn-sm-custom delete-btn"
 												title="Apagar">
 												<i class="fas fa-trash-alt" style="color: black;"></i>
@@ -275,6 +284,7 @@
 						</table>
 					</div>
 				</section>
+
 			</section>
 		</div>
 

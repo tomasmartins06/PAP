@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $id = intval($_POST['id']);
 
     if ($id > 0) {
-        // Query SQL para excluir o registro com base no ID
+        // Query SQL para Apagar o registo com base no ID
         $sql = "DELETE FROM clientes WHERE idc = ?";
 
         // Preparação da declaração
@@ -18,15 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
             header("Location: listar_clientes.php");
             exit();
         } else {
-            echo "Erro ao excluir o registro: " . $link->error;
+            echo "Erro ao Apagar o registo: " . $link->error;
         }
 
         $stmt->close();
     } else {
-        echo "ID do registro não é válido.";
+        echo "ID do registo não é válido.";
     }
 } else {
-    echo "ID do registro não fornecido.";
+    echo "ID do registo não fornecido.";
 }
 
 $link->close();

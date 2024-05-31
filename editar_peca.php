@@ -160,7 +160,7 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Listar Clientes</h2>
+					<h2>Listar Peças</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
@@ -170,9 +170,9 @@
 								</a>
 							</li>
 
-							<li><span>Menu Clientes</span></li>
-							<li><span>Inserir Clientes</span></li>
-							<li><span>Editar Clientes</span></li>
+							<li><span>Menu Peças</span></li>
+							<li><span>Inserir Peças</span></li>
+							<li><span>Editar Peças</span></li>
 
 						</ol>
 
@@ -186,55 +186,67 @@
 							<br><br>
 
 							<?php
-            // Inclui o arquivo de conexão com a base de dados
-            include 'DBConnection.php';
+								// Inclui o arquivo de conexão com a base de dados
+								include 'DBConnection.php';
 
-            // Define o sinalizador para mostrar ou não o formulário
-            $showForm = true;
+								// Define o sinalizador para mostrar ou não o formulário
+								$showForm = true;
 
-            // Verifica se o formulário foi enviado e se o ID está definido
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-                // Processa a edição
-                $id = $_POST['id'];
-                $nome = $_POST['nome'];
-                $telefone = $_POST['telefone'];
-                $email = $_POST['email'];
-                $morada = $_POST['morada'];
+								// Verifica se o formulário foi enviado e se o ID está definido
+								if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+									// Processa a edição
+									$id = $_POST['id'];
+									$fnome = $_POST["nome"];
+									$fdescricao = $_POST["descricao"];
+									$fquantidade = $_POST["quantidade"];
+									$fpreco = $_POST["preco"];
+									$fid_fornecedor = $_POST["fornecedor"]; // Certifique-se de que o campo está correto
 
-                // Query SQL para atualizar o registo com base no ID
-                $sql = "UPDATE clientes SET nome = '$nome', telefone = '$telefone', email = '$email', morada = '$morada' WHERE idc = $id";
+									// Query SQL para atualizar o registo com base no ID
+									$sql = "UPDATE pecas SET nome = ?, descricao = ?, quantidade = ?, preco = ?, id_fornecedor = ? WHERE idp = ?";
 
-                // Executa a query e verifica se foi bem sucedida
-                if (mysqli_query($link, $sql)) {
-                    $showForm = false;
-                    echo "registo atualizado com sucesso!";
-                    echo '<script>window.location.href = "listar_clientes.php";</script>';
-                    exit; // Adicionado para evitar que o restante do código seja executado após o redirecionamento
-                } else {
-                    echo "Erro ao atualizar o registo: " . mysqli_error($link);
-                }
-            }
+									// Preparando a declaração
+									$stmt = mysqli_prepare($link, $sql);
+									if ($stmt) {
+										mysqli_stmt_bind_param($stmt, "ssidsi", $fnome, $fdescricao, $fquantidade, $fpreco, $fid_fornecedor, $id);
 
-            // Verifica se o formulário deve ser exibido e se o ID está definido na url 
-            if ($showForm && isset($_GET['id'])) {
-				
-				
-                // Página de Edição
-                $id = $_GET['id'];
+										// Executa a query e verifica se foi bem sucedida
+										if (mysqli_stmt_execute($stmt)) {
+											$showForm = false;
+											echo "Registo atualizado com sucesso!";
+											echo '<script>window.location.href = "listar_peca.php";</script>';
+											exit; // Adicionado para evitar que o restante do código seja executado após o redirecionamento
+										} else {
+											echo "Erro ao atualizar o registo: " . mysqli_stmt_error($stmt);
+										}
+										mysqli_stmt_close($stmt);
+									} else {
+										echo "Erro ao preparar a declaração: " . mysqli_error($link);
+									}
+								}
 
-                // Recupera os dados do registo a ser editado
-                $query = "SELECT * FROM clientes WHERE idc = $id";
-                $result = mysqli_query($link, $query);
+								// Verifica se o formulário deve ser exibido e se o ID está definido na URL
+								if ($showForm && isset($_GET['id'])) {
+									// Página de Edição
+									$id = $_GET['id'];
 
-                // Verifica se a consulta foi bem-sucedida e exibe o formulário de edição
-                if ($result && $row = mysqli_fetch_assoc($result)) {
-                    ?>
+									// Recupera os dados do registo a ser editado
+									$query = "SELECT * FROM pecas WHERE idp = ?";
+									$stmt = mysqli_prepare($link, $query);
+									mysqli_stmt_bind_param($stmt, "i", $id);
+									mysqli_stmt_execute($stmt);
+									$result = mysqli_stmt_get_result($stmt);
+
+									// Verifica se a consulta foi bem-sucedida e exibe o formulário de edição
+									if ($result && $row = mysqli_fetch_assoc($result)) {
+							?>
+							
 							<!-- Formulário de Edição -->
-							<form method="post" action="editar_registo.php" id="editForm">
+							<form method="post" action="editar_peca.php" id="editForm">
 								<section class="card">
 									<div class="card-body">
 										<!-- Campos do formulário preenchidos com os dados do registo -->
-										<input type="hidden" name="id" value="<?php echo $row['idc']; ?>">
+										<input type="hidden" name="id" value="<?php echo $row['idp']; ?>">
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="inputDefault">Nome</label>
@@ -245,26 +257,73 @@
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Telefone</label>
+												for="inputDefault">Descrição</label>
 											<div class="col-lg-6">
-												<input type="text" name="telefone"
-													value="<?php echo $row['telefone']; ?>" class="form-control">
+												<input type="text" name="descricao"
+													value="<?php echo $row['descricao']; ?>" class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Email</label>
+												for="quantityInput">Quantidade</label>
+											<div class="col-lg-6 d-flex">
+												<input id="quantityInput" name="quantidade" type="number"
+													class="form-control" readonly="readonly"
+													value="<?php echo isset($row['quantidade']) ? $row['quantidade'] : 0; ?>">
+												<div class="btn-group-vertical ms-2">
+													<button type="button" class="btn spinner-up btn-xs btn-default">
+														<i class="fas fa-angle-up"></i>
+													</button>
+													<button type="button" class="btn spinner-down btn-xs btn-default">
+														<i class="fas fa-angle-down"></i>
+													</button>
+												</div>
+											</div>
+										</div>
+										<script>
+											document.addEventListener('DOMContentLoaded', (event) => {
+												const inputQuantidade = document.getElementById('quantityInput');
+												const botaoIncremento = document.querySelector('.spinner-up');
+												const botaoDecremento = document.querySelector('.spinner-down');
+												botaoIncremento.addEventListener('click', () => {
+													let valorAtual = parseInt(inputQuantidade.value, 10);
+													inputQuantidade.value = valorAtual + 1;
+												});
+												botaoDecremento.addEventListener('click', () => {
+													let valorAtual = parseInt(inputQuantidade.value, 10);
+													if (valorAtual > 0) {
+														inputQuantidade.value = valorAtual - 1;
+													}
+												});
+											});
+										</script>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Preço</label>
 											<div class="col-lg-6">
-												<input type="text" name="email" value="<?php echo $row['email']; ?>"
+												<input type="text" name="preco" value="<?php echo $row['preco']; ?>"
 													class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Morada</label>
+												for="inputDefault">Fornecedor</label>
 											<div class="col-lg-6">
-												<input type="text" name="morada" value="<?php echo $row['morada']; ?>"
-													class="form-control">
+												<select data-plugin-selectTwo name="fornecedor"
+													class="form-control populate">
+													<?php
+														// Consulta para obter os fornecedores
+														$qry = "SELECT * FROM fornecedores ORDER BY idf";
+														$fornecedor_result = mysqli_query($link, $qry);
+
+														// Loop para criar as opções do select
+														while ($fornecedor_row = mysqli_fetch_array($fornecedor_result)) {
+															// Verificação para definir a opção selecionada
+															$selected = (isset($row['id_fornecedor']) && $fornecedor_row['idf'] == $row['id_fornecedor']) ? 'selected' : '';
+															echo "<option value='{$fornecedor_row['idf']}' $selected>{$fornecedor_row['nome']}</option>";
+														}
+													?>
+												</select>
 											</div>
 										</div>
 									</div>
@@ -275,11 +334,13 @@
 								</section>
 							</form>
 							<?php
-                } 
-            }
-            // Fecha a conexão com o banco de dados
-            mysqli_close($link);
-            ?>
+									}
+									mysqli_stmt_close($stmt);
+								}
+								// Fecha a conexão com o banco de dados
+								mysqli_close($link);
+								?>
+
 						</div>
 					</div>
 				</div>
