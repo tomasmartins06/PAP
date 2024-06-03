@@ -308,52 +308,52 @@
 							</form>
 
 							<?php
- $fidc = $fgama = $feletrodomestico = $fmarca = $fmodelo = $freferencia = $festado = $fobsesrvacoes =  ''; // Inicialize as variáveis
+								$fidc = $fgama = $feletrodomestico = $fmarca = $fmodelo = $freferencia = $festado = $fobsesrvacoes =  ''; // Inicialize as variáveis
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
-    // Verificar se todas as caixas foram preenchidas
-    if (empty($_POST["idc"]) || empty($_POST["gama"]) || empty($_POST["eletrodomestico"]) || empty($_POST["marca"]) || empty($_POST["modelo"]) || empty($_POST["referencia"]) || empty($_POST["estado"])) {
-        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Erro!</strong> Preencha todos os campos do formulário.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-              </div>';
-    } else {
-        // Processar o formulário se todas as caixas foram preenchidas
-        $fidc = $_POST["idc"];
-        $fgama = $_POST["gama"];
-        $feletrodomestico = $_POST["eletrodomestico"];
-        $fmarca = $_POST["marca"];
-        $fmodelo = $_POST["modelo"];
-        $freferencia = $_POST["referencia"];
-        $festado = $_POST["estado"];
-        $fobsesrvacoes = $_POST["observacoes"];
+								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
+									// Verificar se todas as caixas foram preenchidas
+									if (empty($_POST["idc"]) || empty($_POST["gama"]) || empty($_POST["eletrodomestico"]) || empty($_POST["marca"]) || empty($_POST["modelo"]) || empty($_POST["referencia"]) || empty($_POST["estado"])) {
+										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+												<strong>Erro!</strong> Preencha todos os campos do formulário.
+												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+											</div>';
+									} else {
+										// Processar o formulário se todas as caixas foram preenchidas
+										$fidc = $_POST["idc"];
+										$fgama = $_POST["gama"];
+										$feletrodomestico = $_POST["eletrodomestico"];
+										$fmarca = $_POST["marca"];
+										$fmodelo = $_POST["modelo"];
+										$freferencia = $_POST["referencia"];
+										$festado = $_POST["estado"];
+										$fobsesrvacoes = $_POST["observacoes"];
 
-        // Sua lógica de processamento aqui
+										// Sua lógica de processamento aqui
 
-        // Verificar se o próximo valor de idc já existe na tabela
-        $result = mysqli_query($link, "SELECT MAX(ide) AS max_ide FROM eletrodomesticos");
-        $row = mysqli_fetch_assoc($result);
-        $proximo_ide = $row['max_ide'] + 1;
+										// Verificar se o próximo valor de idc já existe na tabela
+										$result = mysqli_query($link, "SELECT MAX(ide) AS max_ide FROM eletrodomesticos");
+										$row = mysqli_fetch_assoc($result);
+										$proximo_ide = $row['max_ide'] + 1;
 
-        // Inserir os dados
-        $query = mysqli_query($link, "INSERT INTO eletrodomesticos (ide, idc, gama, eletrodomestico, marca, modelo, referencia, estado_electro, observacoes) 
-        VALUES ('$proximo_ide', '$fidc', '$fgama', '$feletrodomestico', '$fmarca', '$fmodelo', '$freferencia', '$festado' , '$fobsesrvacoes') ");
+										// Inserir os dados
+										$query = mysqli_query($link, "INSERT INTO eletrodomesticos (ide, idc, gama, eletrodomestico, marca, modelo, referencia, estado_electro, observacoes) 
+										VALUES ('$proximo_ide', '$fidc', '$fgama', '$feletrodomestico', '$fmarca', '$fmodelo', '$freferencia', '$festado' , '$fobsesrvacoes') ");
 
-        // Exibir o alerta
-        if ($query) {
-            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-                  </div>';
-        } else {
-            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Erro!</strong> Houve um problema ao inserir os dados.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-                  </div>';
-        }
-    }
-}
-?>
+										// Exibir o alerta
+										if ($query) {
+											echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+													<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
+													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+												</div>';
+										} else {
+											echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+													<strong>Erro!</strong> Houve um problema ao inserir os dados.
+													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+												</div>';
+										}
+									}
+								}
+								?>
 
 					
 	

@@ -122,6 +122,29 @@
 			</ul>
 		</li>
 
+		<li class="nav-parent">
+			<a class="nav-link">
+				<i class="bx bx-collection" aria-hidden="true"></i>
+				<span>Menu de Serviços</span>
+			</a>
+			<ul class="nav nav-children">
+				<li>
+					<a href="inserir_servico.php">
+						Inserir Serviço
+					</a>
+				</li>
+
+			</ul>
+			<ul class="nav nav-children" >
+				<li>
+					<a href="listar_servico.php">
+						Listar Serviços
+					</a>
+				</li>
+
+			</ul>
+		</li>
+
 
 	</ul>
 </nav>

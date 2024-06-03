@@ -31,27 +31,6 @@
 	<link rel="stylesheet" href="vendor/jquery-ui/jquery-ui.theme.css" />
 	<link rel="stylesheet" href="vendor/bootstrap-multiselect/css/bootstrap-multiselect.css" />
 	<link rel="stylesheet" href="vendor/morris/morris.css" />
-	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css" />
-	<link rel="stylesheet" href="vendor/animate/animate.compat.css">
-	<link rel="stylesheet" href="vendor/font-awesome/css/all.min.css" />
-	<link rel="stylesheet" href="vendor/boxicons/css/boxicons.min.css" />
-	<link rel="stylesheet" href="vendor/magnific-popup/magnific-popup.css" />
-	<link rel="stylesheet" href="vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
-	<link rel="stylesheet" href="vendor/select2/css/select2.css" />
-	<link rel="stylesheet" href="vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
-	<link rel="stylesheet" href="vendor/datatables/media/css/dataTables.bootstrap5.css" />
-	<link rel="stylesheet" href="vendor/magnific-popup.css">
-	<script src="vendor/jquery.min.js"></script>
-	<script src="vendor/jquery.magnific-popup.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-	<!-- Inclua jQuery antes do código Magnific Popup -->
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-	<!-- Inclua a biblioteca Magnific Popup -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
 	<!-- Theme CSS -->
 	<link rel="stylesheet" href="css/theme.css" />
@@ -122,7 +101,8 @@
 		<header class="header">
 			<div class="logo-container">
 				<a href="Admin.php" class="logo">
-					<img src="img/logo2.png" width="120" height="35" />
+					<img src="img/logo2.png" width="120" height="35">
+
 				</a>
 
 				<div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html"
@@ -181,100 +161,249 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Listar Fornecedores</h2>
+					<h2>Novo Serviço</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
 							<li>
-								<a href="admin.html">
+								<a href="index.php">
 									<i class="bx bx-home-alt"></i>
 								</a>
 							</li>
 
-							<li><span>Menu Fornecedores</span></li>
-							<li><span>Listar Fornecedores</span></li>
+							<li><span>Novo Serviço</span></li>
 
 						</ol>
 
-						<a class="sidebar-right-toggle" dclass="sidebar-right-wrapper"><i
+						<a class="sidebar-right-toggle" data-open="sidebar-right"><i
 								class="fas fa-chevron-left"></i></a>
 					</div>
 				</header>
-				<?php
-								//conexão com a base de dados 
-								include "DBConnection.php"; echo "<br>";
-							?>
+
 				<!-- start: page -->
-				<section class="card">
-					<!-- Cabeçalho da tabela -->
-					<header class="card-header">
-						<h2 class="card-title">Lista de Fornecedores</h2>
-					</header>
 
-					<!-- Corpo da tabela -->
-					<div class="card-body">
-						<div class="row">
-							<div class="col-sm-6">
-								<!-- Conteúdo da coluna -->
-							</div>
+				<div class="bg-light">
+					<div class="form-container">
+						<div class="w-100">
+							<form name="form_ins_prod" id="form_ins_prod" action="inserir_servico.php" method="post">
+								<section class="card">
+									<div class="card-body">
+
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Proprietário de Eletrodomestico</label>
+											<div class="col-lg-6">
+												<select data-plugin-selectTwo name="cliente_id"
+													class="form-control populate">
+													<?php
+														$qry = "Select * from clientes order by idc";
+														$result = mysqli_query($link,$qry);
+														while ($row = mysqli_fetch_array($result))
+														{
+														?>
+													<option value="<?php echo $row['idc'];?> ">
+														<?php echo $row['nome']; ?></option>
+													<?php } ?>
+
+												</select>
+											</div>
+										</div>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Funcionário</label>
+											<div class="col-lg-6">
+												<select data-plugin-selectTwo name="funcionario_id"
+													class="form-control populate">
+													<?php
+											// Consulta SQL para selecionar todos os registos da tabela 
+											$qry = "select * from utilizadores order by id";
+
+											// Executa a consulta SQL e armazena o resultado
+											$result = mysqli_query($link, $qry);
+
+											// Loop para exibir opções com base nos resultados da consulta
+											while ($row = mysqli_fetch_array($result)) {
+												// Início da opção do menu suspenso
+												?>
+													<option value="<?php echo $row['user'];?> ">
+														<?php echo $row['user']; ?>
+													</option>
+													<?php
+											} // Fim do loop
+											?>
+
+												</select>
+											</div>
+										</div>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Eletrodoméstico</label>
+											<div class="col-lg-6">
+												<select data-plugin-selectTwo name="eletrodomestico_id"
+													class="form-control populate">
+													<?php
+														// Consulta SQL para selecionar todos os registos da tabela com o nome do cliente
+														$qry = "SELECT * FROM eletrodomesticos
+														JOIN clientes ON eletrodomesticos.idc = clientes.idc
+														ORDER BY eletrodomesticos.ide";
+
+														// Executa a consulta SQL e armazena o resultado
+														$result = mysqli_query($link, $qry);
+
+														// Loop para exibir opções com base nos resultados da consulta
+														while ($row = mysqli_fetch_array($result)) {
+															// Início da opção do menu suspenso
+															?>
+
+													<option value="<?php echo $row['referencia']; ?>">
+														<?php echo "referencia: ". $row['referencia'] . " - Eletrodomestico: " . $row['eletrodomestico'] . " - Cliente: " . $row['nome']; ?>
+													</option>
+													<?php
+														} // Fim do loop
+													?>
+												</select>
+											</div>
+										</div>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Estado</label>
+											<div class="col-lg-6">
+												<select data-plugin-selectTwo name="estado"
+													class="form-control populate">
+													<?php
+											// Consulta SQL para selecionar todos os registos da tabela 
+											$qry = "select * from estado order by idt";
+
+											// Executa a consulta SQL e armazena o resultado
+											$result = mysqli_query($link, $qry);
+
+											// Loop para exibir opções com base nos resultados da consulta
+											while ($row = mysqli_fetch_array($result)) {
+												// Início da opção do menu suspenso
+												?>
+													<option value="<?php echo $row['estado'];?> ">
+														<?php echo $row['estado']; ?>
+													</option>
+													<?php
+											} // Fim do loop
+											?>
+
+												</select>
+											</div>
+										</div>
+
+
+										<div class="form-group row pb-3">
+											<label class="col-lg-3 control-label text-lg-end pt-2">Peças</label>
+											<div class="col-lg-6">
+												<select name="pecas" class="form-control" multiple="multiple"
+													data-plugin-multiselect
+													data-plugin-options='{ "maxHeight": 200, "enableCaseInsensitiveFiltering": true }'
+													id="ms_example6">
+													<optgroup label="Peças Disponíveis">
+														<?php
+															// Consulta SQL para selecionar todos os registos da tabela 
+															$qry = "select * from pecas order by idp";
+
+															// Executa a consulta SQL e armazena o resultado
+															$result = mysqli_query($link, $qry);
+
+															// Loop para exibir opções com base nos resultados da consulta
+															while ($row = mysqli_fetch_array($result)) {
+																// Início da opção do menu suspenso
+															?>
+																									<option value="<?php echo $row['nome']; ?>">
+																										<?php echo $row['nome'] . " - " .  $row['preco'] . "€"; ?>
+																									</option>
+																									<?php
+															} // Fim do loop
+															?>
+													</optgroup>
+												</select>
+											</div>
+										</div>
+
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Preço Total</label>
+											<div class="col-lg-6">
+												<input name="" type="total" class="form-control">
+											</div>
+										</div>
+
+										<div class="form-group row pb-3">
+											<label class="col-lg-3 control-label text-lg-end pt-2">Descrição</label>
+											<div class="col-lg-6">
+												<textarea name="descricao" class="form-control" rows="3"
+													id="textareaDefault"></textarea>
+
+											</div>
+										</div>
+
+									</div>
+									<footer class="card-footer d-flex justify-content-end">
+										<button name="bt" class="btn btn-primary mx-2">Introduzir</button>
+										<button type="reset" class="btn btn-default mx-2">Limpar</button>
+										<button type="reset" class="mb-1 mt-1 me-1 btn btn-info">Gerar código
+											QR</button>
+									</footer>
+								</section>
+
+							</form>
+
+							<?php
+								$fidos = $fcliente_id = $ffuncionario_id = $festado = $fdescricao = $ftotal = ''; // Inicialize as variáveis
+
+								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
+									// Verificar se todas as caixas foram preenchidas
+									if (empty($_POST["idc"]) || empty($_POST["gama"]) || empty($_POST["eletrodomestico"]) || empty($_POST["marca"]) || empty($_POST["modelo"]) || empty($_POST["referencia"]) || empty($_POST["estado"])) {
+										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+												<strong>Erro!</strong> Preencha todos os campos do formulário.
+												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+											</div>';
+									} else {
+										// Processar o formulário se todas as caixas foram preenchidas
+										$fidc = $_POST["idc"];
+										$fgama = $_POST["gama"];
+										$feletrodomestico = $_POST["eletrodomestico"];
+										$fmarca = $_POST["marca"];
+										$fmodelo = $_POST["modelo"];
+										$freferencia = $_POST["referencia"];
+										$festado = $_POST["estado"];
+										$fobsesrvacoes = $_POST["observacoes"];
+
+										// Sua lógica de processamento aqui
+
+										// Verificar se o próximo valor de idc já existe na tabela
+										$result = mysqli_query($link, "SELECT MAX(ide) AS max_ide FROM eletrodomesticos");
+										$row = mysqli_fetch_assoc($result);
+										$proximo_ide = $row['max_ide'] + 1;
+
+										// Inserir os dados
+										$query = mysqli_query($link, "INSERT INTO eletrodomesticos (ide, idc, gama, eletrodomestico, marca, modelo, referencia, estado_electro, observacoes) 
+										VALUES ('$proximo_ide', '$fidc', '$fgama', '$feletrodomestico', '$fmarca', '$fmodelo', '$freferencia', '$festado' , '$fobsesrvacoes') ");
+
+										// Exibir o alerta
+										if ($query) {
+											echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+													<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
+													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+												</div>';
+										} else {
+											echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+													<strong>Erro!</strong> Houve um problema ao inserir os dados.
+													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+												</div>';
+										}
+									}
+								}
+								?>
+
 						</div>
-
-						<!-- Tabela para exibir a lista de clientes -->
-						<table class="table table-bordered table-striped mb-0" id="datatable-editable">
-							<thead>
-								<tr>
-									<!-- Cabeçalho da tabela -->
-									<th>ID</th>
-									<th>Nome</th>
-									<th>Contacto</th>
-									<th>Email</th>
-									<th>Endereço</th>
-								</tr>
-							</thead>
-
-							<!-- Corpo da tabela -->
-							<tbody>
-								<?php 
-									// Consulta a base de dados para obter os registos dos clientes
-									$query  = "SELECT * FROM fornecedores ORDER BY idf";
-									$result = mysqli_query($link, $query);
-									
-									// Loop para exibir cada registo na tabela
-									while($row = mysqli_fetch_array($result)){ 
-									?>
-								<tr>
-									<!-- Exibição de dados do cliente -->
-									<td class="border-b dark:border-dark-5"><?php echo $row['idf'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['nome'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['contacto'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['email'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['endereco'] ?></td>
-
-									<!-- Coluna de ações -->
-									<td class="actions text-left">
-										<!-- Link para a página de edição -->
-										<a href="editar_fornecedor.php?id=<?php echo $row['idf']; ?>"
-											class="btn btn-sm btn-sm-custom" title="Editar">
-											<i class="fas fa-pencil-alt" style="color: black;"></i>
-										</a>
-
-										<!-- Formulário para exclusão com alerta de confirmação -->
-										<form method="post" action="apagarfornecedor.php" style="display:inline;"
-											onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
-											<input type="hidden" name="idf" value="<?php echo $row['idf']; ?>">
-											<button type="submit" class="btn btn-sm btn-sm-custom delete-btn"
-												title="Apagar">
-												<i class="fas fa-trash-alt" style="color: black;"></i>
-											</button>
-										</form>
-									</td>
-								</tr>
-								<?php } // Fim do loop ?>
-							</tbody>
-						</table>
-					</div>
-				</section>
 			</section>
+
+		</div>
+		</div>
 		</div>
 
 		<aside id="sidebar-right" class="sidebar-right">
@@ -345,6 +474,7 @@
 			</div>
 
 		</aside>
+
 	</section>
 
 	<section role="main" class="content-body">
