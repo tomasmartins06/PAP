@@ -190,21 +190,15 @@
 									<div class="card-body">
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Nome</label>
+												for="inputDefault">Nome <span style="color: red;">*</span> </label>
 											<div class="col-lg-6">
 												<input name="nome" type="text" class="form-control">
 											</div>
 										</div>
+										
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Descrição</label>
-											<div class="col-lg-6">
-												<input name="descricao" type="text" class="form-control">
-											</div>
-										</div>
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="quantityInput">Quantidade</label>
+												for="quantityInput">Quantidade <span style="color: red;">*</span></label>
 											<div class="col-lg-6 d-flex">
 												<input id="quantityInput" name="quantidade" type="number"
 													class="form-control" readonly="readonly" value="0">
@@ -217,34 +211,36 @@
 													</button>
 												</div>
 											</div>
+												<script>
+													document.addEventListener('DOMContentLoaded', (event) => {
+														const inputQuantidade = document.getElementById('quantityInput');
+														const botaoIncremento = document.querySelector('.spinner-up');
+														const botaoDecremento = document.querySelector('.spinner-down');
+														botaoIncremento.addEventListener('click', () => {
+															let valorAtual = parseInt(inputQuantidade.value, 10);
+															inputQuantidade.value = valorAtual + 1;
+														});
+														botaoDecremento.addEventListener('click', () => {
+															let valorAtual = parseInt(inputQuantidade.value, 10);
+															if (valorAtual > 0) {
+																inputQuantidade.value = valorAtual - 1;
+															}
+														});
+													});
+												</script>
 										</div>
-										<script>
-											document.addEventListener('DOMContentLoaded', (event) => {
-												const inputQuantidade = document.getElementById('quantityInput');
-												const botaoIncremento = document.querySelector('.spinner-up');
-												const botaoDecremento = document.querySelector('.spinner-down');
-												botaoIncremento.addEventListener('click', () => {
-													let valorAtual = parseInt(inputQuantidade.value, 10);
-													inputQuantidade.value = valorAtual + 1;
-												});
-												botaoDecremento.addEventListener('click', () => {
-													let valorAtual = parseInt(inputQuantidade.value, 10);
-													if (valorAtual > 0) {
-														inputQuantidade.value = valorAtual - 1;
-													}
-												});
-											});
-										</script>
+
+										
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Preço</label>
+												for="inputDefault">Preço <span style="color: red;">*</span> </label>
 											<div class="col-lg-6">
 												<input name="preco" type="text" class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Fornecedor</label>
+												for="inputDefault">Fornecedor <span style="color: red;">*</span> </label>
 											<div class="col-lg-6">
 												<select data-plugin-selectTwo name="id_fornecedor"
 													class="form-control populate">
@@ -257,6 +253,14 @@
 														<?php echo $row['nome']; ?></option>
 													<?php } ?>
 												</select>
+											</div>
+										</div>
+
+										<div class="form-group row pb-3">
+											<label class="col-lg-3 control-label text-lg-end pt-2">Descrição</label>
+											<div class="col-lg-6">
+												<textarea name="descricao" class="form-control" rows="3"
+													id="textareaDefault"></textarea>
 											</div>
 										</div>
 									</div>

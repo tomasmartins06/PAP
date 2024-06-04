@@ -181,7 +181,7 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Listar Funcionários</h2>
+					<h2>Listar Empregados</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
@@ -191,8 +191,8 @@
 								</a>
 							</li>
 
-							<li><span>Menu Funcionários</span></li>
-							<li><span>Listar Funcionários</span></li>
+							<li><span>Menu Empregados</span></li>
+							<li><span>Listar Empregados</span></li>
 
 						</ol>
 
@@ -208,7 +208,7 @@
 				<section class="card">
 					<!-- Cabeçalho da tabela -->
 					<header class="card-header">
-						<h2 class="card-title">Lista de Funcionários</h2>
+						<h2 class="card-title">Lista de Empregados</h2>
 					</header>
 
 					<!-- Corpo da tabela -->
@@ -251,13 +251,13 @@
 									<!-- Coluna de ações -->
 									<td class="actions text-left">
 										<!-- Link para a página de edição -->
-										<a href="editar_funcionario.php?id=<?php echo $row['id']; ?>"
+										<a href="editar_empregado.php?id=<?php echo $row['id']; ?>"
 											class="btn btn-sm btn-sm-custom" title="Editar">
 											<i class="fas fa-pencil-alt" style="color: black;"></i>
 										</a>
 
 										<!-- Formulário para exclusão com alerta de confirmação -->
-										<form method="post" action="apagarfuncionario.php" style="display:inline;"
+										<form method="post" action="apagarempregado.php" style="display:inline;"
 											onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
 											<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 											<button type="submit" class="btn btn-sm btn-sm-custom delete-btn"

@@ -185,28 +185,28 @@
 									<div class="card-body">
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Nome</label>
+												for="inputDefault">Nome <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input name="nome" type="text" class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Contacto</label>
+												for="inputDefault">Contacto <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input name="contacto" type="text" class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Email</label>
+												for="inputDefault">Email <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input name="email" type="text" class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Endereço</label>
+												for="inputDefault">Endereço <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input name="endereco" type="text" class="form-control">
 											</div>

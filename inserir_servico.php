@@ -44,6 +44,12 @@
 	<!-- Head Libs -->
 	<script src="vendor/modernizr/modernizr.js"></script>
 
+	<style>
+        /* Estilo para garantir que todos os campos do formulário tenham o mesmo tamanho */
+        .form-group .form-control {
+            width: 100%; /* Define a largura de todos os campos do formulário para 100% */
+        }
+    </style>
 </head>
 
 <body>
@@ -189,59 +195,63 @@
 								<section class="card">
 									<div class="card-body">
 
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Proprietário de Eletrodomestico</label>
+									<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2">Proprietário do Eletrodoméstico <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
-												<select data-plugin-selectTwo name="cliente_id"
-													class="form-control populate">
-													<?php
-														$qry = "Select * from clientes order by idc";
-														$result = mysqli_query($link,$qry);
-														while ($row = mysqli_fetch_array($result))
-														{
-														?>
-													<option value="<?php echo $row['idc'];?> ">
-														<?php echo $row['nome']; ?></option>
-													<?php } ?>
-
+												<select name="cliente_id" class="form-control custom-select-height" multiselect="false"
+													data-plugin-multiselect
+													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "allSelectedText": "Todos Selecionados", "nonSelectedText": "Nenhuma Proprietário Selecionado" }'>
+													<optgroup label="Clientes">
+													<option disabled selected>Nenhum Proprietário Selecionado</option>
+														<?php
+															$qry = "Select * from clientes order by idc";
+															$result = mysqli_query($link,$qry);
+															while ($row = mysqli_fetch_array($result))
+															{
+															?>
+														<option value="<?php echo $row['idc'];?> ">
+															<?php echo $row['nome']; ?></option>
+														<?php } ?>
+															</optgroup>
 												</select>
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Funcionário</label>
+												for="inputDefault">Empregado <span style="color: red;">*</span> </label>
 											<div class="col-lg-6">
-												<select data-plugin-selectTwo name="funcionario_id"
-													class="form-control populate">
-													<?php
-											// Consulta SQL para selecionar todos os registos da tabela 
-											$qry = "select * from utilizadores order by id";
+												<select data-plugin-selectTwo name="empregado_id" class="form-control populate">
+													<option disabled selected>Selecione o Empregado </option>
+														<?php
+															// Consulta SQL para selecionar todos os registos da tabela 
+															$qry = "select * from utilizadores order by id";
 
-											// Executa a consulta SQL e armazena o resultado
-											$result = mysqli_query($link, $qry);
+															// Executa a consulta SQL e armazena o resultado
+															$result = mysqli_query($link, $qry);
 
-											// Loop para exibir opções com base nos resultados da consulta
-											while ($row = mysqli_fetch_array($result)) {
-												// Início da opção do menu suspenso
-												?>
-													<option value="<?php echo $row['user'];?> ">
-														<?php echo $row['user']; ?>
-													</option>
-													<?php
-											} // Fim do loop
-											?>
+															// Loop para exibir opções com base nos resultados da consulta
+															while ($row = mysqli_fetch_array($result)) {
+																// Início da opção do menu suspenso
+																?>
+																	<option value="<?php echo $row['user'];?> ">
+																		<?php echo $row['user']; ?>
+																	</option>
+																	<?php
+															} // Fim do loop
+															?>
 
 												</select>
 											</div>
 										</div>
 										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Eletrodoméstico</label>
+											<label class="col-lg-3 control-label text-lg-end pt-2">Eletrodoméstico <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
-												<select data-plugin-selectTwo name="eletrodomestico_id"
-													class="form-control populate">
-													<?php
+												<select name="eletrodomestico_id" class="form-control custom-select-height" multiselect="false"
+													data-plugin-multiselect
+													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "allSelectedText": "Todos Selecionados", "nonSelectedText": "Nenhuma Proprietário Selecionado" }'>
+													<optgroup label="Eletrodomésticos">
+													<option disabled selected>Nenhum Eletrodoméstico Selecionado</option>
+														<?php
 														// Consulta SQL para selecionar todos os registos da tabela com o nome do cliente
 														$qry = "SELECT * FROM eletrodomesticos
 														JOIN clientes ON eletrodomesticos.idc = clientes.idc
@@ -256,7 +266,7 @@
 															?>
 
 													<option value="<?php echo $row['referencia']; ?>">
-														<?php echo "referencia: ". $row['referencia'] . " - Eletrodomestico: " . $row['eletrodomestico'] . " - Cliente: " . $row['nome']; ?>
+														<?php echo "referencia: ". $row['referencia'] . " - Eletrodomestico: " . $row['eletrodomestico'] . " - Proprietário: " . $row['nome']; ?>
 													</option>
 													<?php
 														} // Fim do loop
@@ -264,70 +274,62 @@
 												</select>
 											</div>
 										</div>
+										
 										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Estado</label>
+											<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">
+												Estado <span style="color: red;">*</span>
+											</label>
 											<div class="col-lg-6">
 												<select data-plugin-selectTwo name="estado"
 													class="form-control populate">
+													<option disabled selected>Selecione um estado</option>
 													<?php
-											// Consulta SQL para selecionar todos os registos da tabela 
-											$qry = "select * from estado order by idt";
+														// Consulta SQL para selecionar todos os registros da tabela 
+														$qry = "select * from estado order by idt";
 
-											// Executa a consulta SQL e armazena o resultado
-											$result = mysqli_query($link, $qry);
+														// Executa a consulta SQL e armazena o resultado
+														$result = mysqli_query($link, $qry);
 
-											// Loop para exibir opções com base nos resultados da consulta
-											while ($row = mysqli_fetch_array($result)) {
-												// Início da opção do menu suspenso
-												?>
-													<option value="<?php echo $row['estado'];?> ">
+														// Loop para exibir opções com base nos resultados da consulta
+														while ($row = mysqli_fetch_array($result)) {
+															// Início da opção do menu suspenso
+													?>
+													<option value="<?php echo $row['estado']; ?>">
 														<?php echo $row['estado']; ?>
 													</option>
 													<?php
-											} // Fim do loop
-											?>
-
-												</select>
-											</div>
-										</div>
-
-
-										<div class="form-group row pb-3">
-											<label class="col-lg-3 control-label text-lg-end pt-2">Peças</label>
-											<div class="col-lg-6">
-												<select name="pecas" class="form-control" multiple="multiple"
-													data-plugin-multiselect
-													data-plugin-options='{ "maxHeight": 200, "enableCaseInsensitiveFiltering": true }'
-													id="ms_example6">
-													<optgroup label="Peças Disponíveis">
-														<?php
-															// Consulta SQL para selecionar todos os registos da tabela 
-															$qry = "select * from pecas order by idp";
-
-															// Executa a consulta SQL e armazena o resultado
-															$result = mysqli_query($link, $qry);
-
-															// Loop para exibir opções com base nos resultados da consulta
-															while ($row = mysqli_fetch_array($result)) {
-																// Início da opção do menu suspenso
-															?>
-																									<option value="<?php echo $row['nome']; ?>">
-																										<?php echo $row['nome'] . " - " .  $row['preco'] . "€"; ?>
-																									</option>
-																									<?php
-															} // Fim do loop
-															?>
-													</optgroup>
+														} // Fim do loop
+													?>
 												</select>
 											</div>
 										</div>
 
 										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Preço Total</label>
+											<label class="col-lg-3 control-label text-lg-end pt-2">Peças</label>
 											<div class="col-lg-6">
-												<input name="" type="total" class="form-control">
+												<select name="pecas" class="form-control custom-select-height" multiple="multiple"
+													data-plugin-multiselect
+													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "nonSelectedText": "Nenhuma Peça Selecionada" }'>
+													<optgroup label="Peças Disponíveis">
+														<?php
+														// Consulta SQL para selecionar todos os registros da tabela
+														$qry = "select * from pecas order by idp";
+
+														// Executa a consulta SQL e armazena o resultado
+														$result = mysqli_query($link, $qry);
+
+														// Loop para exibir opções com base nos resultados da consulta
+														while ($row = mysqli_fetch_array($result)) {
+															// Início da opção do menu suspenso
+														?>
+														<option value="<?php echo $row['nome']; ?>">
+															<?php echo $row['nome'] . " - " .  $row['preco'] . "€"; ?>
+														</option>
+														<?php
+														} // Fim do loop
+														?>
+													</optgroup>
+												</select>
 											</div>
 										</div>
 
@@ -337,6 +339,21 @@
 												<textarea name="descricao" class="form-control" rows="3"
 													id="textareaDefault"></textarea>
 
+											</div>
+										</div>
+
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Preço de Mão de Obra</label>
+											<div class="col-lg-6">
+												<input name="preco_mobra" type="text" class="form-control">
+											</div>
+										</div>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Preço Total</label>
+											<div class="col-lg-6">
+												<input name="preco_total" type="text" class="form-control">
 											</div>
 										</div>
 
@@ -352,36 +369,38 @@
 							</form>
 
 							<?php
-								$fidos = $fcliente_id = $ffuncionario_id = $festado = $fdescricao = $ftotal = ''; // Inicialize as variáveis
+								$fidos = $fcliente_id = $fempregado_id = $feletrodomestico_id = $fdescricao = $festado = $fpecas_id = $fpreco_mobra = $fpreco_total = ''; // Inicialize as variáveis
 
 								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
 									// Verificar se todas as caixas foram preenchidas
-									if (empty($_POST["idc"]) || empty($_POST["gama"]) || empty($_POST["eletrodomestico"]) || empty($_POST["marca"]) || empty($_POST["modelo"]) || empty($_POST["referencia"]) || empty($_POST["estado"])) {
+									if (empty($_POST["idos"]) || empty($_POST["cliente_id"]) || empty($_POST["empregado_id"]) || empty($_POST["eletrodomestico_id"]) || empty($_POST["estado"])) {
 										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-												<strong>Erro!</strong> Preencha todos os campos do formulário.
+												<strong>Erro!</strong> Preencha os campos necessários do formulário.
 												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
 											</div>';
 									} else {
 										// Processar o formulário se todas as caixas foram preenchidas
-										$fidc = $_POST["idc"];
-										$fgama = $_POST["gama"];
-										$feletrodomestico = $_POST["eletrodomestico"];
-										$fmarca = $_POST["marca"];
-										$fmodelo = $_POST["modelo"];
-										$freferencia = $_POST["referencia"];
+										$fidos = $_POST["idos"];
+										$fcliente_id = $_POST["cliente_id"];
+										$fempregado_id = $_POST["empregado_id"];
+										$feletrodomestico_id = $_POST["eletrodomestico"];
+										$fdescricao = $_POST["descricao"];
 										$festado = $_POST["estado"];
-										$fobsesrvacoes = $_POST["observacoes"];
+										$fpecas_id = $_POST["pecas"];
+										$fpreco_mobra = $_POST["preco_mobra"];
+										$fpreco_total = $_POST["preco_total"];
+
 
 										// Sua lógica de processamento aqui
 
 										// Verificar se o próximo valor de idc já existe na tabela
-										$result = mysqli_query($link, "SELECT MAX(ide) AS max_ide FROM eletrodomesticos");
+										$result = mysqli_query($link, "SELECT MAX(idos) AS max_idos FROM servicos");
 										$row = mysqli_fetch_assoc($result);
-										$proximo_ide = $row['max_ide'] + 1;
+										$proximo_idos = $row['max_idos'] + 1;
 
 										// Inserir os dados
-										$query = mysqli_query($link, "INSERT INTO eletrodomesticos (ide, idc, gama, eletrodomestico, marca, modelo, referencia, estado_electro, observacoes) 
-										VALUES ('$proximo_ide', '$fidc', '$fgama', '$feletrodomestico', '$fmarca', '$fmodelo', '$freferencia', '$festado' , '$fobsesrvacoes') ");
+										$query = mysqli_query($link, "INSERT INTO eletrodomesticos (idos, cliente_id , empregado_id, descricao, estado, pecas, preco_mobra, preco_total) 
+										VALUES ('$proximo_idos', '$fcliente_id', '$fempregado_id', '$feletrodomestico_id', '$fdescricao', '$festado', '$fpecas_id', '$fpreco_mobra' , '$fpreco_total') ");
 
 										// Exibir o alerta
 										if ($query) {

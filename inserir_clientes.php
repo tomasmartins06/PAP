@@ -185,14 +185,14 @@
 									<div class="card-body">
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Nome</label>
+												for="inputDefault">Nome <span style="color: red;">*</span> </label>
 											<div class="col-lg-6">
 												<input name="nome" type="text" class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Telefone</label>
+												for="inputDefault">Telefone <span style="color: red;">*</span> </label>
 											<div class="col-lg-6">
 												<input name="telefone" type="text" class="form-control">
 											</div>
@@ -206,7 +206,7 @@
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Morada</label>
+												for="inputDefault">Morada <span style="color: red;">*</span> </label>
 											<div class="col-lg-6">
 												<input name="morada" type="text" class="form-control">
 											</div>
@@ -225,7 +225,7 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
     // Verificar se todas as caixas foram preenchidas
-    if (empty($_POST["nome"]) || empty($_POST["telefone"]) || empty($_POST["email"]) || empty($_POST["morada"])) {
+    if (empty($_POST["nome"]) || empty($_POST["telefone"]) || empty($_POST["morada"])) {
 		//Exibe o alerta se nao estiver as caixas todas preenchidas
         echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Erro!</strong> Preencha todos os campos do formulário.

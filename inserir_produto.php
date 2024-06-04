@@ -190,15 +190,16 @@
 									<div class="card-body">
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Dono de Eletrodomestico</label>
+												for="inputDefault">Proprietário de Eletrodomestico <span style="color: red;">*</span> </label>
 											<div class="col-lg-6">
-												<select data-plugin-selectTwo name="idc" class="form-control populate">
+												<select data-plugin-selectTwo name="ide" class="form-control populate">
+												<option disabled selected>Selecione o proprietário do Eletrodoméstico</option>
 													<?php
-                                $qry = "Select * from clientes order by idc";
-                                $result = mysqli_query($link,$qry);
-                                while ($row = mysqli_fetch_array($result))
-                                {
-                                ?>
+														$qry = "Select * from clientes order by idc";
+														$result = mysqli_query($link,$qry);
+														while ($row = mysqli_fetch_array($result))
+														{
+														?>
 													<option value="<?php echo $row['idc'];?> ">
 														<?php echo $row['nome']; ?></option>
 													<?php } ?>
@@ -208,62 +209,63 @@
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Gama</label>
+												for="inputDefault">Gama <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<select data-plugin-selectTwo name="gama" class="form-control populate">
-													<?php
-											// Consulta SQL para selecionar todos os registos da tabela 
-											$qry = "select * from gama order by idi";
+													<option disabled selected>Selecione a gama </option>
+														<?php
+															// Consulta SQL para selecionar todos os registos da tabela 
+															$qry = "select * from gama order by idi";
 
-											// Executa a consulta SQL e armazena o resultado
-											$result = mysqli_query($link, $qry);
+															// Executa a consulta SQL e armazena o resultado
+															$result = mysqli_query($link, $qry);
 
-											// Loop para exibir opções com base nos resultados da consulta
-											while ($row = mysqli_fetch_array($result)) {
-												// Início da opção do menu suspenso
-												?>
-													<option value="<?php echo $row['gama'];?> ">
-														<?php echo $row['gama']; ?>
-													</option>
-													<?php
-											} // Fim do loop
-											?>
+															// Loop para exibir opções com base nos resultados da consulta
+															while ($row = mysqli_fetch_array($result)) {
+																// Início da opção do menu suspenso
+																?>
+																	<option value="<?php echo $row['gama'];?> ">
+																		<?php echo $row['gama']; ?>
+																	</option>
+																	<?php
+															} // Fim do loop
+															?>
 
 												</select>
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Eletrodomestico</label>
+												for="inputDefault">Eletrodomestico <span style="color: red;">*</span> </label>
 											<div class="col-lg-6">
 												<input name="eletrodomestico" type="text" class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Marca</label>
+												for="inputDefault">Marca <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input name="marca" type="text" class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Modelo</label>
+												for="inputDefault">Modelo <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input name="modelo" type="text" class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Referencia</label>
+												for="inputDefault">Referencia <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input name="referencia" type="text" class="form-control">
 
 											</div>
 										</div>
-										<div class="form-group row pb-4">
+										<!-- <div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Estado</label>
+												for="inputDefault">Estado </label>
 											<div class="col-lg-6">
 												<select data-plugin-selectTwo name="estado"
 													class="form-control populate">
@@ -287,7 +289,7 @@
 
 												</select>
 											</div>
-										</div>
+										</div> -->
 										<div class="form-group row pb-3">
 											<label class="col-lg-3 control-label text-lg-end pt-2">Observações</label>
 											<div class="col-lg-6">
@@ -312,20 +314,20 @@
 
 								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
 									// Verificar se todas as caixas foram preenchidas
-									if (empty($_POST["idc"]) || empty($_POST["gama"]) || empty($_POST["eletrodomestico"]) || empty($_POST["marca"]) || empty($_POST["modelo"]) || empty($_POST["referencia"]) || empty($_POST["estado"])) {
+									if (empty($_POST["ide"]) || empty($_POST["gama"]) || empty($_POST["eletrodomestico"]) || empty($_POST["marca"]) || empty($_POST["modelo"]) || empty($_POST["referencia"]) /* || empty($_POST["estado"]) */) {
 										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
 												<strong>Erro!</strong> Preencha todos os campos do formulário.
 												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
 											</div>';
 									} else {
 										// Processar o formulário se todas as caixas foram preenchidas
-										$fidc = $_POST["idc"];
+										$fide = $_POST["ide"];
 										$fgama = $_POST["gama"];
 										$feletrodomestico = $_POST["eletrodomestico"];
 										$fmarca = $_POST["marca"];
 										$fmodelo = $_POST["modelo"];
 										$freferencia = $_POST["referencia"];
-										$festado = $_POST["estado"];
+										// $festado = $_POST["estado"];
 										$fobsesrvacoes = $_POST["observacoes"];
 
 										// Sua lógica de processamento aqui
@@ -336,8 +338,8 @@
 										$proximo_ide = $row['max_ide'] + 1;
 
 										// Inserir os dados
-										$query = mysqli_query($link, "INSERT INTO eletrodomesticos (ide, idc, gama, eletrodomestico, marca, modelo, referencia, estado_electro, observacoes) 
-										VALUES ('$proximo_ide', '$fidc', '$fgama', '$feletrodomestico', '$fmarca', '$fmodelo', '$freferencia', '$festado' , '$fobsesrvacoes') ");
+										$query = mysqli_query($link, "INSERT INTO eletrodomesticos (ide, gama, eletrodomestico, marca, modelo, referencia, observacoes) 
+										VALUES ('$proximo_ide', '$fgama', '$feletrodomestico', '$fmarca', '$fmodelo', '$freferencia', '$fobsesrvacoes') ");
 
 										// Exibir o alerta
 										if ($query) {
@@ -354,15 +356,6 @@
 									}
 								}
 								?>
-
-					
-	
-
-
-
-
-
-    
 						</div>
 			</section>
 

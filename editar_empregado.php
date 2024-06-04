@@ -159,7 +159,7 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Editar Funcionários</h2>
+					<h2>Editar Empregados</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
@@ -169,9 +169,9 @@
 								</a>
 							</li>
 
-							<li><span>Menu Funcionários</span></li>
-							<li><span>Inserir Funcionários</span></li>
-							<li><span>Editar Funcionários</span></li>
+							<li><span>Menu Empregados</span></li>
+							<li><span>Inserir Empregados</span></li>
+							<li><span>Editar Empregados</span></li>
 
 						</ol>
 
@@ -206,7 +206,7 @@
                 if (mysqli_query($link, $sql)) {
                     $showForm = false;
                     echo "registo atualizado com sucesso!";
-                    echo '<script>window.location.href = "listar_funcionario.php";</script>';
+                    echo '<script>window.location.href = "listar_empregado.php";</script>';
                     exit; // Adicionado para evitar que o restante do código seja executado após o redirecionamento
                 } else {
                     echo "Erro ao atualizar o registo: " . mysqli_error($link);
@@ -228,7 +228,7 @@
                 if ($result && $row = mysqli_fetch_assoc($result)) {
                     ?>
 							<!-- Formulário de Edição -->
-							<form method="post" action="editar_funcionario.php" id="editForm">
+							<form method="post" action="editar_empregado.php" id="editForm">
 								<section class="card">
 									<div class="card-body">
 										<!-- Campos do formulário preenchidos com os dados do registo -->

@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
         if ($stmt->execute()) {
             // Redirecionar para a página de listar após a exclusão
-            header("Location: listar_funcionario.php");
+            header("Location: listar_empregado.php");
             exit();
         } else {
             echo "Erro ao Apagar o registo: " . $link->error;

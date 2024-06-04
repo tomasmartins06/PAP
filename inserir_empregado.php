@@ -155,7 +155,7 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Inserir Funcionários</h2>
+					<h2>Inserir Empregados</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
@@ -165,8 +165,8 @@
 								</a>
 							</li>
 
-							<li><span>Menu Funcionários</span></li>
-							<li><span>Inserir Funcionários</span></li>
+							<li><span>Menu Empregados</span></li>
+							<li><span>Inserir Empregados</span></li>
 
 						</ol>
 
@@ -180,19 +180,19 @@
 				<div class="bg-light">
 					<div class="form-container">
 						<div class="w-100">
-							<form name="form_ins_prod" id="form_ins_prod" action="inserir_funcionario.php" method="post">
+							<form name="form_ins_prod" id="form_ins_prod" action="inserir_empregado.php" method="post">
 								<section class="card">
 									<div class="card-body">
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Nome de Utilizador</label>
+												for="inputDefault">Nome de Utilizador <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input name="user" type="text" class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Palavra Passe</label>
+												for="inputDefault">Palavra Passe <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input name="pass" type="text" class="form-control">
 											</div>

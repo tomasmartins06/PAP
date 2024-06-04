@@ -56,20 +56,20 @@
 		<li class="nav-parent">
 			<a class="nav-link">
 				<i class="bx bx-collection" aria-hidden="true"></i>
-				<span>Menu de Funcionários</span>
+				<span>Menu de Empregados</span>
 			</a>
 			<ul class="nav nav-children">
 				<li>
-					<a href="inserir_funcionario.php">
-						Inserir Novo Funcionário
+					<a href="inserir_empregado.php">
+						Inserir Novo Empregado
 					</a>
 				</li>
 
 			</ul>
 			<ul class="nav nav-children" >
 				<li>
-					<a href="listar_funcionario.php">
-						Listar Funcionário
+					<a href="listar_empregado.php">
+						Listar Empregado
 					</a>
 				</li>
 

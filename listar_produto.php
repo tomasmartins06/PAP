@@ -287,11 +287,10 @@
                                         </select>
                                         <br>
                                         <button type="submit" class="btn btn-primary">Filtrar</button>
-                                    
                                     </div>
-                                       
+                                    <br>
                                 </form>
-                              <br>
+                         
                                 <table class="table table-bordered table-striped mb-0" id="datatable-editable">
                                     <thead>
                                         <tr>
