@@ -186,7 +186,7 @@
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
 							<li>
-								<a href="admin.html">
+								<a href="admin.php">
 									<i class="bx bx-home-alt"></i>
 								</a>
 							</li>
