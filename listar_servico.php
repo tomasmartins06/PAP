@@ -98,8 +98,6 @@
 
                 <hr class="separator" />
 
-    
-
             </div>
 
             <script>
@@ -181,7 +179,7 @@
 
             <section role="main" class="content-body">
                 <header class="page-header">
-                    <h2>Listar Eletrodomésticos</h2>
+                    <h2>Listar Serviço</h2>
 
                     <div class="right-wrapper text-end">
                         <ol class="breadcrumbs">
@@ -191,8 +189,8 @@
                                 </a>
                             </li>
 
-                            <li><span>Menu Eletrodomésticos</span></li>
-                            <li><span>Listar Eletrodomésticos</span></li>
+                            <li><span>Menu Serviço</span></li>
+                            <li><span>Listar Serviço</span></li>
 
                         </ol>
 
@@ -232,79 +230,64 @@
                                         <!-- <input type="submit" class="btn btn-primary btn-md font-weight-semibold btn-py-2 px-4" name="filter"> -->
                                     </div>
                                 </div>
-                                <!-- <div class="col-4 col-lg-auto ps-lg-1 mb-3 mb-lg-0">
-													<div class="d-flex align-items-lg-center flex-column flex-lg-row">
-														<label class="ws-nowrap me-3 mb-0">Show:</label>
-														<select class="form-control select-style-1 results-per-page" name="results-per-page">
-															<option value="12" selected>12</option>
-															<option value="24">24</option>
-															<option value="36">36</option>
-															<option value="100">100</option>
-														</select>
-													</div>
-								 				</div> -->
 
-                                <!-- Tabela para exibir a lista de clientes -->
-                                <!-- Tabela para exibir a lista de clientes -->
                                 <?php
+                // Incluir a conexão com o banco de dados
+                include "DBConnection.php";
 
-                                     // Incluir a conexão com o banco de dados
-                                    include "DBConnection.php";
+                // Consulta SQL padrão
+                $query = "SELECT * FROM servicos";
 
-                                    // Consulta SQL padrão
-                                    $query = "SELECT * FROM eletrodomesticos";
+                // Se o filtro estiver definido, adicione a condição WHERE na consulta SQL
+                if(isset($_POST['filter-by']) && $_POST['filter-by'] != "" && $_POST['filter-by'] != "all") {
+                    $filtro = $_POST['filter-by'];
+                    $query .= " WHERE empregado_id = '$filtro'";
+                }
 
-                                    // Se o filtro estiver definido, adicione a condição WHERE na consulta SQL
-                                    if(isset($_POST['filter-by']) && $_POST['filter-by'] != "" && $_POST['filter-by'] != "all") {
-                                        $filtro = $_POST['filter-by'];
-                                        $query .= " WHERE gama = '$filtro'";
-                                    }
+                // Adicione a cláusula ORDER BY para ordenar os resultados
+                $query .= " ORDER BY idos";
 
-                                    // Adicione a cláusula ORDER BY para ordenar os resultados
-                                    $query .= " ORDER BY ide";
+                // Executa a consulta SQL
+                $result = mysqli_query($link, $query);
+            ?>
 
-                                    // Executa a consulta SQL
-                                    $result = mysqli_query($link, $query);
-
-
-                                ?>
-
-                                    <form method="post" action="">
-                                        <div class="form-group">
-                                            <label for="filter-by" class="form-label">Filtrar por:</label>
-                                            <select id="filter-by" class="form-control select-style-1 filter-by" name="filter-by">
-                                                <option value="" disabled selected>Gama</option>
-                                                <option value="all">Todos</option>
-                                                <?php
-                                                    // Consulta SQL para selecionar todos os estados distintos da tabela
-                                                    $qry = "SELECT DISTINCT gama FROM eletrodomesticos";
-                                                    // Executa a consulta SQL e armazena o resultado
-                                                    $result_states = mysqli_query($link, $qry);
-                                                    // Loop para exibir opções baseadas nos resultados da consulta
-                                                    while ($row_state = mysqli_fetch_assoc($result_states)) {
-                                                        $estado = htmlspecialchars($row_state['gama']);
-                                                        // Opção do menu suspenso
-                                                        echo "<option value='$estado'>$estado</option>";
-                                                    }
-                                                ?>
-                                            </select>
-                                            <br>
-                                            <button type="submit" class="btn btn-primary">Filtrar</button>
-                                        </div>
+                                <form method="post" action="">
+                                    <div class="form-group">
+                                        <label for="filter-by" class="form-label">Filtrar por:</label>
+                                        <select id="filter-by" class="form-control select-style-1 filter-by"
+                                            name="filter-by">
+                                            <option value="" disabled selected>Empregado</option>
+                                            <option value="all">Todos</option>
+                                            <?php
+                            // Consulta SQL para selecionar todos os estados distintos da tabela
+                            $qry = "SELECT DISTINCT empregado_id FROM servicos";
+                            // Executa a consulta SQL e armazena o resultado
+                            $result_states = mysqli_query($link, $qry);
+                            // Loop para exibir opções baseadas nos resultados da consulta
+                            while ($row_state = mysqli_fetch_assoc($result_states)) {
+                                $empregado = htmlspecialchars($row_state['empregado_id']);
+                                // Opção do menu suspenso
+                                echo "<option value='$empregado'>$empregado</option>";
+                            }
+                        ?>
+                                        </select>
                                         <br>
-                                    </form>
+                                        <button type="submit" class="btn btn-primary">Filtrar</button>
+                                    </div>
+                                    <br>
+                                </form>
 
-                         
                                 <table class="table table-bordered table-striped mb-0" id="datatable-editable">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
                                             <th>Cliente</th>
-                                            <th>Gama</th>
+                                            <th>Empregado</th>
                                             <th>Eletrodoméstico</th>
-                                            <th>Marca</th>
-                                            <th>Modelo</th>
-                                            <th>Referência</th>
+                                            <th>Estado</th>
+                                            <th>Peças</th>
+                                            <th>Preço Mão De Obra</th>
+                                            <th>Preço Total</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
@@ -312,37 +295,91 @@
                                         <?php
                                             // Loop para exibir cada registo na tabela
                                             while ($row = mysqli_fetch_array($result)) {
-                                          ?>
+                                        ?>
                                         <tr>
-                                            <!-- Dados do eletrodoméstico -->
-                                            <td>
-                                                <?php echo $row['ide'] ?>
-                                            </td>
+                                            <!-- Dados do serviço -->
+                                            <td><?php echo $row['idos'] ?> </td>
                                             <td>
                                                 <?php
                                                     // Consulta para obter o nome do cliente
-                                                    $idc = $row['idc'];
-                                                    $query_nome = "SELECT nome FROM clientes WHERE idc = $idc";
+                                                    $cliente_id = $row['cliente_id'];
+                                                    $query_nome = "SELECT nome FROM clientes WHERE idc = $cliente_id";
                                                     $result_nome = mysqli_query($link, $query_nome);
                                                     $row_nome = mysqli_fetch_assoc($result_nome);
                                                     echo $row_nome ? $row_nome['nome'] : "Cliente não encontrado";
                                                 ?>
                                             </td>
-                                            <td><?php echo $row['gama'];?></td>
-                                            <td><?php echo $row['eletrodomestico'] ?></td>
-                                            <td><?php echo $row['marca'] ?></td>
-                                            <td><?php echo $row['modelo'] ?></td>
-                                            <td><?php echo $row['referencia'] ?></td>
+                                            <td>
+                                                <?php 
+                                                    $empregado_id = $row['empregado_id'];
+                                                    $query_empregado = "SELECT user FROM utilizadores WHERE id = $empregado_id";
+                                                    $result_empregado = mysqli_query($link, $query_empregado);
+                                                    $row_empregado = mysqli_fetch_assoc($result_empregado);
+                                                    echo $row_empregado ? $row_empregado['user'] : "Empregado não encontrado";
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php 
+                                                    $eletrodomestico_id = $row['eletrodomestico_id'];
+                                                    $query_nome = "SELECT eletrodomestico FROM eletrodomesticos WHERE ide = $eletrodomestico_id";
+                                                    $result_nome = mysqli_query($link, $query_nome);
+                                                    $row_nome = mysqli_fetch_assoc($result_nome);
+                                                    echo $row_nome ? $row_nome['eletrodomestico'] : "Eletrodoméstico não encontrado";
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                    $estado_id = $row['estado'];
+                                                    $query_estado = "SELECT estado FROM estado WHERE idt = $estado_id";
+                                                    $result_estado = mysqli_query($link, $query_estado);
+                                                    $row_estado = mysqli_fetch_assoc($result_estado);
+                                                    echo $row_estado ? $row_estado['estado'] : "Estado não encontrado";
+                                                ?>
+                                            </td>
+                                            <td>
+                                            
+                                            <?php
+                                                // Obter a string de IDs das peças
+                                                $pecas_ids = $row['pecas_id'];
+                                                
+                                                // Separar a string em um array de IDs
+                                                $pecas_ids_array = explode(',', $pecas_ids);
+
+                                                // Inicializar um array para armazenar os nomes das peças
+                                                $pecas_nomes = [];
+
+                                                // Para cada ID, buscar o nome da peça correspondente
+                                                foreach ($pecas_ids_array as $pecas_id) {
+                                                    // Sanitizar o ID antes de usá-lo na consulta
+                                                    $pecas_id = intval($pecas_id);
+                                                    $query_pecas = "SELECT nome FROM pecas WHERE idp = $pecas_id";
+                                                    $result_pecas = mysqli_query($link, $query_pecas);
+                                                    $row_pecas = mysqli_fetch_assoc($result_pecas);
+                                                    if ($row_pecas) {
+                                                        $pecas_nomes[] = $row_pecas['nome'];
+                                                    }
+                                                }
+
+                                                // Juntar os nomes das peças em uma string separada por vírgulas e exibir
+                                                echo !empty($pecas_nomes) ? implode(', ', $pecas_nomes) : "Peça não encontrada";
+                                            ?>
+                                        </td>
+
+                                            
+
+                                            <td><?php echo $row['preco_mobra'] . "€"; ?></td>
+                                            <td><?php echo $row['preco_total'] . "€"; ?></td>
+
                                             <td class="actions text-left">
                                                 <!-- Link para edição -->
-                                                <a href="editar_produto.php?id=<?php echo $row['ide']; ?>"
+                                                <a href="editar_servicos.php?id=<?php echo $row['idos']; ?>"
                                                     class="btn btn-sm btn-sm-custom" title="Editar">
                                                     <i class="fas fa-pencil-alt" style="color: black;"></i>
                                                 </a>
                                                 <!-- Formulário para exclusão com alerta de confirmação -->
                                                 <form method="post" action="apagarproduto.php" style="display:inline;"
                                                     onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
-                                                    <input type="hidden" name="id" value="<?php echo $row['ide']; ?>">
+                                                    <input type="hidden" name="id" value="<?php echo $row['idos']; ?>">
                                                     <button type="submit" class="btn btn-sm btn-sm-custom delete-btn"
                                                         title="Apagar">
                                                         <i class="fas fa-trash-alt" style="color: black;"></i>
@@ -350,18 +387,14 @@
                                                 </form>
                                             </td>
                                         </tr>
-
                                         <?php
-                                            }
-                                        ?>
-
+                                                }
+                                            ?>
                                     </tbody>
-
                                 </table>
-
-                                <!-- Rodapé HTML omitido por brevidade -->
-
                             </div>
+
+                        </div>
                 </section>
             </section>
         </div>

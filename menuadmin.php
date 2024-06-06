@@ -61,7 +61,7 @@
 			<ul class="nav nav-children">
 				<li>
 					<a href="inserir_empregado.php">
-						Inserir Novo Empregado
+						Inserir Empregado
 					</a>
 				</li>
 

@@ -192,7 +192,7 @@
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="inputDefault">Proprietário de Eletrodomestico <span style="color: red;">*</span> </label>
 											<div class="col-lg-6">
-												<select data-plugin-selectTwo name="ide" class="form-control populate">
+												<select data-plugin-selectTwo name="idc" class="form-control populate">
 												<option disabled selected>Selecione o proprietário do Eletrodoméstico</option>
 													<?php
 														$qry = "Select * from clientes order by idc";
@@ -314,20 +314,19 @@
 
 								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
 									// Verificar se todas as caixas foram preenchidas
-									if (empty($_POST["ide"]) || empty($_POST["gama"]) || empty($_POST["eletrodomestico"]) || empty($_POST["marca"]) || empty($_POST["modelo"]) || empty($_POST["referencia"]) /* || empty($_POST["estado"]) */) {
+									if (empty($_POST["idc"]) || empty($_POST["gama"]) || empty($_POST["eletrodomestico"]) || empty($_POST["marca"]) || empty($_POST["modelo"]) || empty($_POST["referencia"])) {
 										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
 												<strong>Erro!</strong> Preencha todos os campos do formulário.
 												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
 											</div>';
 									} else {
 										// Processar o formulário se todas as caixas foram preenchidas
-										$fide = $_POST["ide"];
+										$fidc = $_POST["idc"];
 										$fgama = $_POST["gama"];
 										$feletrodomestico = $_POST["eletrodomestico"];
 										$fmarca = $_POST["marca"];
 										$fmodelo = $_POST["modelo"];
 										$freferencia = $_POST["referencia"];
-										// $festado = $_POST["estado"];
 										$fobsesrvacoes = $_POST["observacoes"];
 
 										// Sua lógica de processamento aqui
@@ -338,8 +337,8 @@
 										$proximo_ide = $row['max_ide'] + 1;
 
 										// Inserir os dados
-										$query = mysqli_query($link, "INSERT INTO eletrodomesticos (ide, gama, eletrodomestico, marca, modelo, referencia, observacoes) 
-										VALUES ('$proximo_ide', '$fgama', '$feletrodomestico', '$fmarca', '$fmodelo', '$freferencia', '$fobsesrvacoes') ");
+										$query = mysqli_query($link, "INSERT INTO eletrodomesticos (ide, idc, gama, eletrodomestico, marca, modelo, referencia, observacoes) 
+										VALUES ('$proximo_ide', '$fidc', '$fgama', '$feletrodomestico', '$fmarca', '$fmodelo', '$freferencia', '$fobsesrvacoes') ");
 
 										// Exibir o alerta
 										if ($query) {

@@ -43,13 +43,6 @@
 
 	<!-- Head Libs -->
 	<script src="vendor/modernizr/modernizr.js"></script>
-
-	<style>
-        /* Estilo para garantir que todos os campos do formulário tenham o mesmo tamanho */
-        .form-group .form-control {
-            width: 100%; /* Define a largura de todos os campos do formulário para 100% */
-        }
-    </style>
 </head>
 
 <body>
@@ -167,7 +160,7 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Novo Serviço</h2>
+					<h2>Inserir Serviço</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
@@ -177,7 +170,7 @@
 								</a>
 							</li>
 
-							<li><span>Novo Serviço</span></li>
+							<li><span>Inserir Serviço</span></li>
 
 						</ol>
 
@@ -195,111 +188,96 @@
 								<section class="card">
 									<div class="card-body">
 
-									<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2">Proprietário do Eletrodoméstico <span style="color: red;">*</span></label>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2">Proprietário do
+												Eletrodoméstico <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
-												<select name="cliente_id" class="form-control custom-select-height" multiselect="false"
+												<select name="cliente_id" class="form-control custom-select-height"
 													data-plugin-multiselect
-													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "allSelectedText": "Todos Selecionados", "nonSelectedText": "Nenhuma Proprietário Selecionado" }'>
+													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "allSelectedText": "Todos Selecionados", "nonSelectedText": "Nenhum Proprietário Selecionado" }'>
 													<optgroup label="Clientes">
-													<option disabled selected>Nenhum Proprietário Selecionado</option>
+														<option disabled selected>Nenhum Proprietário Selecionado
+														</option>
 														<?php
 															$qry = "Select * from clientes order by idc";
-															$result = mysqli_query($link,$qry);
-															while ($row = mysqli_fetch_array($result))
-															{
+															$result = mysqli_query($link, $qry);
+															while ($row = mysqli_fetch_array($result)) {
 															?>
-														<option value="<?php echo $row['idc'];?> ">
+														<option value="<?php echo $row['idc']; ?>">
 															<?php echo $row['nome']; ?></option>
 														<?php } ?>
-															</optgroup>
+													</optgroup>
 												</select>
 											</div>
 										</div>
+
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="inputDefault">Empregado <span style="color: red;">*</span> </label>
 											<div class="col-lg-6">
-												<select data-plugin-selectTwo name="empregado_id" class="form-control populate">
-													<option disabled selected>Selecione o Empregado </option>
-														<?php
-															// Consulta SQL para selecionar todos os registos da tabela 
-															$qry = "select * from utilizadores order by id";
-
-															// Executa a consulta SQL e armazena o resultado
-															$result = mysqli_query($link, $qry);
-
-															// Loop para exibir opções com base nos resultados da consulta
-															while ($row = mysqli_fetch_array($result)) {
-																// Início da opção do menu suspenso
-																?>
-																	<option value="<?php echo $row['user'];?> ">
-																		<?php echo $row['user']; ?>
-																	</option>
-																	<?php
-															} // Fim do loop
-															?>
-
-												</select>
-											</div>
-										</div>
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2">Eletrodoméstico <span style="color: red;">*</span></label>
-											<div class="col-lg-6">
-												<select name="eletrodomestico_id" class="form-control custom-select-height" multiselect="false"
+												<select name="empregado_id" class="form-control custom-select-height"
 													data-plugin-multiselect
-													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "allSelectedText": "Todos Selecionados", "nonSelectedText": "Nenhuma Proprietário Selecionado" }'>
-													<optgroup label="Eletrodomésticos">
-													<option disabled selected>Nenhum Eletrodoméstico Selecionado</option>
-														<?php
-														// Consulta SQL para selecionar todos os registos da tabela com o nome do cliente
-														$qry = "SELECT * FROM eletrodomesticos
-														JOIN clientes ON eletrodomesticos.idc = clientes.idc
-														ORDER BY eletrodomesticos.ide";
-
-														// Executa a consulta SQL e armazena o resultado
-														$result = mysqli_query($link, $qry);
-
-														// Loop para exibir opções com base nos resultados da consulta
-														while ($row = mysqli_fetch_array($result)) {
-															// Início da opção do menu suspenso
-															?>
-
-													<option value="<?php echo $row['referencia']; ?>">
-														<?php echo "referencia: ". $row['referencia'] . " - Eletrodomestico: " . $row['eletrodomestico'] . " - Proprietário: " . $row['nome']; ?>
-													</option>
+													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "nonSelectedText": "Nenhum Empregado Selecionado" }'>
+													<option disabled selected>Nenhum Empregado Selecionado </option>
 													<?php
-														} // Fim do loop
-													?>
+														$qry = "select * from utilizadores order by id";
+														$result = mysqli_query($link, $qry);
+														while ($row = mysqli_fetch_array($result)) {
+														?>
+													<option value="<?php echo $row['id']; ?>">
+														<!-- Change here to use id -->
+														<?php echo $row['user']; ?>
+													</option>
+													<?php } ?>
 												</select>
 											</div>
 										</div>
-										
+
 										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">
-												Estado <span style="color: red;">*</span>
-											</label>
+											<label class="col-lg-3 control-label text-lg-end pt-2">Eletrodoméstico <span
+													style="color: red;">*</span></label>
 											<div class="col-lg-6">
-												<select data-plugin-selectTwo name="estado"
-													class="form-control populate">
-													<option disabled selected>Selecione um estado</option>
+												<select name="eletrodomestico_id"
+													class="form-control custom-select-height" data-plugin-multiselect
+													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "nonSelectedText": "Nenhum Eletrodoméstico Selecionado" }'>
+													<optgroup label="Eletrodomésticos">
+														<option disabled selected>Nenhum Eletrodoméstico Selecionado
+														</option>
+														<?php
+															$qry = "SELECT * FROM eletrodomesticos 
+															JOIN clientes ON eletrodomesticos.idc = clientes.idc 
+															ORDER BY eletrodomesticos.ide";
+															$result = mysqli_query($link, $qry);
+															while ($row = mysqli_fetch_array($result)) {
+															?>
+														<option value="<?php echo $row['ide']; ?>">
+															<!-- Change here to use ide -->
+															<?php echo "referencia: " . $row['referencia'] . " - Eletrodomestico: " . $row['eletrodomestico'] . " - Proprietário: " . $row['nome']; ?>
+														</option>
+														<?php } ?>
+													</optgroup>
+												</select>
+											</div>
+										</div>
+
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Estado <span style="color: red;">*</span></label>
+											<div class="col-lg-6">
+												<select name="estado" class="form-control custom-select-height"
+													data-plugin-multiselect
+													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "nonSelectedText": "Nenhum Estado Selecionado" }'>
+													<option disabled selected>Nenhum Estado Selecinado</option>
 													<?php
-														// Consulta SQL para selecionar todos os registros da tabela 
 														$qry = "select * from estado order by idt";
-
-														// Executa a consulta SQL e armazena o resultado
 														$result = mysqli_query($link, $qry);
-
-														// Loop para exibir opções com base nos resultados da consulta
 														while ($row = mysqli_fetch_array($result)) {
-															// Início da opção do menu suspenso
-													?>
-													<option value="<?php echo $row['estado']; ?>">
+														?>
+													<option value="<?php echo $row['idt']; ?>">
+														<!-- Change here to use idt -->
 														<?php echo $row['estado']; ?>
 													</option>
-													<?php
-														} // Fim do loop
-													?>
+													<?php } ?>
 												</select>
 											</div>
 										</div>
@@ -307,27 +285,20 @@
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2">Peças</label>
 											<div class="col-lg-6">
-												<select name="pecas" class="form-control custom-select-height" multiple="multiple"
+												<select name="pecas[]" id="pecas"
+													class="form-control custom-select-height" multiple="multiple"
 													data-plugin-multiselect
 													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "nonSelectedText": "Nenhuma Peça Selecionada" }'>
 													<optgroup label="Peças Disponíveis">
 														<?php
-														// Consulta SQL para selecionar todos os registros da tabela
-														$qry = "select * from pecas order by idp";
-
-														// Executa a consulta SQL e armazena o resultado
-														$result = mysqli_query($link, $qry);
-
-														// Loop para exibir opções com base nos resultados da consulta
-														while ($row = mysqli_fetch_array($result)) {
-															// Início da opção do menu suspenso
+															$qry = "select * from pecas order by idp";
+															$result = mysqli_query($link, $qry);
+															while ($row = mysqli_fetch_array($result)) {
 														?>
-														<option value="<?php echo $row['nome']; ?>">
+														<option value="<?php echo $row['idp']; ?>">
 															<?php echo $row['nome'] . " - " .  $row['preco'] . "€"; ?>
 														</option>
-														<?php
-														} // Fim do loop
-														?>
+														<?php } ?>
 													</optgroup>
 												</select>
 											</div>
@@ -338,7 +309,6 @@
 											<div class="col-lg-6">
 												<textarea name="descricao" class="form-control" rows="3"
 													id="textareaDefault"></textarea>
-
 											</div>
 										</div>
 
@@ -346,24 +316,43 @@
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="inputDefault">Preço de Mão de Obra</label>
 											<div class="col-lg-6">
-												<input name="preco_mobra" type="text" class="form-control">
+												<input name="preco_mobra" id="preco_mobra" type="number"
+													class="form-control">
 											</div>
 										</div>
+
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="inputDefault">Preço Total</label>
 											<div class="col-lg-6">
-												<input name="preco_total" type="text" class="form-control">
+												<input name="preco_total" id="preco_total" type="text"
+													class="form-control" placeholder="€" readonly>
 											</div>
 										</div>
 
-									</div>
-									<footer class="card-footer d-flex justify-content-end">
-										<button name="bt" class="btn btn-primary mx-2">Introduzir</button>
-										<button type="reset" class="btn btn-default mx-2">Limpar</button>
-										<button type="reset" class="mb-1 mt-1 me-1 btn btn-info">Gerar código
-											QR</button>
-									</footer>
+										<script>
+											document.addEventListener('DOMContentLoaded', function() {
+												const pecasSelect = document.getElementById('pecas');
+												const precoMobraInput = document.getElementById('preco_mobra');
+												const precoTotalInput = document.getElementById('preco_total');
+
+												function calcularPrecoTotal() {
+													let precoMobra = parseFloat(precoMobraInput.value) || 0;
+													let precoPecas = Array.from(pecasSelect.selectedOptions).reduce((total, option) => total +
+														parseFloat(option.value), 0);
+													let precoTotal = precoMobra + precoPecas;
+													precoTotalInput.value = precoTotal.toFixed(2) + '€';
+												}
+												pecasSelect.addEventListener('change', calcularPrecoTotal);
+												precoMobraInput.addEventListener('input', calcularPrecoTotal);
+											});
+										</script>
+
+										<footer class="card-footer d-flex justify-content-end">
+											<button name="bt" class="btn btn-primary mx-2">Introduzir</button>
+											<button type="reset" class="btn btn-default mx-2">Limpar</button>
+											<button type="reset" class=" btn btn-info mx-2">Gerar código QR</button>
+										</footer>
 								</section>
 
 							</form>
@@ -373,25 +362,21 @@
 
 								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
 									// Verificar se todas as caixas foram preenchidas
-									if (empty($_POST["idos"]) || empty($_POST["cliente_id"]) || empty($_POST["empregado_id"]) || empty($_POST["eletrodomestico_id"]) || empty($_POST["estado"])) {
+									if (empty($_POST["cliente_id"]) || empty($_POST["empregado_id"]) || empty($_POST["eletrodomestico_id"]) || empty($_POST["estado"])) {
 										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
 												<strong>Erro!</strong> Preencha os campos necessários do formulário.
 												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
 											</div>';
 									} else {
 										// Processar o formulário se todas as caixas foram preenchidas
-										$fidos = $_POST["idos"];
 										$fcliente_id = $_POST["cliente_id"];
 										$fempregado_id = $_POST["empregado_id"];
-										$feletrodomestico_id = $_POST["eletrodomestico"];
+										$feletrodomestico_id = $_POST["eletrodomestico_id"];
 										$fdescricao = $_POST["descricao"];
 										$festado = $_POST["estado"];
-										$fpecas_id = $_POST["pecas"];
+										$fpecas_id = isset($_POST["pecas"]) ? implode(',', $_POST["pecas"]) : '';
 										$fpreco_mobra = $_POST["preco_mobra"];
 										$fpreco_total = $_POST["preco_total"];
-
-
-										// Sua lógica de processamento aqui
 
 										// Verificar se o próximo valor de idc já existe na tabela
 										$result = mysqli_query($link, "SELECT MAX(idos) AS max_idos FROM servicos");
@@ -399,13 +384,14 @@
 										$proximo_idos = $row['max_idos'] + 1;
 
 										// Inserir os dados
-										$query = mysqli_query($link, "INSERT INTO eletrodomesticos (idos, cliente_id , empregado_id, descricao, estado, pecas, preco_mobra, preco_total) 
-										VALUES ('$proximo_idos', '$fcliente_id', '$fempregado_id', '$feletrodomestico_id', '$fdescricao', '$festado', '$fpecas_id', '$fpreco_mobra' , '$fpreco_total') ");
+										$query = mysqli_query($link, "INSERT INTO servicos (idos, cliente_id, empregado_id, eletrodomestico_id, descricao, estado, pecas_id, preco_mobra, preco_total) 
+										VALUES ('$proximo_idos', '$fcliente_id', '$fempregado_id', '$feletrodomestico_id', '$fdescricao', '$festado', '$fpecas_id', '$fpreco_mobra', '$fpreco_total')");
 
 										// Exibir o alerta
 										if ($query) {
 											echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
 													<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
+												
 													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
 												</div>';
 										} else {
@@ -417,7 +403,6 @@
 									}
 								}
 								?>
-
 						</div>
 			</section>
 
@@ -584,7 +569,6 @@
 
 	<!-- Examples -->
 	<script src="js/examples/examples.dashboard.js"></script>
-
 </body>
 
 </html>
