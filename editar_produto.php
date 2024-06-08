@@ -186,59 +186,49 @@
 							<br><br>
 
 							<?php
-            // Inclui o arquivo de conexão com a base de dados
-            include 'DBConnection.php';
+								// Inclui o arquivo de conexão com a base de dados
+								include 'DBConnection.php';
 
-            // Define o sinalizador para mostrar ou não o formulário
-		
-			$showForm = true;
-			
-			// Verifica se o formulário foi enviado e se o ID está definido
-			if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-				// Processa a edição
-				$id = $_POST['id'];
-				$fgama = $_POST["gama"];
-				$feletrodomestico = $_POST["eletrodomestico"];
-				$fmarca = $_POST["marca"];
-				$fmodelo = $_POST["modelo"];
-				$freferencia = $_POST["referencia"];
-				$festado = $_POST["estado"];
-				$fobservacoes = $_POST["observacoes"];
-			
-				// Query SQL para atualizar o registo com base no ID
-				$sql = "UPDATE eletrodomesticos SET gama = ?, eletrodomestico = ?, marca = ?, modelo = ?, referencia = ?, estado_electro = ?, observacoes = ? WHERE ide = ?";
-			
-				// Preparando a declaração
-				$stmt = mysqli_prepare($link, $sql);
-				mysqli_stmt_bind_param($stmt, "sssssssi", $fgama, $feletrodomestico, $fmarca, $fmodelo, $freferencia, $festado, $fobservacoes, $id);
-			
-				// Executa a query e verifica se foi bem sucedida
-				if (mysqli_stmt_execute($stmt)) {
-					$showForm = false;
-					echo "registo atualizado com sucesso!";
-					echo '<script>window.location.href = "listar_produto.php";</script>';
-					exit; // Adicionado para evitar que o restante do código seja executado após o redirecionamento
-				} else {
-					echo "Erro ao atualizar o registo: " . mysqli_error($link);
-				}
-				mysqli_stmt_close($stmt);
-			}
-			
-			// Verifica se o formulário deve ser exibido e se o ID está definido na URL
-			if ($showForm && isset($_GET['id'])) {
-				// Página de Edição
-				$id = $_GET['id'];
-			
-				// Recupera os dados do registo a ser editado
-				$query = "SELECT * FROM eletrodomesticos WHERE ide = ?";
-				$stmt = mysqli_prepare($link, $query);
-				mysqli_stmt_bind_param($stmt, "i", $id);
-				mysqli_stmt_execute($stmt);
-				$result = mysqli_stmt_get_result($stmt);
-			
-				// Verifica se a consulta foi bem-sucedida e exibe o formulário de edição
-				if ($result && $row = mysqli_fetch_assoc($result)) {
-					?>
+								// Define o sinalizador para mostrar ou não o formulário
+								$showForm = true;
+
+								// Verifica se o formulário foi enviado e se o ID está definido
+								if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+									// Processa a edição
+									$id = $_POST['id'];
+									$fgama = $_POST["gama"];
+									$feletrodomestico = $_POST["eletrodomestico"];
+									$fmarca = $_POST["marca"];
+									$fmodelo = $_POST["modelo"];
+									$freferencia = $_POST["referencia"];
+									$fobservacoes = $_POST["observacoes"];
+
+									// Query SQL para atualizar o registo com base no ID
+									$sql = "UPDATE eletrodomesticos SET gama = '$fgama', eletrodomestico = '$feletrodomestico', marca = '$fmarca', modelo = '$fmodelo', referencia = '$freferencia', observacoes = '$fobservacoes' WHERE ide = $id";
+
+									// Executa a query e verifica se foi bem sucedida
+									if (mysqli_query($link, $sql)) {
+										$showForm = false;
+										echo "Registo atualizado com sucesso!";
+										echo '<script>window.location.href = "listar_produto.php";</script>';
+										exit; // Adicionado para evitar que o restante do código seja executado após o redirecionamento
+									} else {
+										echo "Erro ao atualizar o registo: " . mysqli_error($link);
+									}
+								}
+
+								// Verifica se o formulário deve ser exibido e se o ID está definido na URL
+								if ($showForm && isset($_GET['id'])) {
+									// Página de Edição
+									$id = $_GET['id'];
+
+									// Recupera os dados do registo a ser editado
+									$query = "SELECT * FROM eletrodomesticos WHERE ide = $id";
+									$result = mysqli_query($link, $query);
+
+									// Verifica se a consulta foi bem-sucedida e exibe o formulário de edição
+									if ($result && $row = mysqli_fetch_assoc($result)) {
+							?>
 					<!-- Formulário de Edição -->
 					<form method="post" action="editar_produto.php" id="editForm">
 						<section class="card">
@@ -276,21 +266,6 @@
 									</div>
 								</div>
 								<div class="form-group row pb-4">
-									<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Estado</label>
-									<div class="col-lg-6">
-										<select data-plugin-selectTwo name="estado" class="form-control populate">
-											<?php
-											$qry = "select * from estado order by idt";
-											$estado_result = mysqli_query($link, $qry);
-											while ($estado_row = mysqli_fetch_array($estado_result)) {
-												$selected = ($estado_row['estado'] == $row['estado_electro']) ? 'selected' : '';
-												echo "<option value='{$estado_row['estado']}' $selected>{$estado_row['estado']}</option>";
-											}
-											?>
-										</select>
-									</div>
-								</div>
-								<div class="form-group row pb-4">
 									<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Observações</label>
 									<div class="col-lg-6">
 										<textarea name="observacoes" rows="3" class="form-control"><?php echo $row['observacoes']; ?></textarea>
@@ -304,8 +279,8 @@
 						</section>
 					</form>
 					<?php
-				}
-				mysqli_stmt_close($stmt);
+									}
+			
 			}
 			// Fecha a conexão com o banco de dados
 			mysqli_close($link);

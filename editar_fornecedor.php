@@ -185,53 +185,47 @@
 							<br><br>
 
 							<?php
-            // Inclui o arquivo de conexão com a base de dados
-            include 'DBConnection.php';
+									// Inclui o arquivo de conexão com a base de dados
+									include 'DBConnection.php';
 
-            // Define o sinalizador para mostrar ou não o formulário
-            $showForm = true;
+									// Define o sinalizador para mostrar ou não o formulário
+									$showForm = true;
 
-            // Verifica se o formulário foi enviado e se o ID está definido
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-                // Processa a edição
-                $id = $_POST['id'];
-                $nome = $_POST['nome'];
-                $contacto = $_POST['contacto'];
-				$email = $_POST['email'];
-				$endereco = $_POST['endereco'];
-				
+									// Verifica se o formulário foi enviado e se o ID está definido
+									if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+										// Processa a edição
+										$id = $_POST['id'];
+										$nome = $_POST['nome'];
+										$contacto = $_POST['contacto'];
+										$email = $_POST['email'];
+										$endereco = $_POST['endereco'];
 
+										// Query SQL para atualizar o registo com base no ID
+										$sql = "UPDATE fornecedores SET nome = '$nome', contacto = '$contacto', email = '$email', endereco = '$endereco' WHERE idf = $id";
 
-                
+										// Executa a query e verifica se foi bem sucedida
+										if (mysqli_query($link, $sql)) {
+											$showForm = false;
+											echo "Registo atualizado com sucesso!";
+											echo '<script>window.location.href = "listar_fornecedor.php";</script>';
+											exit; // Adicionado para evitar que o restante do código seja executado após o redirecionamento
+										} else {
+											echo "Erro ao atualizar o registo: " . mysqli_error($link);
+										}
+									}
 
-                // Query SQL para atualizar o registo com base no ID
-                $sql = "UPDATE fornecedores SET nome = '$nome', contacto = '$contacto', email = '$email', endereco = '$endereco' WHERE idf = $id";
-				
-                // Executa a query e verifica se foi bem sucedida
-                if (mysqli_query($link, $sql)) {
-                    $showForm = false;
-                    echo "registo atualizado com sucesso!";
-                    echo '<script>window.location.href = "listar_fornecedor.php";</script>';
-                    exit; // Adicionado para evitar que o restante do código seja executado após o redirecionamento
-                } else {
-                    echo "Erro ao atualizar o registo: " . mysqli_error($link);
-                }
-            }
+									// Verifica se o formulário deve ser exibido e se o ID está definido na URL
+									if ($showForm && isset($_GET['id'])) {
+										// Página de Edição
+										$id = $_GET['id'];
 
-            // Verifica se o formulário deve ser exibido e se o ID está definido na url 
-            if ($showForm && isset($_GET['id'])) {
-				
-				
-                // Página de Edição
-                $id = $_GET['id'];
+										// Recupera os dados do registo a ser editado
+										$query = "SELECT * FROM fornecedores WHERE idf = $id";
+										$result = mysqli_query($link, $query);
 
-                // Recupera os dados do registo a ser editado
-                $query = "SELECT * FROM fornecedores WHERE idf = $id";
-                $result = mysqli_query($link, $query);
-
-                // Verifica se a consulta foi bem-sucedida e exibe o formulário de edição
-                if ($result && $row = mysqli_fetch_assoc($result)) {
-                    ?>
+										// Verifica se a consulta foi bem-sucedida e exibe o formulário de edição
+										if ($result && $row = mysqli_fetch_assoc($result)) {
+								?>
 							<!-- Formulário de Edição -->
 							<form method="post" action="editar_fornecedor.php" id="editForm">
 								<section class="card">
@@ -240,7 +234,7 @@
 										<input type="hidden" name="id" value="<?php echo $row['idf']; ?>">
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Nome</label>
+												for="inputDefault">Nome <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input type="text" name="nome" value="<?php echo $row['nome']; ?>"
 													class="form-control">
@@ -248,7 +242,7 @@
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Contacto</label>
+												for="inputDefault">Contacto <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input type="text" name="contacto" value="<?php echo $row['contacto']; ?>" 
 												class="form-control">
@@ -256,7 +250,7 @@
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Email</label>
+												for="inputDefault">Email <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input type="text" name="email" value="<?php echo $row['email']; ?>" 
 												class="form-control">
@@ -264,7 +258,7 @@
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Endereço</label>
+												for="inputDefault">Endereço <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input type="text" name="endereco" value="<?php echo $row['endereco']; ?>" 
 												class="form-control">

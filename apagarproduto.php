@@ -7,21 +7,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
     if ($id > 0) {
         // Query SQL para Apagar o registo com base no ID
-        $sql = "DELETE FROM eletrodomesticos WHERE ide = ?";
+        $sql = "DELETE FROM eletrodomesticos WHERE ide = $id";
 
-        // Preparação da declaração
-        $stmt = $link->prepare($sql);
-        $stmt->bind_param('i', $id);
-
-        if ($stmt->execute()) {
+        if ($link->query($sql) === TRUE) {
             // Redirecionar para a página de listar após a exclusão
             header("Location: listar_produto.php");
             exit();
         } else {
             echo "Erro ao Apagar o registo: " . $link->error;
         }
-
-        $stmt->close();
     } else {
         echo "ID do registo não é válido.";
     }

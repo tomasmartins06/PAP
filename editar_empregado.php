@@ -185,48 +185,48 @@
 							<br><br>
 
 							<?php
-            // Inclui o arquivo de conexão com a base de dados
-            include 'DBConnection.php';
+								// Inclui o arquivo de conexão com a base de dados
+								include 'DBConnection.php';
 
-            // Define o sinalizador para mostrar ou não o formulário
-            $showForm = true;
+								// Define o sinalizador para mostrar ou não o formulário
+								$showForm = true;
 
-            // Verifica se o formulário foi enviado e se o ID está definido
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-                // Processa a edição
-                $id = $_POST['id'];
-                $user = $_POST['user'];
-                $pass = $_POST['pass'];
-                
+								// Verifica se o formulário foi enviado e se o ID está definido
+								if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+									// Processa a edição
+									$id = $_POST['id'];
+									$user = $_POST['user'];
+									$pass = $_POST['pass'];
+									
 
-                // Query SQL para atualizar o registo com base no ID
-                $sql = "UPDATE utilizadores SET user = '$user', pass = '$pass' WHERE id = $id";
+									// Query SQL para atualizar o registo com base no ID
+									$sql = "UPDATE utilizadores SET user = '$user', pass = '$pass' WHERE id = $id";
 
-                // Executa a query e verifica se foi bem sucedida
-                if (mysqli_query($link, $sql)) {
-                    $showForm = false;
-                    echo "registo atualizado com sucesso!";
-                    echo '<script>window.location.href = "listar_empregado.php";</script>';
-                    exit; // Adicionado para evitar que o restante do código seja executado após o redirecionamento
-                } else {
-                    echo "Erro ao atualizar o registo: " . mysqli_error($link);
-                }
-            }
+									// Executa a query e verifica se foi bem sucedida
+									if (mysqli_query($link, $sql)) {
+										$showForm = false;
+										echo "registo atualizado com sucesso!";
+										echo '<script>window.location.href = "listar_empregado.php";</script>';
+										exit; // Adicionado para evitar que o restante do código seja executado após o redirecionamento
+									} else {
+										echo "Erro ao atualizar o registo: " . mysqli_error($link);
+									}
+								}
 
-            // Verifica se o formulário deve ser exibido e se o ID está definido na url 
-            if ($showForm && isset($_GET['id'])) {
-				
-				
-                // Página de Edição
-                $id = $_GET['id'];
+								// Verifica se o formulário deve ser exibido e se o ID está definido na url 
+								if ($showForm && isset($_GET['id'])) {
+									
+									
+									// Página de Edição
+									$id = $_GET['id'];
 
-                // Recupera os dados do registo a ser editado
-                $query = "SELECT * FROM utilizadores WHERE id = $id";
-                $result = mysqli_query($link, $query);
+									// Recupera os dados do registo a ser editado
+									$query = "SELECT * FROM utilizadores WHERE id = $id";
+									$result = mysqli_query($link, $query);
 
-                // Verifica se a consulta foi bem-sucedida e exibe o formulário de edição
-                if ($result && $row = mysqli_fetch_assoc($result)) {
-                    ?>
+									// Verifica se a consulta foi bem-sucedida e exibe o formulário de edição
+									if ($result && $row = mysqli_fetch_assoc($result)) {
+										?>
 							<!-- Formulário de Edição -->
 							<form method="post" action="editar_empregado.php" id="editForm">
 								<section class="card">
@@ -235,7 +235,7 @@
 										<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Utilizador</label>
+												for="inputDefault">Utilizador <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input type="text" name="user" value="<?php echo $row['user']; ?>"
 													class="form-control">
@@ -243,7 +243,7 @@
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Palavra Passe</label>
+												for="inputDefault">Palavra Passe <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input type="text" name="pass" value="<?php echo $row['pass']; ?>" 
 												class="form-control">

@@ -184,7 +184,7 @@
                     <div class="right-wrapper text-end">
                         <ol class="breadcrumbs">
                             <li>
-                                <a href="admin.php">
+                                <a href="admin.html">
                                     <i class="bx bx-home-alt"></i>
                                 </a>
                             </li>
@@ -199,9 +199,9 @@
                     </div>
                 </header>
                 <?php
-								//conexão com a base de dados 
-								include "DBConnection.php"; echo "<br>";
-							?>
+                    //conexão com a base de dados 
+					include "DBConnection.php"; echo "<br>";
+				?>
                 <!-- start: page -->
                 <section class="card">
                     <!-- Cabeçalho da tabela -->
@@ -232,24 +232,24 @@
                                 </div>
 
                                 <?php
-                // Incluir a conexão com o banco de dados
-                include "DBConnection.php";
+                                    // Incluir a conexão com o banco de dados
+                                    include "DBConnection.php";
 
-                // Consulta SQL padrão
-                $query = "SELECT * FROM servicos";
+                                    // Consulta SQL padrão
+                                    $query = "SELECT * FROM servicos";
 
-                // Se o filtro estiver definido, adicione a condição WHERE na consulta SQL
-                if(isset($_POST['filter-by']) && $_POST['filter-by'] != "" && $_POST['filter-by'] != "all") {
-                    $filtro = $_POST['filter-by'];
-                    $query .= " WHERE empregado_id = '$filtro'";
-                }
+                                    // Se o filtro estiver definido, adicione a condição WHERE na consulta SQL
+                                    if(isset($_POST['filter-by']) && $_POST['filter-by'] != "" && $_POST['filter-by'] != "all") {
+                                        $filtro = $_POST['filter-by'];
+                                        $query .= " WHERE empregado_id = '$filtro'";
+                                    }
 
-                // Adicione a cláusula ORDER BY para ordenar os resultados
-                $query .= " ORDER BY idos";
+                                    // Adicione a cláusula ORDER BY para ordenar os resultados
+                                    $query .= " ORDER BY idos";
 
-                // Executa a consulta SQL
-                $result = mysqli_query($link, $query);
-            ?>
+                                    // Executa a consulta SQL
+                                    $result = mysqli_query($link, $query);
+                                ?>
 
                                 <form method="post" action="">
                                     <div class="form-group">
@@ -259,17 +259,21 @@
                                             <option value="" disabled selected>Empregado</option>
                                             <option value="all">Todos</option>
                                             <?php
-                            // Consulta SQL para selecionar todos os estados distintos da tabela
-                            $qry = "SELECT DISTINCT empregado_id FROM servicos";
-                            // Executa a consulta SQL e armazena o resultado
-                            $result_states = mysqli_query($link, $qry);
-                            // Loop para exibir opções baseadas nos resultados da consulta
-                            while ($row_state = mysqli_fetch_assoc($result_states)) {
-                                $empregado = htmlspecialchars($row_state['empregado_id']);
-                                // Opção do menu suspenso
-                                echo "<option value='$empregado'>$empregado</option>";
-                            }
-                        ?>
+                                                // Consulta SQL para selecionar todos os estados distintos da tabela
+                                                $qry = "SELECT DISTINCT servicos.empregado_id, utilizadores.user 
+                                                FROM servicos
+                                                JOIN utilizadores ON servicos.empregado_id = utilizadores.id";
+                                                // Executa a consulta SQL e armazena o resultado
+                                                $result_states = mysqli_query($link, $qry);
+                                                // Loop para exibir opções baseadas nos resultados da consulta
+                                                while ($row_state = mysqli_fetch_assoc($result_states)) {
+                                                    //htmlspecialchars é para converter os caracteres especiais para html
+                                                    $empregado_id = htmlspecialchars($row_state['empregado_id']);
+                                                    $empregado_nome = htmlspecialchars($row_state['user']);
+                                                    // Opção do menu suspenso
+                                                    echo "<option value='$empregado_id'>$empregado_nome</option>";
+                                                }
+                                            ?>
                                         </select>
                                         <br>
                                         <button type="submit" class="btn btn-primary">Filtrar</button>
@@ -372,7 +376,7 @@
 
                                             <td class="actions text-left">
                                                 <!-- Link para edição -->
-                                                <a href="editar_servicos.php?id=<?php echo $row['idos']; ?>"
+                                                <a href="editar_servico.php?id=<?php echo $row['idos']; ?>"
                                                     class="btn btn-sm btn-sm-custom" title="Editar">
                                                     <i class="fas fa-pencil-alt" style="color: black;"></i>
                                                 </a>

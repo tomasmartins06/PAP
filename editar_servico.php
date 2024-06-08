@@ -160,7 +160,7 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Editar Peças</h2>
+					<h2>Listar Serviço</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
@@ -170,9 +170,9 @@
 								</a>
 							</li>
 
-							<li><span>Menu Peças</span></li>
-							<li><span>Inserir Peças</span></li>
-							<li><span>Editar Peças</span></li>
+							<li><span>Menu Serviços</span></li>
+							<li><span>Inserir Serviços</span></li>
+							<li><span>Editar Serviços</span></li>
 
 						</ol>
 
@@ -186,156 +186,221 @@
 							<br><br>
 
 							<?php
-								// Inclui o arquivo de conexão com a base de dados
 								include 'DBConnection.php';
 
-								// Define o sinalizador para mostrar ou não o formulário
-								$showForm = true;
-
-								// Verifica se o formulário foi enviado e se o ID está definido
-								if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-									// Processa a edição
-									$id = $_POST['id'];
-									$fnome = $_POST["nome"];
+								if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idos'])) {
+									$idos = $_POST['idos'];
+									$fcliente_id = $_POST["cliente_id"];
+									$fempregado_id = $_POST["empregado_id"];
+									$feletrodomestico_id = $_POST["eletrodomestico_id"];
 									$fdescricao = $_POST["descricao"];
-									$fquantidade = $_POST["quantidade"];
-									$fpreco = $_POST["preco"];
-									$fid_fornecedor = $_POST["fornecedor"]; // Certifique-se de que o campo está correto
+									$festado = $_POST["estado"];
+									$fpecas_id = implode(',', $_POST["pecas"]);
+									$fpreco_mobra = $_POST["preco_mobra"];
+									$fpreco_total = $_POST["preco_total"];
 
-									// Query SQL para atualizar o registo com base no ID
-									$sql = "UPDATE pecas SET nome = '$fnome', descricao = '$fdescricao', quantidade = '$fquantidade', preco = '$fpreco', id_fornecedor = '$fid_fornecedor' WHERE idp = '$id'";
+									$sql = "UPDATE servicos SET 
+											cliente_id = '$fcliente_id', 
+											empregado_id = '$fempregado_id', 
+											eletrodomestico_id = '$feletrodomestico_id', 
+											descricao = '$fdescricao', 
+											estado = '$festado', 
+											pecas_id = '$fpecas_id', 
+											preco_mobra = '$fpreco_mobra', 
+											preco_total = '$fpreco_total' 
+											WHERE idos = '$idos'";
 
-									// Executa a query e verifica se foi bem sucedida
 									if (mysqli_query($link, $sql)) {
-										$showForm = false;
 										echo "Registo atualizado com sucesso!";
-										echo '<script>window.location.href = "listar_peca.php";</script>';
-										exit; // Adicionado para evitar que o restante do código seja executado após o redirecionamento
+										echo '<script>window.location.href = "listar_servico.php";</script>';
+										exit;
 									} else {
 										echo "Erro ao atualizar o registo: " . mysqli_error($link);
 									}
 								}
 
-								// Verifica se o formulário deve ser exibido e se o ID está definido na URL
-								if ($showForm && isset($_GET['id'])) {
-									// Página de Edição
+								if (isset($_GET['id'])) {
 									$id = $_GET['id'];
-
-									// Recupera os dados do registo a ser editado
-									$query = "SELECT * FROM pecas WHERE idp = '$id'";
+									$query = "SELECT * FROM servicos WHERE idos = '$id'";
 									$result = mysqli_query($link, $query);
 
-									// Verifica se a consulta foi bem-sucedida e exibe o formulário de edição
 									if ($result && $row = mysqli_fetch_assoc($result)) {
-							?>
-							
-							<!-- Formulário de Edição -->
-							<form method="post" action="editar_peca.php" id="editForm">
+								?>
+
+							<form method="post" action="editar_servico.php" id="editForm">
 								<section class="card">
 									<div class="card-body">
-										<!-- Campos do formulário preenchidos com os dados do registo -->
-										<input type="hidden" name="id" value="<?php echo $row['idp']; ?>">
+										<input type="hidden" name="idos" value="<?php echo $row['idos']; ?>">
+										<!-- Proprietário do Eletrodoméstico -->
 										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Nome <span style="color: red;">*</span></label>
+											<label class="col-lg-3 control-label text-lg-end pt-2">Proprietário do Eletrodoméstico <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
-												<input type="text" name="nome" value="<?php echo $row['nome']; ?>"
-													class="form-control">
-											</div>
-										</div>
-
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="quantityInput">Quantidade <span style="color: red;">*</span></label>
-											<div class="col-lg-6 d-flex">
-												<input id="quantityInput" name="quantidade" type="number"
-													class="form-control" readonly="readonly"
-													value="<?php echo isset($row['quantidade']) ? $row['quantidade'] : 0; ?>">
-												<div class="btn-group-vertical ms-2">
-													<button type="button" class="btn spinner-up btn-xs btn-default">
-														<i class="fas fa-angle-up"></i>
-													</button>
-													<button type="button" class="btn spinner-down btn-xs btn-default">
-														<i class="fas fa-angle-down"></i>
-													</button>
-												</div>
-											</div>
-										
-										<script>
-											document.addEventListener('DOMContentLoaded', (event) => {
-												const inputQuantidade = document.getElementById('quantityInput');
-												const botaoIncremento = document.querySelector('.spinner-up');
-												const botaoDecremento = document.querySelector('.spinner-down');
-												botaoIncremento.addEventListener('click', () => {
-													let valorAtual = parseInt(inputQuantidade.value, 10);
-													inputQuantidade.value = valorAtual + 1;
-												});
-												botaoDecremento.addEventListener('click', () => {
-													let valorAtual = parseInt(inputQuantidade.value, 10);
-													if (valorAtual > 0) {
-														inputQuantidade.value = valorAtual - 1;
-													}
-												});
-											});
-										</script>
-										</div>
-
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Preço <span style="color: red;">*</span></label>
-											<div class="col-lg-6">
-												<input type="text" name="preco" value="<?php echo $row['preco']; ?>"
-													class="form-control">
-											</div>
-										</div>
-
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Fornecedor <span style="color: red;">*</span></label>
-											<div class="col-lg-6">
-												<select data-plugin-selectTwo name="fornecedor"
-													class="form-control populate">
-													<?php
-														// Consulta para obter os fornecedores
-														$qry = "SELECT * FROM fornecedores ORDER BY idf";
-														$fornecedor_result = mysqli_query($link, $qry);
-
-														// Loop para criar as opções do select
-														while ($fornecedor_row = mysqli_fetch_array($fornecedor_result)) {
-															// Verificação para definir a opção selecionada
-															$selected = (isset($row['id_fornecedor']) && $fornecedor_row['idf'] == $row['id_fornecedor']) ? 'selected' : '';
-															echo "<option value='{$fornecedor_row['idf']}' $selected>{$fornecedor_row['nome']}</option>";
-														}
-													?>
+												<select name="cliente_id" class="form-control custom-select-height"
+													data-plugin-multiselect
+													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "allSelectedText": "Todos Selecionados", "nonSelectedText": "Nenhum Proprietário Selecionado" }'>
+													<optgroup label="Clientes">
+														<?php
+															$qry = "SELECT * FROM clientes ORDER BY idc";
+															$clientes_result = mysqli_query($link, $qry);
+															while ($cliente_row = mysqli_fetch_array($clientes_result)) {
+																$selected = ($cliente_row['idc'] == $row['cliente_id']) ? 'selected' : '';
+														?>
+														<option value="<?php echo $cliente_row['idc']; ?>"
+															<?php echo $selected; ?>>
+															<?php echo $cliente_row['nome']; ?>
+														</option>
+														<?php } ?>
+													</optgroup>
 												</select>
 											</div>
 										</div>
-
-										
+										<!-- Empregado -->
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Descrição</label>
+												for="inputDefault">Empregado <span style="color: red;">*</span> </label>
 											<div class="col-lg-6">
-												<textarea type="text" name="descricao"
-													value="<?php echo $row['descricao']; ?>" class="form-control" rows="3" ></textarea>
+												<select name="empregado_id" class="form-control custom-select-height"
+													data-plugin-multiselect
+													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "nonSelectedText": "Nenhum Empregado Selecionado" }'>
+													<?php
+														$qry = "SELECT * FROM utilizadores ORDER BY id";
+														$empregados_result = mysqli_query($link, $qry);
+														while ($user_row = mysqli_fetch_array($empregados_result)) {
+															$selected = ($user_row['id'] == $row['empregado_id']) ? 'selected' : '';
+													?>
+													<option value="<?php echo $user_row['id']; ?>"
+														<?php echo $selected; ?>>
+														<?php echo $user_row['user']; ?>
+													</option>
+													<?php } ?>
+												</select>
 											</div>
 										</div>
-										
-										
-									</div>
-									<footer class="card-footer d-flex justify-content-end mt-3">
-										<!-- Botão para enviar o formulário de edição -->
-										<button type="submit" class="btn btn-primary">Guardar</button>
-									</footer>
+										<!-- Eletrodoméstico -->
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2">Eletrodoméstico <span
+													style="color: red;">*</span></label>
+											<div class="col-lg-6">
+												<select name="eletrodomestico_id"
+													class="form-control custom-select-height" data-plugin-multiselect
+													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "nonSelectedText": "Nenhum Eletrodoméstico Selecionado" }'>
+													<optgroup label="Eletrodomésticos">
+														<?php
+															$qry = "SELECT * FROM eletrodomesticos JOIN clientes ON eletrodomesticos.idc = clientes.idc ORDER BY eletrodomesticos.ide";
+															$eletrodomesticos_result = mysqli_query($link, $qry);
+															while ($eletrodomestico_row = mysqli_fetch_array($eletrodomesticos_result)) {
+																$selected = ($eletrodomestico_row['ide'] == $row['eletrodomestico_id']) ? 'selected' : '';
+														?>
+														<option value="<?php echo $eletrodomestico_row['ide']; ?>"
+															<?php echo $selected; ?>>
+															<?php echo "referencia: " . $eletrodomestico_row['referencia'] . " - Eletrodoméstico: " . $eletrodomestico_row['eletrodomestico'] . " - Proprietário: " . $eletrodomestico_row['nome']; ?>
+														</option>
+														<?php } ?>
+													</optgroup>
+												</select>
+											</div>
+										</div>
+										<!-- Estado -->
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Estado <span style="color: red;">*</span></label>
+											<div class="col-lg-6">
+												<select name="estado" class="form-control custom-select-height"
+													data-plugin-multiselect
+													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "nonSelectedText": "Nenhum Estado Selecionado" }'>
+													<?php
+														$qry = "SELECT * FROM estado ORDER BY idt";
+														$estado_result = mysqli_query($link, $qry);
+														while ($estado_row = mysqli_fetch_array($estado_result)) {
+															$selected = ($estado_row['idt'] == $row['estado']) ? 'selected' : '';
+													?>
+													<option value="<?php echo $estado_row['idt']; ?>"
+														<?php echo $selected; ?>>
+														<?php echo $estado_row['estado']; ?>
+													</option>
+													<?php } ?>
+												</select>
+											</div>
+										</div>
+										<!-- Peças -->
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2">Peças</label>
+											<div class="col-lg-6">
+												<select name="pecas[]" id="pecas"
+													class="form-control custom-select-height" multiple="multiple"
+													data-plugin-multiselect
+													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "nonSelectedText": "Nenhuma Peça Selecionada" }'>
+													<optgroup label="Peças Disponíveis">
+														<?php
+															$qry = "SELECT * FROM pecas ORDER BY idp";
+															$pecas_result = mysqli_query($link, $qry);
+															while ($pecas_row = mysqli_fetch_array($pecas_result)) {
+																$selected = (in_array($pecas_row['idp'], explode(',', $row['pecas_id']))) ? 'selected' : '';
+														?>
+														<option value="<?php echo $pecas_row['idp']; ?>"
+															<?php echo $selected; ?>>
+															<?php echo $pecas_row['nome'] . " - " .  $pecas_row['preco'] . "€"; ?>
+														</option>
+														<?php } ?>
+													</optgroup>
+												</select>
+											</div>
+										</div>
+										<!-- Descrição -->
+										<div class="form-group row pb-3">
+											<label class="col-lg-3 control-label text-lg-end pt-2">Descrição</label>
+											<div class="col-lg-6">
+												<textarea name="descricao" class="form-control" rows="3"
+													id="textareaDefault"><?php echo $row['descricao']; ?></textarea>
+											</div>
+										</div>
+										<!-- Preço de Mão de Obra -->
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Preço de Mão de Obra</label>
+											<div class="col-lg-6">
+												<input name="preco_mobra" id="preco_mobra" type="number"
+													class="form-control" value="<?php echo $row['preco_mobra']; ?>">
+											</div>
+										</div>
+										<script>
+											document.addEventListener('DOMContentLoaded', function() {
+												const pecasSelect = document.getElementById('pecas');
+												const precoMobraInput = document.getElementById('preco_mobra');
+												const precoTotalInput = document.getElementById('preco_total');
+
+												function calcularPrecoTotal() {
+													let precoMobra = parseFloat(precoMobraInput.value) || 0;
+													let precoPecas = Array.from(pecasSelect.selectedOptions).reduce((total, option) => total +
+														parseFloat(option.value), 0);
+													let precoTotal = precoMobra + precoPecas;
+													precoTotalInput.value = precoTotal.toFixed(2) + '€';
+												}
+												pecasSelect.addEventListener('change', calcularPrecoTotal);
+												precoMobraInput.addEventListener('input', calcularPrecoTotal);
+											});
+										</script>
+										<!-- Preço Total -->
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Preço Total</label>
+											<div class="col-lg-6">
+												<input name="preco_total" id="preco_total" type="number"
+													class="form-control" placeholder="€"
+													value="<?php echo $row['preco_total']; ?>" readonly="readonly">
+
+											</div>
+										</div>
+										<footer class="card-footer d-flex justify-content-end">
+											<button type="submit" class="btn btn-primary">Guardar</button>
+										</footer>
 								</section>
 							</form>
 							<?php
-									}
-								
+									} 
 								}
-								// Fecha a conexão com o banco de dados
 								mysqli_close($link);
-								?>
+							?>
 
 						</div>
 					</div>
