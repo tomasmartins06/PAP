@@ -170,9 +170,9 @@
 								</a>
 							</li>
 
-							<li><span>Menu Clientes</span></li>
-							<li><span>Inserir Clientes</span></li>
-							<li><span>Editar Clientes</span></li>
+							<li><span>Menu Eletrodomésticos</span></li>
+							<li><span>Inserir Eletrodoméstico</span></li>
+							<li><span>Editar Eletrodoméstico</span></li>
 
 						</ol>
 
@@ -202,9 +202,10 @@
 									$fmodelo = $_POST["modelo"];
 									$freferencia = $_POST["referencia"];
 									$fobservacoes = $_POST["observacoes"];
+									$idc = $_POST["idc"];
 
 									// Query SQL para atualizar o registo com base no ID
-									$sql = "UPDATE eletrodomesticos SET gama = '$fgama', eletrodomestico = '$feletrodomestico', marca = '$fmarca', modelo = '$fmodelo', referencia = '$freferencia', observacoes = '$fobservacoes' WHERE ide = $id";
+									$sql = "UPDATE eletrodomesticos SET gama = '$fgama', eletrodomestico = '$feletrodomestico', marca = '$fmarca', modelo = '$fmodelo', referencia = '$freferencia', observacoes = '$fobservacoes', idc = '$idc' WHERE ide = $id";
 
 									// Executa a query e verifica se foi bem sucedida
 									if (mysqli_query($link, $sql)) {
@@ -228,63 +229,89 @@
 
 									// Verifica se a consulta foi bem-sucedida e exibe o formulário de edição
 									if ($result && $row = mysqli_fetch_assoc($result)) {
-							?>
-					<!-- Formulário de Edição -->
-					<form method="post" action="editar_produto.php" id="editForm">
-						<section class="card">
-							<div class="card-body">
-								<!-- Campos do formulário preenchidos com os dados do registo -->
-								<input type="hidden" name="id" value="<?php echo $row['ide']; ?>">
-								<div class="form-group row pb-4">
-									<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Gama</label>
-									<div class="col-lg-6">
-										<input type="text" name="gama" value="<?php echo $row['gama']; ?>" class="form-control">
-									</div>
-								</div>
-								<div class="form-group row pb-4">
-									<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Eletrodomestico</label>
-									<div class="col-lg-6">
-										<input type="text" name="eletrodomestico" value="<?php echo $row['eletrodomestico']; ?>" class="form-control">
-									</div>
-								</div>
-								<div class="form-group row pb-4">
-									<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Marca</label>
-									<div class="col-lg-6">
-										<input type="text" name="marca" value="<?php echo $row['marca']; ?>" class="form-control">
-									</div>
-								</div>
-								<div class="form-group row pb-4">
-									<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Modelo</label>
-									<div class="col-lg-6">
-										<input type="text" name="modelo" value="<?php echo $row['modelo']; ?>" class="form-control">
-									</div>
-								</div>
-								<div class="form-group row pb-4">
-									<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Referencia</label>
-									<div class="col-lg-6">
-										<input type="text" name="referencia" value="<?php echo $row['referencia']; ?>" class="form-control">
-									</div>
-								</div>
-								<div class="form-group row pb-4">
-									<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Observações</label>
-									<div class="col-lg-6">
-										<textarea name="observacoes" rows="3" class="form-control"><?php echo $row['observacoes']; ?></textarea>
-									</div>
-								</div>
-							</div>
-							<footer class="card-footer d-flex justify-content-end mt-3">
-								<!-- Botão para enviar o formulário de edição -->
-								<button type="submit" class="btn btn-primary">Guardar</button>
-							</footer>
-						</section>
-					</form>
-					<?php
+								?>
+								<!-- Formulário de Edição -->
+								<form method="post" action="editar_produto.php" id="editForm">
+									<section class="card">
+										<div class="card-body">
+											<!-- Campos do formulário preenchidos com os dados do registo -->
+											<input type="hidden" name="id" value="<?php echo $row['ide']; ?>">
+											<div class="form-group row pb-4">
+												<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Proprietário do Eletrodomestico <span style="color: red;">*</span> </label>
+												<div class="col-lg-6">
+													<select data-plugin-selectTwo name="idc" class="form-control populate">
+														<?php
+														$qry = "SELECT * FROM clientes ORDER BY idc";
+														$resultClientes = mysqli_query($link, $qry);
+														while ($rowCliente = mysqli_fetch_array($resultClientes)) {
+														?>
+														<option value="<?php echo $rowCliente['idc']; ?>" <?php if($rowCliente['idc'] == $row['idc']) echo 'selected'; ?>>
+															<?php echo $rowCliente['nome']; ?>
+														</option>
+														<?php } ?>
+													</select>
+												</div>
+											</div>
+											<div class="form-group row pb-4">
+												<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Gama <span style="color: red;">*</span></label>
+												<div class="col-lg-6">
+												<select data-plugin-selectTwo name="gama" class="form-control populate">
+														<?php
+														$qry = "SELECT * FROM gama ORDER BY idi";
+														$resultgama = mysqli_query($link, $qry);
+														while ($rowGama = mysqli_fetch_array($resultgama)) {
+														?>
+														<option value="<?php echo $rowGama['gama']; ?>" <?php if($rowGama['gama'] == $row['gama']) echo 'selected'; ?>>
+															<?php echo $rowGama['gama']; ?>
+														</option>
+														<?php } ?>
+													</select>
+												</div>
+											</div>
+											<div class="form-group row pb-4">
+												<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Eletrodomestico <span style="color: red;">*</span></label>
+												<div class="col-lg-6">
+													<input type="text" name="eletrodomestico" value="<?php echo $row['eletrodomestico']; ?>" class="form-control">
+												</div>
+											</div>
+											<div class="form-group row pb-4">
+												<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Marca <span style="color: red;">*</span></label>
+												<div class="col-lg-6">
+													<input type="text" name="marca" value="<?php echo $row['marca']; ?>" class="form-control">
+												</div>
+											</div>
+											<div class="form-group row pb-4">
+												<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Modelo <span style="color: red;">*</span></label>
+												<div class="col-lg-6">
+													<input type="text" name="modelo" value="<?php echo $row['modelo']; ?>" class="form-control">
+												</div>
+											</div>
+											<div class="form-group row pb-4">
+												<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Referencia <span style="color: red;">*</span></label>
+												<div class="col-lg-6">
+													<input type="text" name="referencia" value="<?php echo $row['referencia']; ?>" class="form-control">
+												</div>
+											</div>
+											<div class="form-group row pb-4">
+												<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Observações</label>
+												<div class="col-lg-6">
+													<textarea name="observacoes" rows="3" class="form-control"><?php echo $row['observacoes']; ?></textarea>
+												</div>
+											</div>
+										</div>
+										<footer class="card-footer d-flex justify-content-end mt-3">
+											<!-- Botão para enviar o formulário de edição -->
+											<button type="submit" class="btn btn-primary">Guardar</button>
+										</footer>
+									</section>
+								</form>
+								<?php
 									}
-			
-			}
-			// Fecha a conexão com o banco de dados
-			mysqli_close($link);
-			?>
+								}
+								// Fecha a conexão com o banco de dados
+								mysqli_close($link);
+								?>
+
 			
 						</div>
 					</div>

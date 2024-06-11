@@ -351,13 +351,14 @@
 										<footer class="card-footer d-flex justify-content-end">
 											<button name="bt" class="btn btn-primary mx-2">Introduzir</button>
 											<button type="reset" class="btn btn-default mx-2">Limpar</button>
-											<button type="reset" class=" btn btn-info mx-2">Gerar código QR</button>
+											<button type="submit" name="gerar_qr" class="btn btn-info mx-2">Gerar código QR</button>
 										</footer>
 								</section>
 
 							</form>
 
 							<?php
+							
 								$fidos = $fcliente_id = $fempregado_id = $feletrodomestico_id = $fdescricao = $festado = $fpecas_id = $fpreco_mobra = $fpreco_total = ''; // Inicialize as variáveis
 
 								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
@@ -402,7 +403,7 @@
 										}
 									}
 								}
-								?>
+							?>
 						</div>
 			</section>
 

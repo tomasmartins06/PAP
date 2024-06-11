@@ -252,7 +252,7 @@
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="inputDefault">Email <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
-												<input type="text" name="email" value="<?php echo $row['email']; ?>" 
+												<input type="email" name="email" value="<?php echo $row['email']; ?>" 
 												class="form-control">
 											</div>
 										</div>

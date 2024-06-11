@@ -201,7 +201,7 @@
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="inputDefault">Email</label>
 											<div class="col-lg-6">
-												<input name="email" type="text" class="form-control">
+												<input name="email" type="email" class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
@@ -223,47 +223,47 @@
 			    // PHP para processar o formulário e inserir dados no banco de dados
 				$fnome = $ftelefone = $femail = $fmorada = ''; // Inicia as variáveis
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
-    // Verificar se todas as caixas foram preenchidas
-    if (empty($_POST["nome"]) || empty($_POST["telefone"]) || empty($_POST["morada"])) {
-		//Exibe o alerta se nao estiver as caixas todas preenchidas
-        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Erro!</strong> Preencha todos os campos do formulário.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-              </div>';
-    } else {
-        // Processar o formulário se todas as caixas foram preenchidas
-        $fnome = $_POST["nome"];
-        $ftelefone = $_POST["telefone"];
-        $femail = $_POST["email"];
-        $fmorada = $_POST["morada"];
+					if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
+						// Verificar se todas as caixas foram preenchidas
+						if (empty($_POST["nome"]) || empty($_POST["telefone"]) || empty($_POST["morada"])) {
+							//Exibe o alerta se nao estiver as caixas todas preenchidas
+							echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									<strong>Erro!</strong> Preencha todos os campos do formulário.
+									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+								</div>';
+						} else {
+							// Processar o formulário se todas as caixas foram preenchidas
+							$fnome = $_POST["nome"];
+							$ftelefone = $_POST["telefone"];
+							$femail = $_POST["email"];
+							$fmorada = $_POST["morada"];
 
-        
+							
 
-        // Verificar se o próximo valor de idc já existe na tabela
-        $result = mysqli_query($link, "SELECT MAX(idc) AS max_idc FROM clientes");
-        $row = mysqli_fetch_assoc($result);
-        $proximo_idc = $row['max_idc'] + 1;
+							// Verificar se o próximo valor de idc já existe na tabela
+							$result = mysqli_query($link, "SELECT MAX(idc) AS max_idc FROM clientes");
+							$row = mysqli_fetch_assoc($result);
+							$proximo_idc = $row['max_idc'] + 1;
 
-        // Inserir os dados para a base de dados
-        $query = mysqli_query($link, "INSERT INTO clientes (idc, nome, telefone, email, morada) 
-        VALUES ('$proximo_idc', '$fnome', '$ftelefone', '$femail', '$fmorada')");
+							// Inserir os dados para a base de dados
+							$query = mysqli_query($link, "INSERT INTO clientes (idc, nome, telefone, email, morada) 
+							VALUES ('$proximo_idc', '$fnome', '$ftelefone', '$femail', '$fmorada')");
 
-        // Exibir um alert se foi bem inserido ou não
-        if ($query) {
-            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-                  </div>';
-        } else {
-            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Erro!</strong> Houve um problema ao inserir os dados.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-                  </div>';
-        }
-    }
-}
-?>
+							// Exibir um alert se foi bem inserido ou não
+							if ($query) {
+								echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+										<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
+										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+									</div>';
+							} else {
+								echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+										<strong>Erro!</strong> Houve um problema ao inserir os dados.
+										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+									</div>';
+							}
+						}
+					}
+					?>
 
 						</div>
 			</section>

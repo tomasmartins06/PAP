@@ -201,7 +201,7 @@
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="inputDefault">Email <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
-												<input name="email" type="text" class="form-control">
+												<input name="email" type="email" class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">

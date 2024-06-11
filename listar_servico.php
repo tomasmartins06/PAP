@@ -381,7 +381,7 @@
                                                     <i class="fas fa-pencil-alt" style="color: black;"></i>
                                                 </a>
                                                 <!-- Formulário para exclusão com alerta de confirmação -->
-                                                <form method="post" action="apagarproduto.php" style="display:inline;"
+                                                <form method="post" action="apagarservico.php" style="display:inline;"
                                                     onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
                                                     <input type="hidden" name="id" value="<?php echo $row['idos']; ?>">
                                                     <button type="submit" class="btn btn-sm btn-sm-custom delete-btn"

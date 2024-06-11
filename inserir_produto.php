@@ -190,7 +190,7 @@
 									<div class="card-body">
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Proprietário de Eletrodomestico <span style="color: red;">*</span> </label>
+												for="inputDefault">Proprietário de Eletrodoméstico <span style="color: red;">*</span> </label>
 											<div class="col-lg-6">
 												<select data-plugin-selectTwo name="idc" class="form-control populate">
 												<option disabled selected>Selecione o proprietário do Eletrodoméstico</option>
@@ -302,8 +302,7 @@
 									<footer class="card-footer d-flex justify-content-end">
 										<button name="bt" class="btn btn-primary mx-2">Introduzir</button>
 										<button type="reset" class="btn btn-default mx-2">Limpar</button>
-										<button type="reset" class="mb-1 mt-1 me-1 btn btn-info">Gerar código
-											QR</button>
+										<button type="reset" class=" btn btn-info mx-2">Gerar código QR</button>
 									</footer>
 								</section>
 

@@ -160,7 +160,7 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Listar Serviço</h2>
+					<h2>Editar Serviço</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
@@ -322,12 +322,11 @@
 												</select>
 											</div>
 										</div>
-										<!-- Peças -->
+										<!-- Formulário HTML -->
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2">Peças</label>
 											<div class="col-lg-6">
-												<select name="pecas[]" id="pecas"
-													class="form-control custom-select-height" multiple="multiple"
+												<select name="pecas[]" id="pecas" class="form-control custom-select-height" multiple="multiple"
 													data-plugin-multiselect
 													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "nonSelectedText": "Nenhuma Peça Selecionada" }'>
 													<optgroup label="Peças Disponíveis">
@@ -337,8 +336,7 @@
 															while ($pecas_row = mysqli_fetch_array($pecas_result)) {
 																$selected = (in_array($pecas_row['idp'], explode(',', $row['pecas_id']))) ? 'selected' : '';
 														?>
-														<option value="<?php echo $pecas_row['idp']; ?>"
-															<?php echo $selected; ?>>
+														<option value="<?php echo $pecas_row['idp']; ?>" data-preco="<?php echo $pecas_row['preco']; ?>" <?php echo $selected; ?>>
 															<?php echo $pecas_row['nome'] . " - " .  $pecas_row['preco'] . "€"; ?>
 														</option>
 														<?php } ?>
@@ -350,19 +348,17 @@
 										<div class="form-group row pb-3">
 											<label class="col-lg-3 control-label text-lg-end pt-2">Descrição</label>
 											<div class="col-lg-6">
-												<textarea name="descricao" class="form-control" rows="3"
-													id="textareaDefault"><?php echo $row['descricao']; ?></textarea>
+												<textarea name="descricao" class="form-control" rows="3" id="textareaDefault"><?php echo $row['descricao']; ?></textarea>
 											</div>
 										</div>
 										<!-- Preço de Mão de Obra -->
 										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Preço de Mão de Obra</label>
+											<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Preço de Mão de Obra</label>
 											<div class="col-lg-6">
-												<input name="preco_mobra" id="preco_mobra" type="number"
-													class="form-control" value="<?php echo $row['preco_mobra']; ?>">
+												<input name="preco_mobra" id="preco_mobra" type="number" class="form-control" value="<?php echo $row['preco_mobra']; ?>">
 											</div>
 										</div>
+										<!-- Script para calcular o preço total -->
 										<script>
 											document.addEventListener('DOMContentLoaded', function() {
 												const pecasSelect = document.getElementById('pecas');
@@ -371,29 +367,54 @@
 
 												function calcularPrecoTotal() {
 													let precoMobra = parseFloat(precoMobraInput.value) || 0;
-													let precoPecas = Array.from(pecasSelect.selectedOptions).reduce((total, option) => total +
-														parseFloat(option.value), 0);
+													let precoPecas = Array.from(pecasSelect.selectedOptions).reduce((total, option) => total + parseFloat(option.getAttribute('data-preco')), 0);
 													let precoTotal = precoMobra + precoPecas;
-													precoTotalInput.value = precoTotal.toFixed(2) + '€';
+													precoTotalInput.value = precoTotal.toFixed(2);
 												}
+
 												pecasSelect.addEventListener('change', calcularPrecoTotal);
 												precoMobraInput.addEventListener('input', calcularPrecoTotal);
+
+												// Calculate initial total
+												calcularPrecoTotal();
 											});
 										</script>
 										<!-- Preço Total -->
 										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Preço Total</label>
+											<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Preço Total</label>
 											<div class="col-lg-6">
-												<input name="preco_total" id="preco_total" type="number"
-													class="form-control" placeholder="€"
-													value="<?php echo $row['preco_total']; ?>" readonly="readonly">
-
+												<input name="preco_total" id="preco_total" type="number" class="form-control" placeholder="€" value="<?php echo $row['preco_total']; ?>" readonly="readonly">
 											</div>
 										</div>
 										<footer class="card-footer d-flex justify-content-end">
 											<button type="submit" class="btn btn-primary">Guardar</button>
+											<button type="button" class="btn btn-info mx-2" id="gerarQR" data-idos="<?php echo $row['idos']; ?>">Gerar código QR</button>
+    
+										</form>
+
+										<!-- Script JavaScript -->
+										<script>
+										document.getElementById('gerarQR').addEventListener('click', function() {
+											// Recuperar o ID do serviço
+											var idos = this.getAttribute('data-idos');
+
+											// Envie uma solicitação AJAX para gerar o código QR
+											var xhr = new XMLHttpRequest();
+											xhr.open('POST', 'gerar_qr.php');
+											xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+											xhr.onload = function() {
+												if (xhr.status === 200) {
+													// Exiba o código QR na página
+													document.getElementById('codigoQR').innerHTML = xhr.responseText;
+												}
+											};
+											xhr.send('idos=' + idos); // Passar o ID do serviço na solicitação
+										});
+
+										</script>
 										</footer>
+										<div id="codigoQR"></div>
+
 								</section>
 							</form>
 							<?php

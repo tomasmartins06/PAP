@@ -237,7 +237,7 @@
 										<input type="hidden" name="id" value="<?php echo $row['idc']; ?>">
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Nome</label>
+												for="inputDefault">Nome <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input type="text" name="nome" value="<?php echo $row['nome']; ?>"
 													class="form-control">
@@ -245,7 +245,7 @@
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Telefone</label>
+												for="inputDefault">Telefone <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input type="text" name="telefone"
 													value="<?php echo $row['telefone']; ?>" class="form-control">
@@ -255,13 +255,13 @@
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="inputDefault">Email</label>
 											<div class="col-lg-6">
-												<input type="text" name="email" value="<?php echo $row['email']; ?>"
+												<input type="email" name="email" value="<?php echo $row['email']; ?>"
 													class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Morada</label>
+												for="inputDefault">Morada <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
 												<input type="text" name="morada" value="<?php echo $row['morada']; ?>"
 													class="form-control">
@@ -275,11 +275,11 @@
 								</section>
 							</form>
 							<?php
-                } 
-            }
-            // Fecha a conexão com o banco de dados
-            mysqli_close($link);
-            ?>
+             			   } 
+								}
+								// Fecha a conexão com o banco de dados
+								mysqli_close($link);
+								?>
 						</div>
 					</div>
 				</div>
