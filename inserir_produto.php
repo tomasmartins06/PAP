@@ -302,7 +302,7 @@
 									<footer class="card-footer d-flex justify-content-end">
 										<button name="bt" class="btn btn-primary mx-2">Introduzir</button>
 										<button type="reset" class="btn btn-default mx-2">Limpar</button>
-										<button type="reset" class=" btn btn-info mx-2">Gerar código QR</button>
+										<!-- <button type="reset" class=" btn btn-info mx-2">Gerar código QR</button> -->
 									</footer>
 								</section>
 

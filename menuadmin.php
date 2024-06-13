@@ -1,16 +1,20 @@
 <nav id="menu" class="nav-main" role="navigation">
 
 	<ul class="nav nav-main">
+	<hr class="separator">
+		<div class="widget-header">
+			<h6>Geral<h6>
+		</div>
 		<li>
 			<a class="nav-link" href="Admin.php">
-				<i class="bx bx-home-alt" aria-hidden="true"></i>
+				<i class="fas fa-home" aria-hidden="true"></i>
 				<span>Dashboard</span>
 			</a>
 		</li>
 
 		<li class="nav-parent">
 			<a class="nav-link">
-				<i class="bx bx-collection" aria-hidden="true"></i>
+				<i class="fas fa-user-alt" aria-hidden="true"></i>
 				<span>Menu Clientes</span>
 			</a>
 			<ul class="nav nav-children">
@@ -32,7 +36,7 @@
 		</li>
 		<li class="nav-parent">
 			<a class="nav-link">
-				<i class="bx bx-collection" aria-hidden="true"></i>
+				<i class="fa-solid fa-blender-phone" aria-hidden="true"></i>
 				<span>Menu Eletrodomésticos</span>
 			</a>
 			<ul class="nav nav-children">
@@ -55,30 +59,7 @@
 
 		<li class="nav-parent">
 			<a class="nav-link">
-				<i class="bx bx-collection" aria-hidden="true"></i>
-				<span>Menu de Empregados</span>
-			</a>
-			<ul class="nav nav-children">
-				<li>
-					<a href="inserir_empregado.php">
-						Inserir Empregado
-					</a>
-				</li>
-
-			</ul>
-			<ul class="nav nav-children" >
-				<li>
-					<a href="listar_empregado.php">
-						Listar Empregado
-					</a>
-				</li>
-
-			</ul>
-		</li>
-
-		<li class="nav-parent">
-			<a class="nav-link">
-				<i class="bx bx-collection" aria-hidden="true"></i>
+				<i class="far fa-keyboard" aria-hidden="true"></i>
 				<span>Menu de Peças</span>
 			</a>
 			<ul class="nav nav-children">
@@ -89,7 +70,7 @@
 				</li>
 
 			</ul>
-			<ul class="nav nav-children" >
+			<ul class="nav nav-children">
 				<li>
 					<a href="listar_peca.php">
 						Listar Peças
@@ -99,32 +80,11 @@
 			</ul>
 
 		</li>
-		<li class="nav-parent">
-			<a class="nav-link">
-				<i class="bx bx-collection" aria-hidden="true"></i>
-				<span>Menu de Fornecedores</span>
-			</a>
-			<ul class="nav nav-children">
-				<li>
-					<a href="inserir_fornecedor.php">
-						Inserir Fornecedor
-					</a>
-				</li>
-
-			</ul>
-			<ul class="nav nav-children" >
-				<li>
-					<a href="listar_fornecedor.php">
-						Listar Fornecedores
-					</a>
-				</li>
-
-			</ul>
-		</li>
+		
 
 		<li class="nav-parent">
 			<a class="nav-link">
-				<i class="bx bx-collection" aria-hidden="true"></i>
+				<i class="fas fa-wrench" aria-hidden="true"></i>
 				<span>Menu de Serviços</span>
 			</a>
 			<ul class="nav nav-children">
@@ -135,10 +95,61 @@
 				</li>
 
 			</ul>
-			<ul class="nav nav-children" >
+			<ul class="nav nav-children">
 				<li>
 					<a href="listar_servico.php">
 						Listar Serviços
+					</a>
+				</li>
+
+			</ul>
+		</li>
+
+		<br><br><br>
+		<hr class="separator">
+		<div class="widget-header">
+			<h6>Admin<h6>
+		</div>
+		<li class="nav-parent">
+			<a class="nav-link">
+				<i class='fas fa-user-lock' aria-hidden="true"></i>
+				<span>Menu de Empregados</span>
+			</a>
+			<ul class="nav nav-children">
+				<li>
+					<a href="inserir_empregado.php">
+						Inserir Empregado
+					</a>
+				</li>
+
+			</ul>
+			<ul class="nav nav-children">
+				<li>
+					<a href="listar_empregado.php">
+						Listar Empregado
+					</a>
+				</li>
+	
+			</ul>
+		</li>
+		
+		<li class="nav-parent">
+			<a class="nav-link">
+				<i class="fas fa-user-friends" aria-hidden="true"></i>
+				<span>Menu de Fornecedores</span>
+			</a>
+			<ul class="nav nav-children">
+				<li>
+					<a href="inserir_fornecedor.php">
+						Inserir Fornecedor
+					</a>
+				</li>
+
+			</ul>
+			<ul class="nav nav-children">
+				<li>
+					<a href="listar_fornecedor.php">
+						Listar Fornecedores
 					</a>
 				</li>
 

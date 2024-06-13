@@ -218,7 +218,7 @@
 										echo "Erro ao atualizar o registo: " . mysqli_error($link);
 									}
 								}
-
+								
 								if (isset($_GET['id'])) {
 									$id = $_GET['id'];
 									$query = "SELECT * FROM servicos WHERE idos = '$id'";
@@ -386,34 +386,26 @@
 												<input name="preco_total" id="preco_total" type="number" class="form-control" placeholder="€" value="<?php echo $row['preco_total']; ?>" readonly="readonly">
 											</div>
 										</div>
+
+
+
 										<footer class="card-footer d-flex justify-content-end">
 											<button type="submit" class="btn btn-primary">Guardar</button>
 											<button type="button" class="btn btn-info mx-2" id="gerarQR" data-idos="<?php echo $row['idos']; ?>">Gerar código QR</button>
-    
-										</form>
+										</footer>
 
 										<!-- Script JavaScript -->
+										<!-- Script JavaScript -->
 										<script>
-										document.getElementById('gerarQR').addEventListener('click', function() {
-											// Recuperar o ID do serviço
-											var idos = this.getAttribute('data-idos');
+											document.getElementById('gerarQR').addEventListener('click', function() {
+												// Recuperar o ID do serviço
+												var idos = this.getAttribute('data-idos');
 
-											// Envie uma solicitação AJAX para gerar o código QR
-											var xhr = new XMLHttpRequest();
-											xhr.open('POST', 'gerar_qr.php');
-											xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-											xhr.onload = function() {
-												if (xhr.status === 200) {
-													// Exiba o código QR na página
-													document.getElementById('codigoQR').innerHTML = xhr.responseText;
-												}
-											};
-											xhr.send('idos=' + idos); // Passar o ID do serviço na solicitação
-										});
-
+												// Redirecionar para o arquivo "gerar_qr.php" com o ID do serviço como parâmetro
+												window.location.href = 'gerar_qr.php?idos=' + idos;
+											});
 										</script>
-										</footer>
-										<div id="codigoQR"></div>
+
 
 								</section>
 							</form>
