@@ -3,7 +3,7 @@
 	<ul class="nav nav-main">
 	<hr class="separator">
 		<li>
-			<a class="nav-link" href="Admin.php">
+			<a class="nav-link" href="user.php">
 				<i class="fas fa-home" aria-hidden="true"></i>
 				<span>Dashboard</span>
 			</a>

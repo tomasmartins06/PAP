@@ -183,55 +183,31 @@
                                     <div class="card-body" style="text-align: center;">
                                         <?php
                                             if (isset($_GET['idos'])) {
-                                                // Recupere o ID do serviço
-                                                $idos = $_GET['idos'];
-
-                                                // Texto que será codificado no código QR
+                                                $idos = htmlspecialchars($_GET['idos']);
                                                 $texto_qr = 'ID do Serviço: ' . $idos;
-
-                                                // Gerar o código QR como uma imagem
-                                                $qr_code = '<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' . urlencode($texto_qr) . '" alt="Código QR" style="width: 100%; max-width: 150px; height: auto;">';
-
-                                                // Retornar o código QR
-                                                echo $qr_code;
+                                                $qr_code_url = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' . urlencode($texto_qr);
+                                                echo '<img src="' . $qr_code_url . '" alt="Código QR" style="width: 100%; max-width: 150px; height: auto;">';
                                             } else {
                                                 echo 'ID do serviço não fornecido.';
                                             }
-                                        ?>
+                                            ?>
                                     </div>
+                                    <footer  class="card-footer d-flex justify-content-end mt-3">
+                                    
+                                     <button type="button" class="btn btn-primary" onclick="printQR()">Imprimir</button>
+                                   </footer>
                                 </section>
-                                <footer>
-                                    <button type="button" class="btn btn-primary" onclick="printQR()">Imprimir</button>
-                                </footer>
+                                
+                                
                             </form>
                         </div>
-                    </div>
-                </div>
-
-                <script>
-                    function printQR() {
-                        var qrCode = document.querySelector('img[alt="Código QR"]');
-                        var printWindow = window.open('', '_blank', 'width=80mm,height=auto');
-                        printWindow.document.write('<html><head><title>Print QR Code</title>');
-                        printWindow.document.write('<style>');
-                        printWindow.document.write('body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; width: 80mm; }');
-                        printWindow.document.write('img { width: 100%; max-width: 150px; height: auto; }');
-                        printWindow.document.write('</style>');
-                        printWindow.document.write('</head><body>');
-                        printWindow.document.write(qrCode.outerHTML);
-                        printWindow.document.write('</body></html>');
-                        printWindow.document.close();
-
-                        printWindow.focus(); // Needed for some browsers to properly load the content
-                        printWindow.onload = function() {
-                            printWindow.print();
-                            printWindow.close();
-                        };
-                    }
-                </script>
-
-                            </form>
-                        </div>
+                        <script>
+                        function printQR() {
+                            var idos = '<?php echo htmlspecialchars($_GET['idos']); ?>';
+                            var printWindow = window.open('imprimir_qr.php?idos=' + encodeURIComponent(idos), '_blank', 'width=80mm,height=auto');
+                            printWindow.focus();
+                        }
+                    </script>
                     </div>
                 </div>
 
