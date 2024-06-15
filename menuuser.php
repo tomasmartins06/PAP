@@ -1,7 +1,7 @@
 <nav id="menu" class="nav-main" role="navigation">
 
 	<ul class="nav nav-main">
-	<hr class="separator">
+		<hr class="separator">
 		<li>
 			<a class="nav-link" href="user.php">
 				<i class="fas fa-home" aria-hidden="true"></i>
@@ -50,7 +50,6 @@
 						Listar Produtos
 					</a>
 				</li>
-
 			</ul>
 		</li>
 
@@ -65,7 +64,6 @@
 						Inserir Peça
 					</a>
 				</li>
-
 			</ul>
 			<ul class="nav nav-children">
 				<li>
@@ -73,11 +71,8 @@
 						Listar Peças
 					</a>
 				</li>
-
 			</ul>
-
 		</li>
-		
 
 		<li class="nav-parent">
 			<a class="nav-link">
@@ -90,7 +85,6 @@
 						Inserir Serviço
 					</a>
 				</li>
-
 			</ul>
 			<ul class="nav nav-children">
 				<li>
@@ -98,11 +92,14 @@
 						Listar Serviços
 					</a>
 				</li>
-
+			</ul>
+			<ul class="nav nav-children">
+				<li>
+					<a href="ler_qr.php">
+						Ler QR
+					</a>
+				</li>
 			</ul>
 		</li>
-
-	
-
 	</ul>
 </nav>

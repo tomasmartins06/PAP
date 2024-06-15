@@ -98,8 +98,6 @@
 
                 <hr class="separator" />
 
-    
-
             </div>
 
             <script>
@@ -269,13 +267,14 @@
 
                                 ?>
 
-                                    <form method="post" action="">
-                                        <div class="form-group">
-                                            <label for="filter-by" class="form-label">Filtrar por:</label>
-                                            <select id="filter-by" class="form-control select-style-1 filter-by" name="filter-by">
-                                                <option value="" disabled selected>Gama</option>
-                                                <option value="all">Todos</option>
-                                                <?php
+                                <form method="post" action="">
+                                    <div class="form-group">
+                                        <label for="filter-by" class="form-label">Filtrar por:</label>
+                                        <select id="filter-by" class="form-control select-style-1 filter-by"
+                                            name="filter-by">
+                                            <option value="" disabled selected>Gama</option>
+                                            <option value="all">Todos</option>
+                                            <?php
                                                     // Consulta SQL para selecionar todos os estados distintos da tabela
                                                     $qry = "SELECT DISTINCT gama FROM eletrodomesticos";
                                                     // Executa a consulta SQL e armazena o resultado
@@ -287,14 +286,13 @@
                                                         echo "<option value='$estado'>$estado</option>";
                                                     }
                                                 ?>
-                                            </select>
-                                            <br>
-                                            <button type="submit" class="btn btn-primary">Filtrar</button>
-                                        </div>
+                                        </select>
                                         <br>
-                                    </form>
+                                        <button type="submit" class="btn btn-primary">Filtrar</button>
+                                    </div>
+                                    <br>
+                                </form>
 
-                         
                                 <table class="table table-bordered table-striped mb-0" id="datatable-editable">
                                     <thead>
                                         <tr>
@@ -366,164 +364,94 @@
             </section>
         </div>
 
-        <aside id="sidebar-right" class="sidebar-right">
-            <div class="nano">
-                <div class="nano-content">
-                    <a href="#" class="mobile-close d-md-none">
-                        Collapse <i class="fas fa-chevron-right"></i>
-                    </a>
-
-                    <div class="sidebar-right-wrapper">
-
-                        <div class="sidebar-widget widget-calendar">
-                            <h6>Upcoming Tasks</h6>
-                            <div data-plugin-datepicker data-plugin-skin="dark"></div>
-
-                            <ul>
-                                <li>
-                                    <time datetime="2021-04-19T00:00+00:00">04/19/2021</time>
-                                    <span>Company Meeting</span>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="sidebar-widget widget-friends">
-                            <h6>Friends</h6>
-                            <ul>
-                                <li class="status-online">
-                                    <figure class="profile-picture">
-                                        <img src="img/!sample-user.jpg" alt="Joseph Doe" class="rounded-circle">
-                                    </figure>
-                                    <div class="profile-info">
-                                        <span class="name">Joseph Doe Junior</span>
-                                        <span class="title">Hey, how are you?</span>
-                                    </div>
-                                </li>
-                                <li class="status-online">
-                                    <figure class="profile-picture">
-                                        <img src="img/!sample-user.jpg" alt="Joseph Doe" class="rounded-circle">
-                                    </figure>
-                                    <div class="profile-info">
-                                        <span class="name">Joseph Doe Junior</span>
-                                        <span class="title">Hey, how are you?</span>
-                                    </div>
-                                </li>
-                                <li class="status-offline">
-                                    <figure class="profile-picture">
-                                        <img src="img/!sample-user.jpg" alt="Joseph Doe" class="rounded-circle">
-                                    </figure>
-                                    <div class="profile-info">
-                                        <span class="name">Joseph Doe Junior</span>
-                                        <span class="title">Hey, how are you?</span>
-                                    </div>
-                                </li>
-                                <li class="status-offline">
-                                    <figure class="profile-picture">
-                                        <img src="img/!sample-user.jpg" alt="Joseph Doe" class="rounded-circle">
-                                    </figure>
-                                    <div class="profile-info">
-                                        <span class="name">Joseph Doe Junior</span>
-                                        <span class="title">Hey, how are you?</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-        </aside>
-    </section>
-
-    <section role="main" class="content-body">
-        <footer class="site-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6">
-                        <h4><a class="logo">
-                                <img src="img/faviicon.png" width="35" height="35" />
-                            </a>Visite-nos</h4>Travessa São Romão Nº7, Barracão, Cantanhede - Coimbra, Portugal
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <h4>Siga-nos</h4>
-                        <ul class="social-icons">
-                            <li><a href="https://www.facebook.com/tomas.duarte.7583992/" target="_blank"><i
-                                        class="fab fa-facebook"></i></a> Facebook</li>
-                            <li><a href="https://www.linkedin.com/in/tomás-duarte-2b0816294" target="_blank"><i
-                                        class="fab fa-linkedin"></i></a> Linkedin</li>
-                            <li><a href="https://www.instagram.com/_tomas.duarte_/" target="_blank"><i
-                                        class="fab fa-instagram"></i></a> Instagram</li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <h4>Sobre Nós</h4>
-                        <p>Uma empresa dedicada a fornecer soluções inovadoras para os clientes.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bottom-footer">
+        <section role="main" class="content-body">
+            <footer class="site-footer">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <p>&copy; 2023 FixElectro. Todos os direitos reservados.</p>
+                        <div class="col-lg-4 col-md-6">
+                            <h4><a class="logo">
+                                    <img src="img/faviicon.png" width="35" height="35" />
+                                </a>Visite-nos</h4>Travessa São Romão Nº7, Barracão, Cantanhede - Coimbra, Portugal
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <h4>Siga-nos</h4>
+                            <ul class="social-icons">
+                                <li><a href="https://www.facebook.com/tomas.duarte.7583992/" target="_blank"><i
+                                            class="fab fa-facebook"></i></a> Facebook</li>
+                                <li><a href="https://www.linkedin.com/in/tomás-duarte-2b0816294" target="_blank"><i
+                                            class="fab fa-linkedin"></i></a> Linkedin</li>
+                                <li><a href="https://www.instagram.com/_tomas.duarte_/" target="_blank"><i
+                                            class="fab fa-instagram"></i></a> Instagram</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <h4>Sobre Nós</h4>
+                            <p>Uma empresa dedicada a fornecer soluções inovadoras para os clientes.</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </footer>
-    </section>
 
-    <!-- Vendor -->
-    <script src="vendor/jquery/jquery.js"></script>
-    <script src="vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-    <script src="vendor/popper/umd/popper.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="vendor/common/common.js"></script>
-    <script src="vendor/nanoscroller/nanoscroller.js"></script>
-    <script src="vendor/magnific-popup/jquery.magnific-popup.js"></script>
-    <script src="vendor/jquery-placeholder/jquery.placeholder.js"></script>
+                <div class="bottom-footer">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <p>&copy; 2023 FixElectro. Todos os direitos reservados.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </section>
 
-    <!-- Specific Page Vendor -->
-    <script src="vendor/jquery-ui/jquery-ui.js"></script>
-    <script src="vendor/jqueryui-touch-punch/jquery.ui.touch-punch.js"></script>
-    <script src="vendor/jquery-appear/jquery.appear.js"></script>
-    <script src="vendor/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
-    <script src="vendor/jquery.easy-pie-chart/jquery.easypiechart.js"></script>
-    <script src="vendor/flot/jquery.flot.js"></script>
-    <script src="vendor/flot.tooltip/jquery.flot.tooltip.js"></script>
-    <script src="vendor/flot/jquery.flot.pie.js"></script>
-    <script src="vendor/flot/jquery.flot.categories.js"></script>
-    <script src="vendor/flot/jquery.flot.resize.js"></script>
-    <script src="vendor/jquery-sparkline/jquery.sparkline.js"></script>
-    <script src="vendor/raphael/raphael.js"></script>
-    <script src="vendor/morris/morris.js"></script>
-    <script src="vendor/gauge/gauge.js"></script>
-    <script src="vendor/snap.svg/snap.svg.js"></script>
-    <script src="vendor/liquid-meter/liquid.meter.js"></script>
-    <script src="vendor/jqvmap/jquery.vmap.js"></script>
-    <script src="vendor/jqvmap/data/jquery.vmap.sampledata.js"></script>
-    <script src="vendor/jqvmap/maps/jquery.vmap.world.js"></script>
-    <script src="vendor/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
-    <script src="vendor/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
-    <script src="vendor/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
-    <script src="vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
-    <script src="vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
-    <script src="vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
+        <!-- Vendor -->
+        <script src="vendor/jquery/jquery.js"></script>
+        <script src="vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+        <script src="vendor/popper/umd/popper.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+        <script src="vendor/common/common.js"></script>
+        <script src="vendor/nanoscroller/nanoscroller.js"></script>
+        <script src="vendor/magnific-popup/jquery.magnific-popup.js"></script>
+        <script src="vendor/jquery-placeholder/jquery.placeholder.js"></script>
 
-    <!-- Theme Base, Components and Settings -->
-    <script src="js/theme.js"></script>
+        <!-- Specific Page Vendor -->
+        <script src="vendor/jquery-ui/jquery-ui.js"></script>
+        <script src="vendor/jqueryui-touch-punch/jquery.ui.touch-punch.js"></script>
+        <script src="vendor/jquery-appear/jquery.appear.js"></script>
+        <script src="vendor/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
+        <script src="vendor/jquery.easy-pie-chart/jquery.easypiechart.js"></script>
+        <script src="vendor/flot/jquery.flot.js"></script>
+        <script src="vendor/flot.tooltip/jquery.flot.tooltip.js"></script>
+        <script src="vendor/flot/jquery.flot.pie.js"></script>
+        <script src="vendor/flot/jquery.flot.categories.js"></script>
+        <script src="vendor/flot/jquery.flot.resize.js"></script>
+        <script src="vendor/jquery-sparkline/jquery.sparkline.js"></script>
+        <script src="vendor/raphael/raphael.js"></script>
+        <script src="vendor/morris/morris.js"></script>
+        <script src="vendor/gauge/gauge.js"></script>
+        <script src="vendor/snap.svg/snap.svg.js"></script>
+        <script src="vendor/liquid-meter/liquid.meter.js"></script>
+        <script src="vendor/jqvmap/jquery.vmap.js"></script>
+        <script src="vendor/jqvmap/data/jquery.vmap.sampledata.js"></script>
+        <script src="vendor/jqvmap/maps/jquery.vmap.world.js"></script>
+        <script src="vendor/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
+        <script src="vendor/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
+        <script src="vendor/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
+        <script src="vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
+        <script src="vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
+        <script src="vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
 
-    <!-- Theme Custom -->
-    <script src="js/custom.js"></script>
+        <!-- Theme Base, Components and Settings -->
+        <script src="js/theme.js"></script>
 
-    <!-- Theme Initialization Files -->
-    <script src="js/theme.init.js"></script>
+        <!-- Theme Custom -->
+        <script src="js/custom.js"></script>
 
-    <!-- Examples -->
-    <script src="js/examples/examples.dashboard.js"></script>
+        <!-- Theme Initialization Files -->
+        <script src="js/theme.init.js"></script>
+
+        <!-- Examples -->
+        <script src="js/examples/examples.dashboard.js"></script>
 
 </body>
 

@@ -155,7 +155,7 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Inserir Clientes</h2>
+					<h2>Ler Código QR</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
@@ -165,8 +165,8 @@
 								</a>
 							</li>
 
-							<li><span>Menu Clientes</span></li>
-							<li><span>Inserir Clientes</span></li>
+							<li><span>Menu Serviços</span></li>
+							<li><span>Ler Código QR</span></li>
 
 						</ol>
 
@@ -176,103 +176,167 @@
 				</header>
 
 				<!-- start: page -->
-
 				<div class="bg-light">
 					<div class="form-container">
 						<div class="w-100">
-							<form name="form_ins_prod" id="form_ins_prod" action="inserir_clientes.php" method="post">
-								<section class="card">
-									<div class="card-body">
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Nome <span style="color: red;">*</span> </label>
-											<div class="col-lg-6">
-												<input name="nome" type="text" class="form-control">
-											</div>
-										</div>
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Telefone <span style="color: red;">*</span> </label>
-											<div class="col-lg-6">
-												<input name="telefone" type="text" class="form-control">
-											</div>
-										</div>
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Email</label>
-											<div class="col-lg-6">
-												<input name="email" type="email" class="form-control">
-											</div>
-										</div>
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Morada <span style="color: red;">*</span> </label>
-											<div class="col-lg-6">
-												<input name="morada" type="text" class="form-control">
-											</div>
-										</div>
+							<div class="bg-light">
+								<div class="form-container">
+									<style>
+										/* Estilo para a select box */
+										#cameraSelect {
+											appearance: none;
+											-webkit-appearance: none;
+											-moz-appearance: none;
+											background-color: #fff;
+											border: 1px solid #ccc;
+											padding: 8px;
+											font-size: 16px;
+											width: 100%;
+											max-width: 300px;
+											/* Defina a largura máxima conforme necessário */
+											cursor: pointer;
+											border-radius: 4px;
+											outline: none;
+											/* Remove a borda ao focar */
+											margin-top: 10px;
+											/* Espaço entre o vídeo e a select box */
+										}
 
+										/* Estilo para as opções da select box */
+										#cameraSelect option {
+											padding: 8px;
+										}
+
+										/* Container para centralizar o vídeo */
+										.video-container {
+											display: flex;
+											justify-content: center;
+										}
+
+										/* Estilo para o vídeo */
+										#video {
+											max-width: 100%;
+											height: auto;
+										}
+
+										/* Estilo para o form-container */
+										.form-container {
+											display: flex;
+											flex-direction: column;
+											align-items: center;
+										}
+									</style>
+
+									<div class="bg-light">
+										<div class="form-container">
+											<br><br><br>
+
+											<div class="video-container">
+												<video id="video" autoplay></video>
+											</div>
+
+											
+				
+										</div>
 									</div>
-									<footer class="card-footer d-flex justify-content-end">
-										<button name="bt" class="btn btn-primary mx-2">Introduzir</button>
-										<button type="reset" class="btn btn-default mx-2">Limpar</button>
-									</footer>
-								</section>
-							</form>
-							<?php
-			    // PHP para processar o formulário e inserir dados no banco de dados
-				$fnome = $ftelefone = $femail = $fmorada = ''; // Inicia as variáveis
 
-					if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
-						// Verificar se todas as caixas foram preenchidas
-						if (empty($_POST["nome"]) || empty($_POST["telefone"]) || empty($_POST["morada"])) {
-							//Exibe o alerta se nao estiver as caixas todas preenchidas
-							echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-									<strong>Erro!</strong> Preencha todos os campos do formulário.
-									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-								</div>';
-						} else {
-							// Processar o formulário se todas as caixas foram preenchidas
-							$fnome = $_POST["nome"];
-							$ftelefone = $_POST["telefone"];
-							$femail = $_POST["email"];
-							$fmorada = $_POST["morada"];
-
-							
-
-							// Verificar se o próximo valor de idc já existe na tabela
-							$result = mysqli_query($link, "SELECT MAX(idc) AS max_idc FROM clientes");
-							$row = mysqli_fetch_assoc($result);
-							$proximo_idc = $row['max_idc'] + 1;
-
-							// Inserir os dados para a base de dados
-							$query = mysqli_query($link, "INSERT INTO clientes (idc, nome, telefone, email, morada) 
-							VALUES ('$proximo_idc', '$fnome', '$ftelefone', '$femail', '$fmorada')");
-
-							// Exibir um alert se foi bem inserido ou não
-							if ($query) {
-								echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-										<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
-										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-									</div>';
-							} else {
-								echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-										<strong>Erro!</strong> Houve um problema ao inserir os dados.
-										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-									</div>';
-							}
-						}
-					}
-					?>
-
+									<br>
+									<select id="cameraSelect"></select>
+									<canvas id="canvas" style="display:none;"></canvas>
+									<br>
+								</div>
+							</div>
 						</div>
+					</div>
+				</div>
 			</section>
-
 		</div>
-		</div>
-		</div>
-
 		
+
+		<script>
+    // Código JavaScript para o leitor de QR Code
+    let currentStream;
+    let currentDeviceId;
+
+    async function getCameraDevices() {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevices = devices.filter(device => device.kind === 'videoinput');
+        const cameraSelect = document.getElementById('cameraSelect');
+
+        videoDevices.forEach(device => {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            option.text = device.label || `Câmera ${cameraSelect.length + 1}`;
+            cameraSelect.appendChild(option);
+        });
+
+        cameraSelect.addEventListener('change', () => {
+            currentDeviceId = cameraSelect.value;
+            startCamera();
+        });
+
+        if (videoDevices.length > 0) {
+            currentDeviceId = videoDevices[0].deviceId;
+            startCamera();
+        } else {
+            alert('Nenhuma câmera encontrada.');
+        }
+    }
+
+    async function startCamera() {
+        if (currentStream) {
+            currentStream.getTracks().forEach(track => track.stop());
+        }
+
+        const constraints = {
+            video: {
+                deviceId: currentDeviceId ? { exact: currentDeviceId } : undefined
+            }
+        };
+
+        try {
+            const video = document.getElementById('video');
+            currentStream = await navigator.mediaDevices.getUserMedia(constraints);
+            video.srcObject = currentStream;
+            video.play();
+
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+
+            async function detectCode() {
+                if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                    if (code) {
+                        const decodedText = code.data;
+                        const regex = /ID do Serviço: (\d+)/;
+                        const match = decodedText.match(regex);
+                        if (match) {
+                            const id = match[1];
+                            window.location.href = `editar_servico.php?id=${id}`;
+                        }
+                    }
+                }
+                requestAnimationFrame(detectCode);
+            }
+            detectCode();
+        } catch (error) {
+            console.error('Erro ao acessar a câmera: ', error);
+            alert('Erro ao acessar a câmera. Por favor, verifique as permissões e a conexão da câmera.');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getCameraDevices();
+    });
+</script>
+
+
+	
 
 	<section role="main" class="content-body">
 		<footer class="site-footer">
@@ -362,6 +426,8 @@
 
 	<!-- Examples -->
 	<script src="js/examples/examples.dashboard.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.js"></script>
 
 </body>
 

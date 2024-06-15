@@ -23,7 +23,6 @@
 						Inserir Cliente
 					</a>
 				</li>
-
 			</ul>
 			<ul class="nav nav-children" href="Listar_clientes.php">
 				<li>
@@ -45,7 +44,6 @@
 						Inserir Produto
 					</a>
 				</li>
-
 			</ul>
 			<ul class="nav nav-children" href="Listar_clientes.php">
 				<li>
@@ -53,7 +51,6 @@
 						Listar Produtos
 					</a>
 				</li>
-
 			</ul>
 		</li>
 
@@ -68,7 +65,6 @@
 						Inserir Peça
 					</a>
 				</li>
-
 			</ul>
 			<ul class="nav nav-children">
 				<li>
@@ -76,9 +72,7 @@
 						Listar Peças
 					</a>
 				</li>
-
 			</ul>
-
 		</li>
 		
 
@@ -93,7 +87,6 @@
 						Inserir Serviço
 					</a>
 				</li>
-
 			</ul>
 			<ul class="nav nav-children">
 				<li>
@@ -101,7 +94,13 @@
 						Listar Serviços
 					</a>
 				</li>
-
+			</ul>
+			<ul class="nav nav-children">
+				<li>
+					<a href="ler_qr.php">
+						Ler QR
+					</a>
+				</li>
 			</ul>
 		</li>
 
@@ -121,7 +120,6 @@
 						Inserir Empregado
 					</a>
 				</li>
-
 			</ul>
 			<ul class="nav nav-children">
 				<li>
@@ -129,7 +127,6 @@
 						Listar Empregado
 					</a>
 				</li>
-	
 			</ul>
 		</li>
 		
@@ -144,7 +141,6 @@
 						Inserir Fornecedor
 					</a>
 				</li>
-
 			</ul>
 			<ul class="nav nav-children">
 				<li>
@@ -152,10 +148,7 @@
 						Listar Fornecedores
 					</a>
 				</li>
-
 			</ul>
 		</li>
-
-
 	</ul>
 </nav>
