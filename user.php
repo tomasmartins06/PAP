@@ -182,7 +182,7 @@
 				<!-- start: page -->
 				<div class="row">
 					
-					<div class="col-lg-6">
+					
 					<div class="row mb-3">
 						<div class="col-xl-6">
 							<section class="card card-featured-left card-featured-primary mb-3">
@@ -340,80 +340,154 @@
 						</div>
 					</div>
 				</div>
+				<?php
 
-				<div class="col-lg-6">
-				<section class="card">
-					<header class="card-header">
-						<div class="card-actions">
-							<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
-							<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
-						</div>
-						<h2 class="card-title">Bars Chart</h2>
-						<p class="card-subtitle">Número de serviços por estado</p>
-					</header>
-					<div class="card-body">
-						<!-- Flot: Bars -->
-						<div class="chart chart-md" id="flotBars"></div>
+
+								// Consulta para contar serviços por estado
+								$sqlEstadoServicos = "SELECT estado.estado, COUNT(*) as totalServicos 
+													FROM servicos
+													JOIN estado ON servicos.estado = estado.idt
+													GROUP BY servicos.estado";
+
+								$resultEstadoServicos = $mysqli->query($sqlEstadoServicos);
+
+								$dataPoints = array();
+
+								while ($row = $resultEstadoServicos->fetch_assoc()) {
+									$estado = $row['estado'];
+									$totalServicos = $row['totalServicos'];
+									$dataPoints[] = array($estado, $totalServicos);
+								}
+
+
+								?>
+								<script type="text/javascript">
+									var flotBarsData = <?php echo json_encode($dataPoints); ?>;
+
+									$(function () {
+										$.plot($("#flotBars"), [flotBarsData], {
+											series: {
+												bars: {
+													show: true,
+													barWidth: 0.6,
+													align: "center"
+												}
+											},
+											xaxis: {
+												mode: "categories",
+												tickLength: 0
+											},
+											grid: {
+												borderWidth: 1,
+												borderColor: '#f3f3f3',
+												tickColor: '#f3f3f3'
+											},
+											tooltip: true,
+											tooltipOpts: {
+												content: "%x: %y serviços",
+												shifts: {
+													x: -60,
+													y: 25
+												},
+												defaultTheme: false
+											}
+										});
+									});
+								</script>
+				
+				<div class="row">
+					<!-- Gráfico de Número de Serviços por Estado -->
+					<div class="col-lg-6">
+						<section class="card">
+							<header class="card-header">
+								<h2 class="card-title">Número de serviços por estado</h2>
+							</header>
+							<div class="card-body">
+								<div class="chart chart-md" id="flotBars"></div>
+							</div>
+						</section>
 					</div>
-				</section>
-			</div>
 
-			<?php
+					<!-- Top Clientes por Serviços -->
+					<div class="col-lg-6">
+						<section class="card card-featured-left card-featured-primary">
+							<div class="card-body">
+								<div class="widget-summary">
+									<div class="widget-summary-col widget-summary-col-icon">
+										<div class="summary-icon bg-primary">
+											<i class="fas fa-users"></i>
+										</div>
+									</div>
+									<div class="widget-summary-col">
+										<div class="summary">
+											<h4 class="title">Top Clientes por Serviços</h4>
+											<div class="info">
+												<ul>
+													<?php
+													$query = "SELECT nome, COUNT(idos) as total_servicos
+															FROM clientes
+															LEFT JOIN servicos ON clientes.idc = servicos.cliente_id
+															GROUP BY idc
+															ORDER BY total_servicos DESC
+															LIMIT 5";
+													$result = $mysqli->query($query);
+													while ($row = $result->fetch_assoc()) {
+														echo "<li>{$row['nome']} - {$row['total_servicos']} serviços</li>";
+													}
+													?>
+												</ul>
+											</div>
+										</div>
+										<div class="summary-footer">
+											<a class="text-muted text-uppercase" href="listar_clientes.php">(Ver todos)</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+					
+					<!-- Últimos Serviços Concluídos -->
+					
+						<section class="card card-featured-left card-featured-secondary">
+							<div class="card-body">
+								<div class="widget-summary">
+									<div class="widget-summary-col widget-summary-col-icon">
+										<div class="summary-icon bg-secondary">
+											<i class="fas fa-check-circle"></i>
+										</div>
+									</div>
+									<div class="widget-summary-col">
+										<div class="summary">
+											<h4 class="title">Últimos Serviços Concluídos</h4>
+											<div class="info">
+												<ul>
+													<?php
+													$query = "SELECT idos, nome, descricao
+														FROM servicos
+														INNER JOIN clientes ON servicos.cliente_id = clientes.idc
+														WHERE estado = 3
+														ORDER BY idos DESC
+														LIMIT 5";
+
+													$result = $mysqli->query($query);
+													while ($row = $result->fetch_assoc()) {
+														echo "<li>{$row['nome']} - {$row['descricao']}</li>";
+													}
+													?>
+												</ul>
+											</div>
+										</div>
+										<div class="summary-footer">
+											<a class="text-muted text-uppercase" href="listar_servico.php">(Ver todos)</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
 
 
-			// Consulta para contar serviços por estado
-			$sqlEstadoServicos = "SELECT estado.estado, COUNT(*) as totalServicos 
-								FROM servicos
-								JOIN estado ON servicos.estado = estado.idt
-								GROUP BY servicos.estado";
 
-			$resultEstadoServicos = $mysqli->query($sqlEstadoServicos);
-
-			$dataPoints = array();
-
-			while ($row = $resultEstadoServicos->fetch_assoc()) {
-				$estado = $row['estado'];
-				$totalServicos = $row['totalServicos'];
-				$dataPoints[] = array($estado, $totalServicos);
-			}
-
-			// Fechar conexão
-			$mysqli->close();
-			?>
-
-			<script type="text/javascript">
-				var flotBarsData = <?php echo json_encode($dataPoints); ?>;
-
-				$(function () {
-					$.plot($("#flotBars"), [flotBarsData], {
-						series: {
-							bars: {
-								show: true,
-								barWidth: 0.6,
-								align: "center"
-							}
-						},
-						xaxis: {
-							mode: "categories",
-							tickLength: 0
-						},
-						grid: {
-							borderWidth: 1,
-							borderColor: '#f3f3f3',
-							tickColor: '#f3f3f3'
-						},
-						tooltip: true,
-						tooltipOpts: {
-							content: "%x: %y serviços",
-							shifts: {
-								x: -60,
-								y: 25
-							},
-							defaultTheme: false
-						}
-					});
-				});
-			</script>
 									
 				<div class="row pt-4">
 					<div class="col-lg-6 mb-4 mb-lg-0">
@@ -881,149 +955,66 @@
 					</div>
 				</div>
 				<div class="row pt-4 mt-1">
-					<div class="col-xl-6">
-						<section class="card card-transparent mb-3">
-							<header class="card-header">
-								<div class="card-actions">
-									<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
-									<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
-								</div>
+    <div class="col-xl-12">
+        <section class="card">
+            <header class="card-header card-header-transparent">
+                <div class="card-actions">
+                    <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                    <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                </div>
 
-								<h2 class="card-title">Global Stats</h2>
-							</header>
-							<div class="card-body">
-								<div id="vectorMapWorld" style="height: 350px; width: 100%;"></div>
-							</div>
-						</section>
-					</div>
-					<div class="col-xl-6">
-						<section class="card">
-							<header class="card-header card-header-transparent">
-								<div class="card-actions">
-									<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
-									<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
-								</div>
+                <h2 class="card-title">Lista de Serviços</h2>
+            </header>
+            <div class="card-body">
+                <table class="table table-responsive-md table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Cliente</th>
+                            <th>Eletrodoméstico</th>
+                            <th>Descrição</th>
+                            <th>Estado</th>
+                            <th>Peças Utilizadas</th>
+                            <th>Preço Mão de Obra</th>
+                            <th>Preço Total</th>
+                        </tr>
+                    </thead>
+					<?php
 
-								<h2 class="card-title">Projects Stats</h2>
-							</header>
-							<div class="card-body">
-								<table class="table table-responsive-md table-striped mb-0">
-									<thead>
-										<tr>
-											<th>#</th>
-											<th>Project</th>
-											<th>Status</th>
-											<th>Progress</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>1</td>
-											<td>Porto - Responsive HTML5 Template</td>
-											<td><span class="badge badge-success">Success</span></td>
-											<td>
-												<div class="progress progress-sm progress-half-rounded m-0 mt-1 light">
-													<div class="progress-bar progress-bar-primary" role="progressbar"
-														aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-														style="width: 100%;">
-														100%
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>Porto - Responsive Drupal 7 Theme</td>
-											<td><span class="badge badge-success">Success</span></td>
-											<td>
-												<div class="progress progress-sm progress-half-rounded m-0 mt-1 light">
-													<div class="progress-bar progress-bar-primary" role="progressbar"
-														aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-														style="width: 100%;">
-														100%
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>Tucson - Responsive HTML5 Template</td>
-											<td><span class="badge badge-warning">Warning</span></td>
-											<td>
-												<div class="progress progress-sm progress-half-rounded m-0 mt-1 light">
-													<div class="progress-bar progress-bar-primary" role="progressbar"
-														aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-														style="width: 60%;">
-														60%
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>Tucson - Responsive Business WordPress Theme</td>
-											<td><span class="badge badge-success">Success</span></td>
-											<td>
-												<div class="progress progress-sm progress-half-rounded m-0 mt-1 light">
-													<div class="progress-bar progress-bar-primary" role="progressbar"
-														aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-														style="width: 90%;">
-														90%
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>5</td>
-											<td>Porto - Responsive Admin HTML5 Template</td>
-											<td><span class="badge badge-warning">Warning</span></td>
-											<td>
-												<div class="progress progress-sm progress-half-rounded m-0 mt-1 light">
-													<div class="progress-bar progress-bar-primary" role="progressbar"
-														aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-														style="width: 45%;">
-														45%
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>6</td>
-											<td>Porto - Responsive HTML5 Template</td>
-											<td><span class="badge badge-danger">Danger</span></td>
-											<td>
-												<div class="progress progress-sm progress-half-rounded m-0 mt-1 light">
-													<div class="progress-bar progress-bar-primary" role="progressbar"
-														aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-														style="width: 40%;">
-														40%
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>7</td>
-											<td>Porto - Responsive Drupal 7 Theme</td>
-											<td><span class="badge badge-success">Success</span></td>
-											<td>
-												<div class="progress progress-sm progress-half-rounded mt-1 light">
-													<div class="progress-bar progress-bar-primary" role="progressbar"
-														aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-														style="width: 95%;">
-														95%
-													</div>
-												</div>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</section>
-					</div>
-				</div>
-				<!-- end: page -->
-			</section>
-		</div>
+
+
+// Query para selecionar os serviços
+$sql = "SELECT * FROM servicos";
+
+// Conexão com o banco de dados e execução da query
+
+?>
+                    <tbody>
+                        <?php
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>" . $row['idos'] . "</td>";
+                                echo "<td>" . $row['cliente_id'] . "</td>";
+                                echo "<td>" . $row['eletrodomestico_id'] . "</td>";
+                                echo "<td>" . $row['descricao'] . "</td>";
+                                echo "<td>" . $row['estado'] . "</td>";
+                                echo "<td>" . $row['pecas_id'] . "</td>";
+                                echo "<td>" . $row['preco_mobra'] . "</td>";
+                                echo "<td>" . $row['preco_total'] . "</td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='8'>Nenhum serviço encontrado.</td></tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+
 		<section role="main" class="content-body">
 			<footer class="site-footer">
 				<div class="container">

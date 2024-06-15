@@ -149,18 +149,13 @@
 					</div>
 				</div>
 			</div>
-			<!-- end: search & user box -->
 		</header>
-		<!-- end: header -->
+	
 
 		<div class="inner-wrapper">
-			<!-- start: sidebar -->
-
-			<!-- end: sidebar -->
-
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Listar Clientes</h2>
+					<h2>Editar Clientes</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
@@ -186,51 +181,51 @@
 							<br><br>
 
 							<?php
-            // Inclui o arquivo de conexão com a base de dados
-            include 'DBConnection.php';
+								// Inclui o arquivo de conexão com a base de dados
+								include 'DBConnection.php';
 
-            // Define o sinalizador para mostrar ou não o formulário
-            $showForm = true;
+								// Define o sinalizador para mostrar ou não o formulário
+								$showForm = true;
 
-            // Verifica se o formulário foi enviado e se o ID está definido
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-                // Processa a edição
-                $id = $_POST['id'];
-                $nome = $_POST['nome'];
-                $telefone = $_POST['telefone'];
-                $email = $_POST['email'];
-                $morada = $_POST['morada'];
+								// Verifica se o formulário foi enviado e se o ID está definido
+								if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+									// Processa a edição
+									$id = $_POST['id'];
+									$nome = $_POST['nome'];
+									$telefone = $_POST['telefone'];
+									$email = $_POST['email'];
+									$morada = $_POST['morada'];
 
-                // Query SQL para atualizar o registo com base no ID
-                $sql = "UPDATE clientes SET nome = '$nome', telefone = '$telefone', email = '$email', morada = '$morada' WHERE idc = $id";
+									// Query SQL para atualizar o registo com base no ID
+									$sql = "UPDATE clientes SET nome = '$nome', telefone = '$telefone', email = '$email', morada = '$morada' WHERE idc = $id";
 
-                // Executa a query e verifica se foi bem sucedida
-                if (mysqli_query($link, $sql)) {
-                    $showForm = false;
-                    echo "registo atualizado com sucesso!";
-                    echo '<script>window.location.href = "listar_clientes.php";</script>';
-                    exit; // Adicionado para evitar que o restante do código seja executado após o redirecionamento
-                } else {
-                    echo "Erro ao atualizar o registo: " . mysqli_error($link);
-                }
-            }
+									// Executa a query e verifica se foi bem sucedida
+									if (mysqli_query($link, $sql)) {
+										$showForm = false;
+										echo "registo atualizado com sucesso!";
+										echo '<script>window.location.href = "listar_clientes.php";</script>';
+										exit; // Adicionado para evitar que o restante do código seja executado após o redirecionamento
+									} else {
+										echo "Erro ao atualizar o registo: " . mysqli_error($link);
+									}
+								}
 
-            // Verifica se o formulário deve ser exibido e se o ID está definido na url 
-            if ($showForm && isset($_GET['id'])) {
-				
-				
-                // Página de Edição
-                $id = $_GET['id'];
+								// Verifica se o formulário deve ser exibido e se o ID está definido na url 
+								if ($showForm && isset($_GET['id'])) {
+									
+									
+									// Página de Edição
+									$id = $_GET['id'];
 
-                // Recupera os dados do registo a ser editado
-                $query = "SELECT * FROM clientes WHERE idc = $id";
-                $result = mysqli_query($link, $query);
+									// Recupera os dados do registo a ser editado
+									$query = "SELECT * FROM clientes WHERE idc = $id";
+									$result = mysqli_query($link, $query);
 
-                // Verifica se a consulta foi bem-sucedida e exibe o formulário de edição
-                if ($result && $row = mysqli_fetch_assoc($result)) {
-                    ?>
+									// Verifica se a consulta foi bem-sucedida e exibe o formulário de edição
+									if ($result && $row = mysqli_fetch_assoc($result)) {
+										?>
 							<!-- Formulário de Edição -->
-							<form method="post" action="editar_registo.php" id="editForm">
+							<form method="post" action="editar_cliente.php" id="editForm">
 								<section class="card">
 									<div class="card-body">
 										<!-- Campos do formulário preenchidos com os dados do registo -->

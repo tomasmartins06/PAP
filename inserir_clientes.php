@@ -220,148 +220,145 @@
 								</section>
 							</form>
 							<?php
-			    // PHP para processar o formulário e inserir dados no banco de dados
-				$fnome = $ftelefone = $femail = $fmorada = ''; // Inicia as variáveis
+								// PHP para processar o formulário e inserir dados no banco de dados
+								$fnome = $ftelefone = $femail = $fmorada = ''; // Inicia as variáveis
 
-					if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
-						// Verificar se todas as caixas foram preenchidas
-						if (empty($_POST["nome"]) || empty($_POST["telefone"]) || empty($_POST["morada"])) {
-							//Exibe o alerta se nao estiver as caixas todas preenchidas
-							echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-									<strong>Erro!</strong> Preencha todos os campos do formulário.
-									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-								</div>';
-						} else {
-							// Processar o formulário se todas as caixas foram preenchidas
-							$fnome = $_POST["nome"];
-							$ftelefone = $_POST["telefone"];
-							$femail = $_POST["email"];
-							$fmorada = $_POST["morada"];
+									if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
+										// Verificar se todas as caixas foram preenchidas
+										if (empty($_POST["nome"]) || empty($_POST["telefone"]) || empty($_POST["morada"])) {
+											//Exibe o alerta se nao estiver as caixas todas preenchidas
+											echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+													<strong>Erro!</strong> Preencha todos os campos do formulário.
+													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+												</div>';
+										} else {
+											// Processar o formulário se todas as caixas foram preenchidas
+											$fnome = $_POST["nome"];
+											$ftelefone = $_POST["telefone"];
+											$femail = $_POST["email"];
+											$fmorada = $_POST["morada"];
 
-							
+											
 
-							// Verificar se o próximo valor de idc já existe na tabela
-							$result = mysqli_query($link, "SELECT MAX(idc) AS max_idc FROM clientes");
-							$row = mysqli_fetch_assoc($result);
-							$proximo_idc = $row['max_idc'] + 1;
+											// Verificar se o próximo valor de idc já existe na tabela
+											$result = mysqli_query($link, "SELECT MAX(idc) AS max_idc FROM clientes");
+											$row = mysqli_fetch_assoc($result);
+											$proximo_idc = $row['max_idc'] + 1;
 
-							// Inserir os dados para a base de dados
-							$query = mysqli_query($link, "INSERT INTO clientes (idc, nome, telefone, email, morada) 
-							VALUES ('$proximo_idc', '$fnome', '$ftelefone', '$femail', '$fmorada')");
+											// Inserir os dados para a base de dados
+											$query = mysqli_query($link, "INSERT INTO clientes (idc, nome, telefone, email, morada) 
+											VALUES ('$proximo_idc', '$fnome', '$ftelefone', '$femail', '$fmorada')");
 
-							// Exibir um alert se foi bem inserido ou não
-							if ($query) {
-								echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-										<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
-										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-									</div>';
-							} else {
-								echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-										<strong>Erro!</strong> Houve um problema ao inserir os dados.
-										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-									</div>';
-							}
-						}
-					}
-					?>
+											// Exibir um alert se foi bem inserido ou não
+											if ($query) {
+												echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+														<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
+														<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+													</div>';
+											} else {
+												echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+														<strong>Erro!</strong> Houve um problema ao inserir os dados.
+														<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+													</div>';
+											}
+										}
+									}
+									?>
 
 						</div>
 			</section>
 
 		</div>
-		</div>
-		</div>
+	
 
-		
-
-	<section role="main" class="content-body">
-		<footer class="site-footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-4 col-md-6">
-						<h4><a class="logo">
-								<img src="img/faviicon.png" width="35" height="35" />
-							</a>Visite-nos</h4>Travessa São Romão Nº7, Barracão, Cantanhede - Coimbra, Portugal
-					</div>
-					<div class="col-lg-4 col-md-6">
-						<h4>Siga-nos</h4>
-						<ul class="social-icons">
-							<li><a href="https://www.facebook.com/tomas.duarte.7583992/" target="_blank"><i
-										class="fab fa-facebook"></i></a> Facebook</li>
-							<li><a href="https://www.linkedin.com/in/tomás-duarte-2b0816294" target="_blank"><i
-										class="fab fa-linkedin"></i></a> Linkedin</li>
-							<li><a href="https://www.instagram.com/_tomas.duarte_/" target="_blank"><i
-										class="fab fa-instagram"></i></a> Instagram</li>
-						</ul>
-					</div>
-					<div class="col-lg-4 col-md-12">
-						<h4>Sobre Nós</h4>
-						<p>Uma empresa dedicada a fornecer soluções inovadoras para os clientes.</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="bottom-footer">
+		<section role="main" class="content-body">
+			<footer class="site-footer">
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-12 text-center">
-							<p>&copy; 2023 FixElectro. Todos os direitos reservados.</p>
+						<div class="col-lg-4 col-md-6">
+							<h4><a class="logo">
+									<img src="img/faviicon.png" width="35" height="35" />
+								</a>Visite-nos</h4>Travessa São Romão Nº7, Barracão, Cantanhede - Coimbra, Portugal
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<h4>Siga-nos</h4>
+							<ul class="social-icons">
+								<li><a href="https://www.facebook.com/tomas.duarte.7583992/" target="_blank"><i
+											class="fab fa-facebook"></i></a> Facebook</li>
+								<li><a href="https://www.linkedin.com/in/tomás-duarte-2b0816294" target="_blank"><i
+											class="fab fa-linkedin"></i></a> Linkedin</li>
+								<li><a href="https://www.instagram.com/_tomas.duarte_/" target="_blank"><i
+											class="fab fa-instagram"></i></a> Instagram</li>
+							</ul>
+						</div>
+						<div class="col-lg-4 col-md-12">
+							<h4>Sobre Nós</h4>
+							<p>Uma empresa dedicada a fornecer soluções inovadoras para os clientes.</p>
 						</div>
 					</div>
 				</div>
-			</div>
-		</footer>
-	</section>
 
-	<!-- Vendor -->
-	<script src="vendor/jquery/jquery.js"></script>
-	<script src="vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-	<script src="vendor/popper/umd/popper.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-	<script src="vendor/common/common.js"></script>
-	<script src="vendor/nanoscroller/nanoscroller.js"></script>
-	<script src="vendor/magnific-popup/jquery.magnific-popup.js"></script>
-	<script src="vendor/jquery-placeholder/jquery.placeholder.js"></script>
+				<div class="bottom-footer">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 text-center">
+								<p>&copy; 2023 FixElectro. Todos os direitos reservados.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</section>
 
-	<!-- Specific Page Vendor -->
-	<script src="vendor/jquery-ui/jquery-ui.js"></script>
-	<script src="vendor/jqueryui-touch-punch/jquery.ui.touch-punch.js"></script>
-	<script src="vendor/jquery-appear/jquery.appear.js"></script>
-	<script src="vendor/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
-	<script src="vendor/jquery.easy-pie-chart/jquery.easypiechart.js"></script>
-	<script src="vendor/flot/jquery.flot.js"></script>
-	<script src="vendor/flot.tooltip/jquery.flot.tooltip.js"></script>
-	<script src="vendor/flot/jquery.flot.pie.js"></script>
-	<script src="vendor/flot/jquery.flot.categories.js"></script>
-	<script src="vendor/flot/jquery.flot.resize.js"></script>
-	<script src="vendor/jquery-sparkline/jquery.sparkline.js"></script>
-	<script src="vendor/raphael/raphael.js"></script>
-	<script src="vendor/morris/morris.js"></script>
-	<script src="vendor/gauge/gauge.js"></script>
-	<script src="vendor/snap.svg/snap.svg.js"></script>
-	<script src="vendor/liquid-meter/liquid.meter.js"></script>
-	<script src="vendor/jqvmap/jquery.vmap.js"></script>
-	<script src="vendor/jqvmap/data/jquery.vmap.sampledata.js"></script>
-	<script src="vendor/jqvmap/maps/jquery.vmap.world.js"></script>
-	<script src="vendor/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
-	<script src="vendor/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
-	<script src="vendor/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
-	<script src="vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
-	<script src="vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
-	<script src="vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
+		<!-- Vendor -->
+		<script src="vendor/jquery/jquery.js"></script>
+		<script src="vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+		<script src="vendor/popper/umd/popper.min.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="vendor/common/common.js"></script>
+		<script src="vendor/nanoscroller/nanoscroller.js"></script>
+		<script src="vendor/magnific-popup/jquery.magnific-popup.js"></script>
+		<script src="vendor/jquery-placeholder/jquery.placeholder.js"></script>
 
-	<!-- Theme Base, Components and Settings -->
-	<script src="js/theme.js"></script>
+		<!-- Specific Page Vendor -->
+		<script src="vendor/jquery-ui/jquery-ui.js"></script>
+		<script src="vendor/jqueryui-touch-punch/jquery.ui.touch-punch.js"></script>
+		<script src="vendor/jquery-appear/jquery.appear.js"></script>
+		<script src="vendor/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
+		<script src="vendor/jquery.easy-pie-chart/jquery.easypiechart.js"></script>
+		<script src="vendor/flot/jquery.flot.js"></script>
+		<script src="vendor/flot.tooltip/jquery.flot.tooltip.js"></script>
+		<script src="vendor/flot/jquery.flot.pie.js"></script>
+		<script src="vendor/flot/jquery.flot.categories.js"></script>
+		<script src="vendor/flot/jquery.flot.resize.js"></script>
+		<script src="vendor/jquery-sparkline/jquery.sparkline.js"></script>
+		<script src="vendor/raphael/raphael.js"></script>
+		<script src="vendor/morris/morris.js"></script>
+		<script src="vendor/gauge/gauge.js"></script>
+		<script src="vendor/snap.svg/snap.svg.js"></script>
+		<script src="vendor/liquid-meter/liquid.meter.js"></script>
+		<script src="vendor/jqvmap/jquery.vmap.js"></script>
+		<script src="vendor/jqvmap/data/jquery.vmap.sampledata.js"></script>
+		<script src="vendor/jqvmap/maps/jquery.vmap.world.js"></script>
+		<script src="vendor/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
+		<script src="vendor/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
+		<script src="vendor/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
+		<script src="vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
+		<script src="vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
+		<script src="vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
 
-	<!-- Theme Custom -->
-	<script src="js/custom.js"></script>
+		<!-- Theme Base, Components and Settings -->
+		<script src="js/theme.js"></script>
 
-	<!-- Theme Initialization Files -->
-	<script src="js/theme.init.js"></script>
+		<!-- Theme Custom -->
+		<script src="js/custom.js"></script>
 
-	<!-- Examples -->
-	<script src="js/examples/examples.dashboard.js"></script>
+		<!-- Theme Initialization Files -->
+		<script src="js/theme.init.js"></script>
+
+		<!-- Examples -->
+		<script src="js/examples/examples.dashboard.js"></script>
 
 </body>
 

@@ -175,10 +175,6 @@
 		<!-- end: header -->
 
 		<div class="inner-wrapper">
-			<!-- start: sidebar -->
-
-			<!-- end: sidebar -->
-
 			<section role="main" class="content-body">
 				<header class="page-header">
 					<h2>Listar Clientes</h2>
@@ -200,10 +196,7 @@
 								class="fas fa-chevron-left"></i></a>
 					</div>
 				</header>
-				<?php
-								//conexão com a base de dados 
-								include "DBConnection.php"; echo "<br>";
-							?>
+				<?php include "DBConnection.php"; ?>
 				<!-- start: page -->
 				<section class="card">
 					<!-- Cabeçalho da tabela -->
@@ -236,13 +229,13 @@
 							<!-- Corpo da tabela -->
 							<tbody>
 								<?php 
-                // Consulta a base de dados para obter os registos dos clientes
-                $query  = "SELECT * FROM clientes ORDER BY idc";
-                $result = mysqli_query($link, $query);
-                
-                // Loop para exibir cada registo na tabela
-                while($row = mysqli_fetch_array($result)){ 
-                ?>
+									// Consulta a base de dados para obter os registos dos clientes
+									$query  = "SELECT * FROM clientes ORDER BY idc";
+									$result = mysqli_query($link, $query);
+									
+									// Loop para exibir cada registo na tabela
+									while($row = mysqli_fetch_array($result)){ 
+									?>
 								<tr>
 									<!-- Exibição de dados do cliente -->
 									<td class="border-b dark:border-dark-5"><?php echo $row['idc'] ?></td>
@@ -254,19 +247,20 @@
 									<!-- Coluna de ações -->
 									<td class="actions text-left">
 										<!-- Link para a página de edição -->
-										<a href="editar_registo.php?id=<?php echo $row['idc']; ?>"
+										<a href="editar_cliente.php?id=<?php echo $row['idc']; ?>"
 											class="btn btn-sm btn-sm-custom" title="Editar">
 											<i class="fas fa-pencil-alt" style="color: black;"></i>
 										</a>
 
 										<!-- Formulário para exclusão com alerta de confirmação -->
-										<form method="post" action="apagarregisto.php" style="display:inline;"
+										<form method="post" action="apagarcliente.php" style="display:inline;"
 											onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
 											<input type="hidden" name="id" value="<?php echo $row['idc']; ?>">
-											<button type="submit" class="btn btn-sm btn-sm-custom delete-btn"
-												title="Apagar">
+
+											<button type="submit" class="btn btn-sm btn-sm-custom delete-btn" title="Apagar">
 												<i class="fas fa-trash-alt" style="color: black;"></i>
 											</button>
+
 										</form>
 									</td>
 								</tr>
