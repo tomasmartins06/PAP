@@ -84,17 +84,22 @@
 
         <div class="nano">
             <div class="nano-content">
-                <?php SESSION_START();
+            <?php 
+                // Inicia a sessão PHP
+				SESSION_START();
 
-		$id = $_SESSION['iduser'];
-		
-		if ($id==0) {
+				// Obtém o valor da variável de sessão 'iduser'
+				$id = $_SESSION['iduser'];
+
+				// Verifica o valor de $id para determinar qual menu incluir
+				if ($id == 0) {
+					// Se $id for igual a 0, inclui o menu de administração
 					include("menuadmin.php");
-				}
-				else {
+				} else {
+					// Se $id não for igual a 0, inclui o menu do utilizador
 					include("menuuser.php");
 				}
-		?>
+			?>
 
                 <hr class="separator" />
 
@@ -168,15 +173,9 @@
                     </div>
                 </div>
             </div>
-            <!-- end: search & user box -->
         </header>
-        <!-- end: header -->
-
+        
         <div class="inner-wrapper">
-            <!-- start: sidebar -->
-
-            <!-- end: sidebar -->
-
             <section role="main" class="content-body">
                 <header class="page-header">
                     <h2>Listar Serviço</h2>
@@ -198,41 +197,16 @@
                                 class="fas fa-chevron-left"></i></a>
                     </div>
                 </header>
-                <?php
-                    //conexão com a base de dados 
-					include "DBConnection.php"; echo "<br>";
-				?>
+                <?php include "DBConnection.php"; echo "<br>"; ?>
+
                 <!-- start: page -->
                 <section class="card">
-                    <!-- Cabeçalho da tabela -->
-                    <!-- <header class="card-header">
-                        <h2 class="card-title">Lista de Clientes</h2>
-                    </header> -->
-
-                    <!-- Corpo da tabela -->
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <!-- Conteúdo da coluna -->
-                            </div>
-                        </div>
-
                         <div class="datatable-header">
                             <div class="row align-items-center mb-3">
-                                <div class="col-12 col-lg-auto mb-3 mb-lg-0">
-                                    <!-- <a href="ecommerce-coupons-form.html" class="btn btn-primary btn-md font-weight-semibold btn-py-2 px-4">+ Add Coupon</a> -->
-                                </div>
-                                <div class="col-8 col-lg-auto ms-auto ml-auto mb-3 mb-lg-0">
-                                    <div class="d-flex align-items-lg-center flex-column flex-lg-row">
-
-                                        </select>
-
-                                        <!-- <input type="submit" class="btn btn-primary btn-md font-weight-semibold btn-py-2 px-4" name="filter"> -->
-                                    </div>
-                                </div>
 
                                 <?php
-                                    // Incluir a conexão com o banco de dados
+                                   // Incluir a conexão com o base de dados
                                     include "DBConnection.php";
 
                                     // Consulta SQL padrão

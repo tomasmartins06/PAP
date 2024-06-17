@@ -63,17 +63,23 @@
 
 		<div class="nano">
 			<div class="nano-content">
-				<?php SESSION_START();
+			<?php
+				// Inicia a sessão PHP
+				SESSION_START();
 
-		$id = $_SESSION['iduser'];
-		
-		if ($id==0) {
+				// Obtém o valor da variável de sessão 'iduser'
+				$id = $_SESSION['iduser'];
+
+				// Verifica o valor de $id para determinar qual menu incluir
+				if ($id == 0) {
+					// Se $id for igual a 0, inclui o menu de administração
 					include("menuadmin.php");
-				}
-				else {
+				} else {
+					// Se $id não for igual a 0, inclui o menu do utilizador
 					include("menuuser.php");
 				}
-		?>
+			?>
+
 
 				<hr class="separator" />
 
@@ -150,15 +156,10 @@
 					</div>
 				</div>
 			</div>
-			<!-- end: search & user box -->
 		</header>
-		<!-- end: header -->
+	
 
 		<div class="inner-wrapper">
-			<!-- start: sidebar -->
-
-			<!-- end: sidebar -->
-
 			<section role="main" class="content-body">
 				<header class="page-header">
 					<h2>Inserir Produto</h2>
@@ -171,6 +172,7 @@
 								</a>
 							</li>
 
+							<li><span>Menu Eletrodomésticos</span></li>
 							<li><span>Inserir Produto</span></li>
 
 						</ol>
@@ -263,33 +265,6 @@
 
 											</div>
 										</div>
-										<!-- <div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Estado </label>
-											<div class="col-lg-6">
-												<select data-plugin-selectTwo name="estado"
-													class="form-control populate">
-													<?php
-											// Consulta SQL para selecionar todos os registos da tabela 
-											$qry = "SELECT * FROM estado ORDER BY idt";
-
-											// Executa a consulta SQL e armazena o resultado
-											$result = mysqli_query($link, $qry);
-
-											// Loop para exibir opções baseadas nos resultados da consulta
-											while ($row = mysqli_fetch_array($result)) {
-												// Início da opção do menu suspenso
-												?>
-													<option value="<?php echo $row['estado'];?> ">
-														<?php echo $row['estado']; ?>
-													</option>
-													<?php
-											} // Fim do loop
-											?>
-
-												</select>
-											</div>
-										</div> -->
 										<div class="form-group row pb-3">
 											<label class="col-lg-3 control-label text-lg-end pt-2">Observações</label>
 											<div class="col-lg-6">
@@ -301,8 +276,7 @@
 									</div>
 									<footer class="card-footer d-flex justify-content-end">
 										<button name="bt" class="btn btn-primary mx-2">Introduzir</button>
-										<button type="reset" class="btn btn-default mx-2">Limpar</button>
-										<!-- <button type="reset" class=" btn btn-info mx-2">Gerar código QR</button> -->
+										<button type="reset" class="btn btn-default mx-2">Limpar</button> 
 									</footer>
 								</section>
 
@@ -356,9 +330,6 @@
 								?>
 						</div>
 			</section>
-
-		</div>
-		</div>
 		</div>
 
 		

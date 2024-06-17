@@ -75,7 +75,7 @@
 							// Se $id for igual a 0, inclui o menu de administração
 							include("menuadmin.php");
 						} else {
-							// Se $id não for igual a 0, inclui o menu do usuário comum
+							// Se $id não for igual a 0, inclui o menu do utilizador comum
 							include("menuuser.php");
 								}
 					?>
@@ -194,7 +194,7 @@
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="inputDefault">Telefone <span style="color: red;">*</span> </label>
 											<div class="col-lg-6">
-												<input name="telefone" type="text" class="form-control">
+												<input name="telefone" type="number" class="form-control">
 											</div>
 										</div>
 										<div class="form-group row pb-4">
@@ -220,7 +220,7 @@
 								</section>
 							</form>
 							<?php
-								// PHP para processar o formulário e inserir dados no banco de dados
+								
 								$fnome = $ftelefone = $femail = $fmorada = ''; // Inicia as variáveis
 
 									if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {

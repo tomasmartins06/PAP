@@ -62,17 +62,23 @@
 
 		<div class="nano">
 			<div class="nano-content">
-				<?php SESSION_START();
+			<?php
+				// Inicia a sessão PHP
+				SESSION_START();
 
-		$id = $_SESSION['iduser'];
-		
-		if ($id==0) {
+				// Obtém o valor da variável de sessão 'iduser'
+				$id = $_SESSION['iduser'];
+
+				// Verifica o valor de $id para determinar qual menu incluir
+				if ($id == 0) {
+					// Se $id for igual a 0, inclui o menu de administração
 					include("menuadmin.php");
-				}
-				else {
+				} else {
+					// Se $id não for igual a 0, inclui o menu do utilizador
 					include("menuuser.php");
 				}
-		?>
+			?>
+
 
 				<hr class="separator" />
 
@@ -149,15 +155,9 @@
 					</div>
 				</div>
 			</div>
-			<!-- end: search & user box -->
 		</header>
-		<!-- end: header -->
 
 		<div class="inner-wrapper">
-			<!-- start: sidebar -->
-
-			<!-- end: sidebar -->
-
 			<section role="main" class="content-body">
 				<header class="page-header">
 					<h2>Editar Peças</h2>
@@ -243,8 +243,16 @@
 													class="form-control">
 											</div>
 										</div>
-
 										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Quantidade <span style="color: red;">*</span></label>
+											<div class="col-lg-6">
+												<input type="number" name="quantidade" value="<?php echo $row['quantidade']; ?>"
+													class="form-control">
+											</div>
+										</div>
+
+										<!-- <div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="quantityInput">Quantidade <span style="color: red;">*</span></label>
 											<div class="col-lg-6 d-flex">
@@ -278,7 +286,7 @@
 												});
 											});
 										</script>
-										</div>
+										</div> -->
 
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
@@ -313,14 +321,12 @@
 
 										
 										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Descrição</label>
+											<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Observações</label>
 											<div class="col-lg-6">
-												<textarea type="text" name="descricao"
-													value="<?php echo $row['descricao']; ?>" class="form-control" rows="3" ></textarea>
+												<textarea name="descricao" rows="3" class="form-control"><?php echo $row['descricao']; ?></textarea>
 											</div>
 										</div>
-										
+
 										
 									</div>
 									<footer class="card-footer d-flex justify-content-end mt-3">
@@ -333,7 +339,7 @@
 									}
 								
 								}
-								// Fecha a conexão com o banco de dados
+								// Fecha a conexão com o base de dados
 								mysqli_close($link);
 								?>
 

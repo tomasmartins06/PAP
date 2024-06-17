@@ -63,17 +63,22 @@
 
 		<div class="nano">
 			<div class="nano-content">
-				<?php SESSION_START();
+			<?php 
+                // Inicia a sessão PHP
+				SESSION_START();
 
-		$id = $_SESSION['iduser'];
-		
-		if ($id==0) {
+				// Obtém o valor da variável de sessão 'iduser'
+				$id = $_SESSION['iduser'];
+
+				// Verifica o valor de $id para determinar qual menu incluir
+				if ($id == 0) {
+					// Se $id for igual a 0, inclui o menu de administração
 					include("menuadmin.php");
-				}
-				else {
+				} else {
+					// Se $id não for igual a 0, inclui o menu do utilizador
 					include("menuuser.php");
 				}
-		?>
+			?>
 
 				<hr class="separator" />
 
@@ -199,7 +204,7 @@
 												<div class="info">
 													<strong class="amount">
 														<?php
-														// Conexão com o banco de dados
+														// Conexão com o base de dados
 														$mysqli = new mysqli('localhost', 'root', '', 'pap');
 
 														// Verificar conexão
@@ -986,7 +991,7 @@
 // Query para selecionar os serviços
 $sql = "SELECT * FROM servicos";
 
-// Conexão com o banco de dados e execução da query
+// Conexão com o base de dados e execução da query
 
 ?>
                     <tbody>

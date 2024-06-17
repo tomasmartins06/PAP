@@ -62,17 +62,23 @@
 
 		<div class="nano">
 			<div class="nano-content">
-				<?php SESSION_START();
+			<?php
+				// Inicia a sessão PHP
+				SESSION_START();
 
-		$id = $_SESSION['iduser'];
-		
-		if ($id==0) {
+				// Obtém o valor da variável de sessão 'iduser'
+				$id = $_SESSION['iduser'];
+
+				// Verifica o valor de $id para determinar qual menu incluir
+				if ($id == 0) {
+					// Se $id for igual a 0, inclui o menu de administração
 					include("menuadmin.php");
-				}
-				else {
+				} else {
+					// Se $id não for igual a 0, inclui o menu do utilizador
 					include("menuuser.php");
 				}
-		?>
+				?>
+
 
 				<hr class="separator" />
 
@@ -148,14 +154,10 @@
 					</div>
 				</div>
 			</div>
-			<!-- end: search & user box -->
 		</header>
-		<!-- end: header -->
-
+		
 		<div class="inner-wrapper">
-			<!-- start: sidebar -->
-
-			<!-- end: sidebar -->
+		
 
 			<section role="main" class="content-body">
 				<header class="page-header">
@@ -266,7 +268,7 @@
 										</div>
 									</div>
 									<footer class="card-footer d-flex justify-content-end mt-3">
-										<!-- Botão para enviar o formulário de edição -->
+										
 										<button type="submit" class="btn btn-primary">Guardar</button>
 									</footer>
 								</section>
@@ -274,7 +276,6 @@
 							<?php
 									} 
 								}
-								// Fecha a conexão com o banco de dados
 								mysqli_close($link);
 								?> 
 						</div>

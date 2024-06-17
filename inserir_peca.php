@@ -63,17 +63,23 @@
 
 		<div class="nano">
 			<div class="nano-content">
-				<?php SESSION_START();
+			<?php
+				// Inicia a sessão PHP
+				SESSION_START();
 
-		$id = $_SESSION['iduser'];
-		
-		if ($id==0) {
+				// Obtém o valor da variável de sessão 'iduser'
+				$id = $_SESSION['iduser'];
+
+				// Verifica o valor de $id para determinar qual menu incluir
+				if ($id == 0) {
+					// Se $id for igual a 0, inclui o menu de administração
 					include("menuadmin.php");
-				}
-				else {
+				} else {
+					// Se $id não for igual a 0, inclui o menu do utilizador
 					include("menuuser.php");
 				}
-		?>
+				?>
+
 
 				<hr class="separator" />
 
@@ -196,7 +202,7 @@
 											</div>
 										</div>
 										
-										<div class="form-group row pb-4">
+										<!-- <div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="quantityInput">Quantidade <span style="color: red;">*</span></label>
 											<div class="col-lg-6 d-flex">
@@ -228,9 +234,15 @@
 														});
 													});
 												</script>
-										</div>
+										</div> -->
 
-										
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Quantidade<span style="color: red;">*</span> </label>
+											<div class="col-lg-6">
+												<input name="quantidade" type="number" class="form-control">
+											</div>
+										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="inputDefault">Preço <span style="color: red;">*</span> </label>
@@ -267,7 +279,6 @@
 									<footer class="card-footer d-flex justify-content-end">
 										<button name="bt" class="btn btn-primary mx-2">Introduzir</button>
 										<button type="reset" class="btn btn-default mx-2">Limpar</button>
-										<button type="reset" class="mb-1 mt-1 me-1 btn btn-info">Gerar código QR</button>
 									</footer>
 								</section>
 
@@ -278,7 +289,7 @@
 
 								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
 									// Verificar se todas as caixas foram preenchidas
-									if (empty($_POST["nome"]) || empty($_POST["descricao"]) || empty($_POST["quantidade"]) || empty($_POST["preco"]) || empty($_POST["id_fornecedor"])) {
+									if (empty($_POST["nome"]) || empty($_POST["quantidade"]) || empty($_POST["preco"]) || empty($_POST["id_fornecedor"])) {
 										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
 												<strong>Erro!</strong> Preencha todos os campos do formulário.
 												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
@@ -320,8 +331,7 @@
 			</section>
 
 		</div>
-		</div>
-		</div>
+	
 
 		
 

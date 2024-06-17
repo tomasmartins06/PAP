@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
     if ($id > 0) {
         // Query SQL para Apagar o registo com base no ID
-        $sql = "DELETE FROM peca WHERE idp = $id";
+        $sql = "DELETE FROM pecas WHERE idp = $id";
 
         if ($link->query($sql) === TRUE) {
             // Redirecionar para a página de listar após a exclusão

@@ -75,7 +75,7 @@
 							// Se $id for igual a 0, inclui o menu de administração
 							include("menuadmin.php");
 						} else {
-							// Se $id não for igual a 0, inclui o menu do usuário comum
+							// Se $id não for igual a 0, inclui o menu do utilizador comum
 							include("menuuser.php");
 								}
 					?>
@@ -183,6 +183,27 @@
 							<form name="form_ins_prod" id="form_ins_prod" action="inserir_empregado.php" method="post">
 								<section class="card">
 									<div class="card-body">
+									<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Nome <span style="color: red;">*</span></label>
+											<div class="col-lg-6">
+												<input name="nome" type="text" class="form-control">
+											</div>
+										</div>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Contacto<span style="color: red;">*</span></label>
+											<div class="col-lg-6">
+												<input name="telefone" type="number" class="form-control">
+											</div>
+										</div>
+										<div class="form-group row pb-4">
+											<label class="col-lg-3 control-label text-lg-end pt-2"
+												for="inputDefault">Email</label>
+											<div class="col-lg-6">
+												<input name="email" type="email" class="form-control">
+											</div>
+										</div>
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="inputDefault">Nome de Utilizador <span style="color: red;">*</span></label>
@@ -206,12 +227,12 @@
 								</section>
 							</form>
 							<?php
-			    // PHP para processar o formulário e inserir dados no banco de dados
+			    
 											
 
 								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
 									// Verificar se todas as caixas foram preenchidas
-									if (empty($_POST["user"]) || empty($_POST["pass"])) {
+									if (empty($_POST["nome"]) || empty($_POST["telefone"]) || empty($_POST["user"]) || empty($_POST["pass"])) {
 										//Exibe o alerta se nao estiver as caixas todas preenchidas
 										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
 												<strong>Erro!</strong> Preencha todos os campos do formulário.
@@ -219,6 +240,9 @@
 											</div>';
 									} else {
 										// Processar o formulário se todas as caixas foram preenchidas
+										$fnome = $_POST["nome"];
+										$ftelefone = $_POST["telefone"];
+										$femail = $_POST["email"];
 										$fuser = $_POST["user"];
 										$fpass = $_POST["pass"];
 										
@@ -229,8 +253,8 @@
 										$proximo_id = $row['max_id'] + 1;
 
 										// Inserir os dados para a base de dados
-										$query = mysqli_query($link, "INSERT INTO utilizadores (id, user, pass) 
-										VALUES ('$proximo_id', '$fuser', '$fpass')");
+										$query = mysqli_query($link, "INSERT INTO utilizadores (id, nome, telefone, email, user, pass) 
+										VALUES ('$proximo_id', '$fnome', '$ftelefone', '$femail', '$fuser', '$fpass')");
 
 										// Exibir um alert se foi bem inserido ou não
 										if ($query) {
@@ -252,8 +276,7 @@
 			</section>
 
 		</div>
-		</div>
-		</div>
+		
 
 		
 

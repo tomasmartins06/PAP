@@ -62,17 +62,23 @@
 
 		<div class="nano">
 			<div class="nano-content">
-				<?php SESSION_START();
+			<?php
+			// Inicia a sessão PHP
+			SESSION_START();
 
-		$id = $_SESSION['iduser'];
-		
-		if ($id==0) {
-					include("menuadmin.php");
-				}
-				else {
-					include("menuuser.php");
-				}
-		?>
+			// Obtém o valor da variável de sessão 'iduser'
+			$id = $_SESSION['iduser'];
+
+			// Verifica o valor de $id para determinar qual menu incluir
+			if ($id == 0) {
+				// Se $id for igual a 0, inclui o menu de administração
+				include("menuadmin.php");
+			} else {
+				// Se $id não for igual a 0, inclui o menu do utilizador
+				include("menuuser.php");
+			}
+			?>
+
 
 				<hr class="separator" />
 
@@ -194,13 +200,16 @@
 								// Verifica se o formulário foi enviado e se o ID está definido
 								if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 									// Processa a edição
-									$id = $_POST['id'];
-									$user = $_POST['user'];
-									$pass = $_POST['pass'];
+									$fid = $_POST['id'];
+									$fnome = $_POST['nome'];
+									$ftelefone = $_POST['telefone'];
+									$femail = $_POST['email'];
+									$fuser = $_POST['user'];
+									$fpass = $_POST['pass'];
 									
 
 									// Query SQL para atualizar o registo com base no ID
-									$sql = "UPDATE utilizadores SET user = '$user', pass = '$pass' WHERE id = $id";
+									$sql = "UPDATE utilizadores SET nome = '$fnome', telefone = '$ftelefone', email = '$femail', user = '$fuser', pass = '$fpass' WHERE id = $fid";
 
 									// Executa a query e verifica se foi bem sucedida
 									if (mysqli_query($link, $sql)) {
@@ -226,45 +235,69 @@
 
 									// Verifica se a consulta foi bem-sucedida e exibe o formulário de edição
 									if ($result && $row = mysqli_fetch_assoc($result)) {
-										?>
-							<!-- Formulário de Edição -->
-							<form method="post" action="editar_empregado.php" id="editForm">
-								<section class="card">
-									<div class="card-body">
-										<!-- Campos do formulário preenchidos com os dados do registo -->
-										<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Utilizador <span style="color: red;">*</span></label>
-											<div class="col-lg-6">
-												<input type="text" name="user" value="<?php echo $row['user']; ?>"
-													class="form-control">
+							?>
+									<!-- Formulário de Edição -->
+									<form method="post" action="editar_empregado.php" id="editForm">
+										<section class="card">
+											<div class="card-body">
+												<!-- Campos do formulário preenchidos com os dados do registo -->
+												<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+												<div class="form-group row pb-4">
+													<label class="col-lg-3 control-label text-lg-end pt-2"
+														for="inputDefault">Nome <span style="color: red;">*</span></label>
+													<div class="col-lg-6">
+														<input type="text" name="nome" value="<?php echo $row['nome']; ?>"
+															class="form-control">
+													</div>
+												</div>
+												<div class="form-group row pb-4">
+													<label class="col-lg-3 control-label text-lg-end pt-2"
+														for="inputDefault">Contacto <span style="color: red;">*</span></label>
+													<div class="col-lg-6">
+														<input type="number" name="telefone" value="<?php echo $row['telefone']; ?>"
+															class="form-control">
+													</div>
+												</div>
+												<div class="form-group row pb-4">
+													<label class="col-lg-3 control-label text-lg-end pt-2"
+														for="inputDefault">Email</label>
+													<div class="col-lg-6">
+														<input type="email" name="email" value="<?php echo $row['email']; ?>"
+															class="form-control">
+													</div>
+												</div>
+												<div class="form-group row pb-4">
+													<label class="col-lg-3 control-label text-lg-end pt-2"
+														for="inputDefault">Utilizador <span style="color: red;">*</span></label>
+													<div class="col-lg-6">
+														<input type="text" name="user" value="<?php echo $row['user']; ?>"
+															class="form-control">
+													</div>
+												</div>
+												<div class="form-group row pb-4">
+													<label class="col-lg-3 control-label text-lg-end pt-2"
+														for="inputDefault">Palavra Passe <span style="color: red;">*</span></label>
+													<div class="col-lg-6">
+														<input type="text" name="pass" value="<?php echo $row['pass']; ?>" 
+														class="form-control">
+													</div>
+												</div>
 											</div>
-										</div>
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Palavra Passe <span style="color: red;">*</span></label>
-											<div class="col-lg-6">
-												<input type="text" name="pass" value="<?php echo $row['pass']; ?>" 
-												class="form-control">
-											</div>
-										</div>
-									</div>
-									<footer class="card-footer d-flex justify-content-end mt-3">
-										<!-- Botão para enviar o formulário de edição -->
-										<button type="submit" class="btn btn-primary">Guardar</button>
-									</footer>
-								</section>
-							</form>
-							<?php
-									} 
-								}
-								// Fecha a conexão com o banco de dados
-								mysqli_close($link);
-								?> 
+											<footer class="card-footer d-flex justify-content-end mt-3">
+												<!-- Botão para enviar o formulário de edição -->
+												<button type="submit" class="btn btn-primary">Guardar</button>
+											</footer>
+										</section>
+									</form>
+									<?php
+											} 
+										}
+										// Fecha a conexão com o base de dados
+										mysqli_close($link);
+										?> 
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
 
 				
 

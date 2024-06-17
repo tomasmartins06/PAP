@@ -75,7 +75,7 @@
 							// Se $id for igual a 0, inclui o menu de administração
 							include("menuadmin.php");
 						} else {
-							// Se $id não for igual a 0, inclui o menu do usuário comum
+							// Se $id não for igual a 0, inclui o menu do utilizador comum
 							include("menuuser.php");
 								}
 					?>
@@ -144,18 +144,12 @@
                     </div>
                 </div>
             </div>
-            <!-- end: search & user box -->
         </header>
-        <!-- end: header -->
 
         <div class="inner-wrapper">
-            <!-- start: sidebar -->
-
-            <!-- end: sidebar -->
-
             <section role="main" class="content-body">
                 <header class="page-header">
-                    <h2>Código QR</h2>
+                    <h2>Gerar Código QR</h2>
 
                     <div class="right-wrapper text-end">
                         <ol class="breadcrumbs">
@@ -164,8 +158,10 @@
                                     <i class="bx bx-home-alt"></i>
                                 </a>
                             </li>
-
-                            <li><span>Código QR</span></li>
+                            <li><span>Menu Serviços</span></li>
+                            <li><span>Listar Serviços</span></li>
+                            <li><span>Editar Serviços</span></li>
+                            <li><span>Gerar Código QR</span></li>
 
                         </ol>
 
@@ -174,133 +170,137 @@
                     </div>
                 </header>
 
-                <!-- start: page -->
                 <div class="bg-light">
-                    <div class="form-container">
-                        <div class="w-100">
-                            <form name="form_ins_prod" id="form_ins_prod" action="inserir_empregado.php" method="post">
-                                <section class="card">
-                                    <div class="card-body" style="text-align: center;">
-                                        <?php
+                        <div class="form-container">
+                            <div class="w-100">
+                                <form name="form_ins_prod" id="form_ins_prod" action="inserir_empregado.php" method="post">
+                                    <section class="card">
+                                        <div class="card-body" style="text-align: center;">
+                                            <?php
+                                            // Verifica se o parâmetro 'idos' foi passado no URL
                                             if (isset($_GET['idos'])) {
                                                 $idos = htmlspecialchars($_GET['idos']);
                                                 $texto_qr = 'ID do Serviço: ' . $idos;
+                                                // URL para gerar o código QR com base no texto fornecido
                                                 $qr_code_url = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' . urlencode($texto_qr);
+                                                // Exibe a imagem do código QR
                                                 echo '<img src="' . $qr_code_url . '" alt="Código QR" style="width: 100%; max-width: 150px; height: auto;">';
                                             } else {
+                                                // Mensagem caso o ID do serviço não seja fornecido
                                                 echo 'ID do serviço não fornecido.';
                                             }
                                             ?>
-                                    </div>
-                                    <footer  class="card-footer d-flex justify-content-end mt-3">
-                                    
-                                     <button type="button" class="btn btn-primary" onclick="printQR()">Imprimir</button>
-                                   </footer>
-                                </section>
-                                
-                                
-                            </form>
-                        </div>
-                        <script>
-                        function printQR() {
-                            var idos = '<?php echo htmlspecialchars($_GET['idos']); ?>';
-                            var printWindow = window.open('imprimir_qr.php?idos=' + encodeURIComponent(idos), '_blank', 'width=80mm,height=auto');
-                            printWindow.focus();
-                        }
-                    </script>
-                    </div>
-                </div>
-
-                   
-
-            <section role="main" class="content-body">
-                <footer class="site-footer">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6">
-                                <h4><a class="logo">
-                                        <img src="img/faviicon.png" width="35" height="35" />
-                                    </a>Visite-nos</h4>Travessa São Romão Nº7, Barracão, Cantanhede - Coimbra, Portugal
+                                        </div>
+                                        <!-- Rodapé do cartão com botão de imprimir -->
+                                        <footer class="card-footer d-flex justify-content-end mt-3">
+                                            <button type="button" class="btn btn-primary" onclick="printQR()">Imprimir</button>
+                                        </footer>
+                                    </section>
+                                </form>
                             </div>
-                            <div class="col-lg-4 col-md-6">
-                                <h4>Siga-nos</h4>
-                                <ul class="social-icons">
-                                    <li><a href="https://www.facebook.com/tomas.duarte.7583992/" target="_blank"><i
-                                                class="fab fa-facebook"></i></a> Facebook</li>
-                                    <li><a href="https://www.linkedin.com/in/tomás-duarte-2b0816294" target="_blank"><i
-                                                class="fab fa-linkedin"></i></a> Linkedin</li>
-                                    <li><a href="https://www.instagram.com/_tomas.duarte_/" target="_blank"><i
-                                                class="fab fa-instagram"></i></a> Instagram</li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-4 col-md-12">
-                                <h4>Sobre Nós</h4>
-                                <p>Uma empresa dedicada a fornecer soluções inovadoras para os clientes.</p>
-                            </div>
+                          
+                            <script>
+                                function printQR() {
+                                    // Obtém o ID do serviço da URL e codifica para enviar via parâmetro
+                                    var idos = '<?php echo htmlspecialchars($_GET['idos']); ?>';
+                                    // Abre uma nova janela para imprimir o código QR usando um script PHP separado
+                                    var printWindow = window.open('imprimir_qr.php?idos=' + encodeURIComponent(idos), '_blank', 'width=80mm,height=auto');
+                                    printWindow.focus();
+                                }
+                            </script>
                         </div>
                     </div>
 
-                    <div class="bottom-footer">
+
+                <section role="main" class="content-body">
+                    <footer class="site-footer">
                         <div class="container">
                             <div class="row">
-                                <div class="col-lg-12 text-center">
-                                    <p>&copy; 2023 FixElectro. Todos os direitos reservados.</p>
+                                <div class="col-lg-4 col-md-6">
+                                    <h4><a class="logo">
+                                            <img src="img/faviicon.png" width="35" height="35" />
+                                        </a>Visite-nos</h4>Travessa São Romão Nº7, Barracão, Cantanhede - Coimbra,
+                                    Portugal
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <h4>Siga-nos</h4>
+                                    <ul class="social-icons">
+                                        <li><a href="https://www.facebook.com/tomas.duarte.7583992/" target="_blank"><i
+                                                    class="fab fa-facebook"></i></a> Facebook</li>
+                                        <li><a href="https://www.linkedin.com/in/tomás-duarte-2b0816294"
+                                                target="_blank"><i class="fab fa-linkedin"></i></a> Linkedin</li>
+                                        <li><a href="https://www.instagram.com/_tomas.duarte_/" target="_blank"><i
+                                                    class="fab fa-instagram"></i></a> Instagram</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <h4>Sobre Nós</h4>
+                                    <p>Uma empresa dedicada a fornecer soluções inovadoras para os clientes.</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </footer>
-            </section>
 
-            <!-- Vendor -->
-            <script src="vendor/jquery/jquery.js"></script>
-            <script src="vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-            <script src="vendor/popper/umd/popper.min.js"></script>
-            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <script src="vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-            <script src="vendor/common/common.js"></script>
-            <script src="vendor/nanoscroller/nanoscroller.js"></script>
-            <script src="vendor/magnific-popup/jquery.magnific-popup.js"></script>
-            <script src="vendor/jquery-placeholder/jquery.placeholder.js"></script>
+                        <div class="bottom-footer">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12 text-center">
+                                        <p>&copy; 2023 FixElectro. Todos os direitos reservados.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </section>
 
-            <!-- Specific Page Vendor -->
-            <script src="vendor/jquery-ui/jquery-ui.js"></script>
-            <script src="vendor/jqueryui-touch-punch/jquery.ui.touch-punch.js"></script>
-            <script src="vendor/jquery-appear/jquery.appear.js"></script>
-            <script src="vendor/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
-            <script src="vendor/jquery.easy-pie-chart/jquery.easypiechart.js"></script>
-            <script src="vendor/flot/jquery.flot.js"></script>
-            <script src="vendor/flot.tooltip/jquery.flot.tooltip.js"></script>
-            <script src="vendor/flot/jquery.flot.pie.js"></script>
-            <script src="vendor/flot/jquery.flot.categories.js"></script>
-            <script src="vendor/flot/jquery.flot.resize.js"></script>
-            <script src="vendor/jquery-sparkline/jquery.sparkline.js"></script>
-            <script src="vendor/raphael/raphael.js"></script>
-            <script src="vendor/morris/morris.js"></script>
-            <script src="vendor/gauge/gauge.js"></script>
-            <script src="vendor/snap.svg/snap.svg.js"></script>
-            <script src="vendor/liquid-meter/liquid.meter.js"></script>
-            <script src="vendor/jqvmap/jquery.vmap.js"></script>
-            <script src="vendor/jqvmap/data/jquery.vmap.sampledata.js"></script>
-            <script src="vendor/jqvmap/maps/jquery.vmap.world.js"></script>
-            <script src="vendor/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
-            <script src="vendor/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
-            <script src="vendor/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
-            <script src="vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
-            <script src="vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
-            <script src="vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
+                <!-- Vendor -->
+                <script src="vendor/jquery/jquery.js"></script>
+                <script src="vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+                <script src="vendor/popper/umd/popper.min.js"></script>
+                <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                <script src="vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+                <script src="vendor/common/common.js"></script>
+                <script src="vendor/nanoscroller/nanoscroller.js"></script>
+                <script src="vendor/magnific-popup/jquery.magnific-popup.js"></script>
+                <script src="vendor/jquery-placeholder/jquery.placeholder.js"></script>
 
-            <!-- Theme Base, Components and Settings -->
-            <script src="js/theme.js"></script>
+                <!-- Specific Page Vendor -->
+                <script src="vendor/jquery-ui/jquery-ui.js"></script>
+                <script src="vendor/jqueryui-touch-punch/jquery.ui.touch-punch.js"></script>
+                <script src="vendor/jquery-appear/jquery.appear.js"></script>
+                <script src="vendor/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
+                <script src="vendor/jquery.easy-pie-chart/jquery.easypiechart.js"></script>
+                <script src="vendor/flot/jquery.flot.js"></script>
+                <script src="vendor/flot.tooltip/jquery.flot.tooltip.js"></script>
+                <script src="vendor/flot/jquery.flot.pie.js"></script>
+                <script src="vendor/flot/jquery.flot.categories.js"></script>
+                <script src="vendor/flot/jquery.flot.resize.js"></script>
+                <script src="vendor/jquery-sparkline/jquery.sparkline.js"></script>
+                <script src="vendor/raphael/raphael.js"></script>
+                <script src="vendor/morris/morris.js"></script>
+                <script src="vendor/gauge/gauge.js"></script>
+                <script src="vendor/snap.svg/snap.svg.js"></script>
+                <script src="vendor/liquid-meter/liquid.meter.js"></script>
+                <script src="vendor/jqvmap/jquery.vmap.js"></script>
+                <script src="vendor/jqvmap/data/jquery.vmap.sampledata.js"></script>
+                <script src="vendor/jqvmap/maps/jquery.vmap.world.js"></script>
+                <script src="vendor/jqvmap/maps/continents/jquery.vmap.africa.js"></script>
+                <script src="vendor/jqvmap/maps/continents/jquery.vmap.asia.js"></script>
+                <script src="vendor/jqvmap/maps/continents/jquery.vmap.australia.js"></script>
+                <script src="vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
+                <script src="vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
+                <script src="vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
 
-            <!-- Theme Custom -->
-            <script src="js/custom.js"></script>
+                <!-- Theme Base, Components and Settings -->
+                <script src="js/theme.js"></script>
 
-            <!-- Theme Initialization Files -->
-            <script src="js/theme.init.js"></script>
+                <!-- Theme Custom -->
+                <script src="js/custom.js"></script>
 
-            <!-- Examples -->
-            <script src="js/examples/examples.dashboard.js"></script>
+                <!-- Theme Initialization Files -->
+                <script src="js/theme.init.js"></script>
+
+                <!-- Examples -->
+                <script src="js/examples/examples.dashboard.js"></script>
 
 </body>
 

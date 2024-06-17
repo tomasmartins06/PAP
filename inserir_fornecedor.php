@@ -75,7 +75,7 @@
 							// Se $id for igual a 0, inclui o menu de administração
 							include("menuadmin.php");
 						} else {
-							// Se $id não for igual a 0, inclui o menu do usuário comum
+							// Se $id não for igual a 0, inclui o menu do utilizador comum
 							include("menuuser.php");
 								}
 					?>
@@ -219,7 +219,7 @@
 								</section>
 							</form>
 							<?php
-								// PHP para processar o formulário e inserir dados no banco de dados
+								
 								$fnome = $fcontacto = $femail = $fendereco = ''; // Inicia as variáveis
 
 									if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
@@ -268,8 +268,7 @@
 			</section>
 
 		</div>
-		</div>
-		</div>
+	
 
 		
 

@@ -12,6 +12,5 @@ if (!$link) {
     die('Não foi possível conectar: ' . mysqli_connect_error());
 }
 
-// Se a conexão for bem-sucedida, o objeto $link contém a conexão ativa com a base de dados
 
 ?>

@@ -62,17 +62,23 @@
 
 		<div class="nano">
 			<div class="nano-content">
-				<?php SESSION_START();
+			<?php
+				// Inicia a sessão PHP
+				SESSION_START();
 
-		$id = $_SESSION['iduser'];
-		
-		if ($id==0) {
+				// Obtém o valor da variável de sessão 'iduser'
+				$id = $_SESSION['iduser'];
+
+				// Verifica o valor de $id para determinar qual menu incluir
+				if ($id == 0) {
+					// Se $id for igual a 0, inclui o menu de administração
 					include("menuadmin.php");
-				}
-				else {
+				} else {
+					// Se $id não for igual a 0, inclui o menu do utilizador
 					include("menuuser.php");
 				}
-		?>
+			?>
+
 
 				<hr class="separator" />
 
@@ -149,15 +155,9 @@
 					</div>
 				</div>
 			</div>
-			<!-- end: search & user box -->
 		</header>
-		<!-- end: header -->
 
 		<div class="inner-wrapper">
-			<!-- start: sidebar -->
-
-			<!-- end: sidebar -->
-
 			<section role="main" class="content-body">
 				<header class="page-header">
 					<h2>Inserir Serviço</h2>
@@ -170,6 +170,7 @@
 								</a>
 							</li>
 
+							<li><span>Menu Serviços</span></li>
 							<li><span>Inserir Serviço</span></li>
 
 						</ol>
@@ -187,7 +188,6 @@
 							<form name="form_ins_prod" id="form_ins_prod" action="inserir_servico.php" method="post">
 								<section class="card">
 									<div class="card-body">
-
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2">Proprietário do
 												Eletrodoméstico <span style="color: red;">*</span></label>
@@ -285,8 +285,7 @@
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2">Peças</label>
 											<div class="col-lg-6">
-												<select name="pecas[]" id="pecas"
-													class="form-control custom-select-height" multiple="multiple"
+												<select name="pecas[]" id="pecas" class="form-control custom-select-height" multiple="multiple"
 													data-plugin-multiselect
 													data-plugin-options='{ "maxHeight": 250, "enableCaseInsensitiveFiltering": true, "nonSelectedText": "Nenhuma Peça Selecionada" }'>
 													<optgroup label="Peças Disponíveis">
@@ -295,7 +294,7 @@
 															$result = mysqli_query($link, $qry);
 															while ($row = mysqli_fetch_array($result)) {
 														?>
-														<option value="<?php echo $row['idp']; ?>">
+														<option value="<?php echo $row['preco']; ?>">
 															<?php echo $row['nome'] . " - " .  $row['preco'] . "€"; ?>
 														</option>
 														<?php } ?>
@@ -307,26 +306,21 @@
 										<div class="form-group row pb-3">
 											<label class="col-lg-3 control-label text-lg-end pt-2">Descrição</label>
 											<div class="col-lg-6">
-												<textarea name="descricao" class="form-control" rows="3"
-													id="textareaDefault"></textarea>
+												<textarea name="descricao" class="form-control" rows="3" id="textareaDefault"></textarea>
 											</div>
 										</div>
 
 										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Preço de Mão de Obra</label>
+											<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Preço de Mão de Obra</label>
 											<div class="col-lg-6">
-												<input name="preco_mobra" id="preco_mobra" type="number"
-													class="form-control">
+												<input name="preco_mobra" id="preco_mobra" type="number" class="form-control">
 											</div>
 										</div>
 
 										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Preço Total</label>
+											<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Preço Total</label>
 											<div class="col-lg-6">
-												<input name="preco_total" id="preco_total" type="text"
-													class="form-control" placeholder="€" readonly>
+												<input name="preco_total" id="preco_total" type="text" class="form-control" placeholder="€" readonly>
 											</div>
 										</div>
 
@@ -338,11 +332,11 @@
 
 												function calcularPrecoTotal() {
 													let precoMobra = parseFloat(precoMobraInput.value) || 0;
-													let precoPecas = Array.from(pecasSelect.selectedOptions).reduce((total, option) => total +
-														parseFloat(option.value), 0);
+													let precoPecas = Array.from(pecasSelect.selectedOptions).reduce((total, option) => total + parseFloat(option.value), 0);
 													let precoTotal = precoMobra + precoPecas;
 													precoTotalInput.value = precoTotal.toFixed(2) + '€';
 												}
+
 												pecasSelect.addEventListener('change', calcularPrecoTotal);
 												precoMobraInput.addEventListener('input', calcularPrecoTotal);
 											});
@@ -351,9 +345,7 @@
 										<footer class="card-footer d-flex justify-content-end">
 											<button name="bt" class="btn btn-primary mx-2">Introduzir</button>
 											<button type="reset" class="btn btn-default mx-2">Limpar</button>
-											<!-- <button type="submit" name="gerar_qr" class="btn btn-info mx-2">Gerar código QR</button> -->
 										</footer>
-								</section>
 
 							</form>
 
@@ -408,8 +400,7 @@
 			</section>
 
 		</div>
-		</div>
-		</div>
+	
 
 		
 

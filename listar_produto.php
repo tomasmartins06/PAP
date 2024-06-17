@@ -84,17 +84,22 @@
 
         <div class="nano">
             <div class="nano-content">
-                <?php SESSION_START();
+                <?php 
+                // Inicia a sessão PHP
+				SESSION_START();
 
-		$id = $_SESSION['iduser'];
-		
-		if ($id==0) {
+				// Obtém o valor da variável de sessão 'iduser'
+				$id = $_SESSION['iduser'];
+
+				// Verifica o valor de $id para determinar qual menu incluir
+				if ($id == 0) {
+					// Se $id for igual a 0, inclui o menu de administração
 					include("menuadmin.php");
-				}
-				else {
+				} else {
+					// Se $id não for igual a 0, inclui o menu do utilizador
 					include("menuuser.php");
 				}
-		?>
+			?>
 
                 <hr class="separator" />
 
@@ -168,15 +173,10 @@
                     </div>
                 </div>
             </div>
-            <!-- end: search & user box -->
         </header>
-        <!-- end: header -->
+    
 
         <div class="inner-wrapper">
-            <!-- start: sidebar -->
-
-            <!-- end: sidebar -->
-
             <section role="main" class="content-body">
                 <header class="page-header">
                     <h2>Listar Eletrodomésticos</h2>
@@ -194,72 +194,32 @@
 
                         </ol>
 
-                        <a class="sidebar-right-toggle" dclass="sidebar-right-wrapper"><i
-                                class="fas fa-chevron-left"></i></a>
+                        <a class="sidebar-right-toggle" dclass="sidebar-right-wrapper">
+                        <i class="fas fa-chevron-left"></i></a>
                     </div>
                 </header>
-                <?php
-								//conexão com a base de dados 
-								include "DBConnection.php"; echo "<br>";
-							?>
+                <?php include "DBConnection.php"; echo "<br>"; ?>
                 <!-- start: page -->
                 <section class="card">
-                    <!-- Cabeçalho da tabela -->
-                    <!-- <header class="card-header">
-                        <h2 class="card-title">Lista de Clientes</h2>
-                    </header> -->
-
-                    <!-- Corpo da tabela -->
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <!-- Conteúdo da coluna -->
-                            </div>
-                        </div>
-
                         <div class="datatable-header">
                             <div class="row align-items-center mb-3">
-                                <div class="col-12 col-lg-auto mb-3 mb-lg-0">
-                                    <!-- <a href="ecommerce-coupons-form.html" class="btn btn-primary btn-md font-weight-semibold btn-py-2 px-4">+ Add Coupon</a> -->
-                                </div>
-                                <div class="col-8 col-lg-auto ms-auto ml-auto mb-3 mb-lg-0">
-                                    <div class="d-flex align-items-lg-center flex-column flex-lg-row">
-
-                                        </select>
-
-                                        <!-- <input type="submit" class="btn btn-primary btn-md font-weight-semibold btn-py-2 px-4" name="filter"> -->
-                                    </div>
-                                </div>
-                                <!-- <div class="col-4 col-lg-auto ps-lg-1 mb-3 mb-lg-0">
-													<div class="d-flex align-items-lg-center flex-column flex-lg-row">
-														<label class="ws-nowrap me-3 mb-0">Show:</label>
-														<select class="form-control select-style-1 results-per-page" name="results-per-page">
-															<option value="12" selected>12</option>
-															<option value="24">24</option>
-															<option value="36">36</option>
-															<option value="100">100</option>
-														</select>
-													</div>
-								 				</div> -->
-
-                                <!-- Tabela para exibir a lista de clientes -->
-                                <!-- Tabela para exibir a lista de clientes -->
                                 <?php
 
-                                     // Incluir a conexão com o banco de dados
+                                     // Incluir a conexão com a base de dados
                                     include "DBConnection.php";
 
                                     // Consulta SQL padrão
                                     $query = "SELECT * FROM eletrodomesticos";
 
-                                    // Se o filtro estiver definido, adicione a condição WHERE na consulta SQL
+                                    // Se o filtro estiver definido, adiciona a condição WHERE na consulta SQL
                                     if(isset($_POST['filter-by']) && $_POST['filter-by'] != "" && $_POST['filter-by'] != "all") {
                                         $filtro = $_POST['filter-by'];
                                         $query .= " WHERE gama = '$filtro'";
                                     }
 
                                     // Adicione a cláusula ORDER BY para ordenar os resultados
-                                    $query .= " ORDER BY ide";
+                                    $query = "SELECT * FROM eletrodomesticos ORDER BY ide";
 
                                     // Executa a consulta SQL
                                     $result = mysqli_query($link, $query);
@@ -354,11 +314,7 @@
                                         ?>
 
                                     </tbody>
-
                                 </table>
-
-                                <!-- Rodapé HTML omitido por brevidade -->
-
                             </div>
                 </section>
             </section>

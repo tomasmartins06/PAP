@@ -84,17 +84,23 @@
 
 		<div class="nano">
 			<div class="nano-content">
-				<?php SESSION_START();
+			<?php
+				// Inicia a sessão PHP
+				SESSION_START();
 
-		$id = $_SESSION['iduser'];
-		
-		if ($id==0) {
+				// Obtém o valor da variável de sessão 'iduser'
+				$id = $_SESSION['iduser'];
+
+				// Verifica o valor de $id para determinar qual menu incluir
+				if ($id == 0) {
+					// Se $id for igual a 0, inclui o menu de administração
 					include("menuadmin.php");
-				}
-				else {
+				} else {
+					// Se $id não for igual a 0, inclui o menu do utilizador
 					include("menuuser.php");
 				}
-		?>
+			?>
+
 
 				<hr class="separator" />
 
@@ -197,22 +203,12 @@
 					</div>
 				</header>
 				<?php include "DBConnection.php"; ?>
-				<!-- start: page -->
 				<section class="card">
-					<!-- Cabeçalho da tabela -->
 					<header class="card-header">
 						<h2 class="card-title">Lista de Clientes</h2>
 					</header>
-
-					<!-- Corpo da tabela -->
 					<div class="card-body">
 						<div class="row">
-							<div class="col-sm-6">
-								<!-- Conteúdo da coluna -->
-							</div>
-						</div>
-
-						<!-- Tabela para exibir a lista de clientes -->
 						<table class="table table-bordered table-striped mb-0" id="datatable-editable">
 							<thead>
 								<tr>

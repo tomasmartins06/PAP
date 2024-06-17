@@ -84,18 +84,22 @@
 
 		<div class="nano">
 			<div class="nano-content">
-				<?php SESSION_START();
+			<?php
+				// Inicia a sessão PHP
+				SESSION_START();
 
-		$id = $_SESSION['iduser'];
-		
-		if ($id==0) {
+				// Obtém o valor da variável de sessão 'iduser'
+				$id = $_SESSION['iduser'];
+
+				// Verifica o valor de $id para determinar qual menu incluir
+				if ($id == 0) {
+					// Se $id for igual a 0, inclui o menu de administração
 					include("menuadmin.php");
-				}
-				else {
+				} else {
+					// Se $id não for igual a 0, inclui o menu do utilizador
 					include("menuuser.php");
 				}
-		?>
-
+			?>
 				<hr class="separator" />
 
 				<hr class="separator" />
@@ -200,26 +204,12 @@
 								class="fas fa-chevron-left"></i></a>
 					</div>
 				</header>
-				<?php
-								//conexão com a base de dados 
-								include "DBConnection.php"; echo "<br>";
-							?>
-				<!-- start: page -->
+				<?php include "DBConnection.php"; echo "<br>";	?>
 				<section class="card">
-					<!-- Cabeçalho da tabela -->
 					<header class="card-header">
 						<h2 class="card-title">Lista de Peças</h2>
 					</header>
-
-					<!-- Corpo da tabela -->
 					<div class="card-body">
-						<div class="row">
-							<div class="col-sm-6">
-								<!-- Conteúdo da coluna -->
-							</div>
-						</div>
-
-						<!-- Tabela para exibir a lista de clientes -->
 						<table class="table table-bordered table-striped mb-0" id="datatable-editable">
 							<thead>
 								<tr>
@@ -230,20 +220,18 @@
 									<th>Quantidade</th>
 									<th>Preço</th>
 									<th>Fornecedor</th>
-									<th>Ações</th> <!-- Adicionei essa coluna para as ações -->
+									<th>Ações</th> 
 								</tr>
 							</thead>
-
-							<!-- Corpo da tabela -->
 							<tbody>
 								<?php 
-                    // Consulta a base de dados para obter os registos dos clientes
-                    $query  = "SELECT * FROM pecas ORDER BY idp";
-                    $result = mysqli_query($link, $query);
-                    
-                    // Loop para exibir cada registo na tabela
-                    while($row = mysqli_fetch_array($result)){ 
-                ?>
+									// Consulta a base de dados para obter os registos dos clientes
+									$query  = "SELECT * FROM pecas ORDER BY idp";
+									$result = mysqli_query($link, $query);
+									
+									// Loop para exibir cada registo na tabela
+									while($row = mysqli_fetch_array($result)){ 
+								?>
 								<tr>
 									<!-- Exibição de dados do cliente -->
 									<td class="border-b dark:border-dark-5"><?php echo $row['idp'] ?></td>
@@ -260,15 +248,14 @@
 											echo $row_nome ? $row_nome['nome'] : "Fornecedor não encontrado";
 										?>
 									</td>
-									<!-- Coluna de ações -->
+									
 									<td class="actions text-left">
-										<!-- Link para a página de edição -->
 										<a href="editar_peca.php?id=<?php echo $row['idp']; ?>"
 											class="btn btn-sm btn-sm-custom" title="Editar">
 											<i class="fas fa-pencil-alt" style="color: black;"></i>
 										</a>
 
-										<!-- Formulário para exclusão com alerta de confirmação -->
+										
 										<form method="post" action="apagarpeca.php" style="display:inline;"
 											onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
 											<input type="hidden" name="id" value="<?php echo $row['idp']; ?>">
@@ -279,7 +266,7 @@
 										</form>
 									</td>
 								</tr>
-								<?php } // Fim do loop ?>
+								<?php } ?>
 							</tbody>
 						</table>
 					</div>

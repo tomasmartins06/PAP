@@ -75,7 +75,7 @@
 							// Se $id for igual a 0, inclui o menu de administração
 							include("menuadmin.php");
 						} else {
-							// Se $id não for igual a 0, inclui o menu do usuário comum
+							// Se $id não for igual a 0, inclui o menu do utilizador comum
 							include("menuuser.php");
 								}
 					?>
@@ -207,7 +207,7 @@
 											padding: 8px;
 										}
 
-										/* Container para centralizar o vídeo */
+										/* Container para centralizar a stream */
 										.video-container {
 											display: flex;
 											justify-content: center;
@@ -254,86 +254,98 @@
 		
 
 		<script>
-    // Código JavaScript para o leitor de QR Code
-    let currentStream;
-    let currentDeviceId;
+			let fluxoAtual; // Variável para armazenar o fluxo de mídia atual
+			let idDispositivoAtual; // Variável para armazenar o ID do dispositivo atual
 
-    async function getCameraDevices() {
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const videoDevices = devices.filter(device => device.kind === 'videoinput');
-        const cameraSelect = document.getElementById('cameraSelect');
+			// Função para obter os dispositivos de câmera disponíveis
+			async function obterDispositivosCamera() {
+				const dispositivos = await navigator.mediaDevices.enumerateDevices(); // Obtém todos os dispositivos de mídia
+				const dispositivosVideo = dispositivos.filter(dispositivo => dispositivo.kind === 'videoinput'); // Filtra apenas os dispositivos de vídeo
+				const selectCamera = document.getElementById('cameraSelect'); // Seleciona o elemento <select> onde as câmeras serão listadas
 
-        videoDevices.forEach(device => {
-            const option = document.createElement('option');
-            option.value = device.deviceId;
-            option.text = device.label || `Câmera ${cameraSelect.length + 1}`;
-            cameraSelect.appendChild(option);
-        });
+				// Percorre sobre os dispositivos de vídeo encontrados
+				dispositivosVideo.forEach(dispositivo => {
+					const opcao = document.createElement('option'); // Cria um novo elemento <option>
+					opcao.value = dispositivo.deviceId; // Define o valor do <option> como o ID do dispositivo
+					opcao.text = dispositivo.label || `Câmara ${selectCamera.length + 1}`; // Define o texto do <option>
+					selectCamera.appendChild(opcao); // Adiciona o <option> ao <select>
+				});
 
-        cameraSelect.addEventListener('change', () => {
-            currentDeviceId = cameraSelect.value;
-            startCamera();
-        });
+				// Adiciona um evento ao <select> para iniciar a câmera selecionada
+				selectCamera.addEventListener('change', () => {
+					idDispositivoAtual = selectCamera.value; // Atualiza o ID do dispositivo atual
+					iniciarCamera(); // Inicia a câmera com base no dispositivo selecionado
+				});
 
-        if (videoDevices.length > 0) {
-            currentDeviceId = videoDevices[0].deviceId;
-            startCamera();
-        } else {
-            alert('Nenhuma câmera encontrada.');
-        }
-    }
+				// Se houver dispositivos de vídeo disponíveis, inicia o primeiro
+				if (dispositivosVideo.length > 0) {
+					idDispositivoAtual = dispositivosVideo[0].deviceId; // Define o ID do dispositivo atual
+					iniciarCamera(); // Inicia a câmera
+				} else {
+					alert('Nenhuma câmera encontrada.'); // Alerta se nenhuma câmera for encontrada
+				}
+			}
 
-    async function startCamera() {
-        if (currentStream) {
-            currentStream.getTracks().forEach(track => track.stop());
-        }
+			// Função para iniciar a câmera
+			async function iniciarCamera() {
+				// Se já houver um fluxo de mídia, interrompe todos os tracks
+				if (fluxoAtual) {
+					fluxoAtual.getTracks().forEach(track => track.stop());
+				}
 
-        const constraints = {
-            video: {
-                deviceId: currentDeviceId ? { exact: currentDeviceId } : undefined
-            }
-        };
+				// Define as restrições de vídeo com base no dispositivo selecionado
+				const constraints = {
+					video: {
+						// Especifica o dispositivo de vídeo a ser usado
+						// Se 'idDispositivoAtual' estiver definido, usa exatamente esse dispositivo
+						// Caso contrário, não especifica nenhum dispositivo (undefined)
+						deviceId: idDispositivoAtual ? { exact: idDispositivoAtual } : undefined
+					}
+				};
 
-        try {
-            const video = document.getElementById('video');
-            currentStream = await navigator.mediaDevices.getUserMedia(constraints);
-            video.srcObject = currentStream;
-            video.play();
+				try {
+					const video = document.getElementById('video'); // Seleciona o elemento <video>
+					fluxoAtual = await navigator.mediaDevices.getUserMedia(constraints); // Obtém o fluxo de mídia com base nas restrições
+					video.srcObject = fluxoAtual; // Define o fluxo de mídia como a fonte do elemento <video>
+					video.play(); // Inicia a reprodução do vídeo
 
-            const canvas = document.getElementById('canvas');
-            const context = canvas.getContext('2d');
+					const canvas = document.getElementById('canvas'); // Seleciona o elemento <canvas>
+					const contexto = canvas.getContext('2d'); // Obtém o contexto 2D do canvas
 
-            async function detectCode() {
-                if (video.readyState === video.HAVE_ENOUGH_DATA) {
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
-                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+					// Função para detectar o código QR
+					async function detectarCodigo() {
+						// Verifica se o vídeo tem dados suficientes para processamento
+						if (video.readyState === video.HAVE_ENOUGH_DATA) {
+							canvas.width = video.videoWidth; // Define a largura do canvas com base no estilo da stream
+							canvas.height = video.videoHeight; // Define a altura do canvas com base no estilo da stream
+							contexto.drawImage(video, 0, 0, canvas.width, canvas.height); // Desenha o frame atual do vídeo no canvas
+							const imageData = contexto.getImageData(0, 0, canvas.width, canvas.height); // Obtém os dados da imagem do canvas
+							const codigo = jsQR(imageData.data, imageData.width, imageData.height); // Usa a biblioteca jsQR para ler o QR Code
 
-                    if (code) {
-                        const decodedText = code.data;
-                        const regex = /ID do Serviço: (\d+)/;
-                        const match = decodedText.match(regex);
-                        if (match) {
-                            const id = match[1];
-                            window.location.href = `editar_servico.php?id=${id}`;
-                        }
-                    }
-                }
-                requestAnimationFrame(detectCode);
-            }
-            detectCode();
-        } catch (error) {
-            console.error('Erro ao acessar a câmera: ', error);
-            alert('Erro ao acessar a câmera. Por favor, verifique as permissões e a conexão da câmera.');
-        }
-    }
+							if (codigo) {
+								const textoDecodificado = codigo.data; // Obtém o texto do QR Code
+								const regex = /ID do Serviço: (\d+)/; // Define uma expressão regular para encontrar o ID do serviço
+								const correspondencia = textoDecodificado.match(regex); // Procura o ID do serviço no texto decodificado
+								if (correspondencia) {
+									const id = correspondencia[1]; // Extrai o ID do serviço da correspondência
+									window.location.href = `editar_servico.php?id=${id}`; // Redireciona para a página de edição do serviço
+								}
+							}
+						}
+						requestAnimationFrame(detectarCodigo); // Continua a detectar código em cada frame de animação
+					}
+					detectarCodigo(); // Inicia a detecção de código QR
+				} catch (erro) {
+					console.error('Erro ao acessar a câmera: ', erro); // Log de erro no console
+					alert('Erro ao acessar a câmera. Por favor, verifique as permissões e a conexão da câmera.'); // Alerta em caso de erro
+				}
+			}
 
-    document.addEventListener('DOMContentLoaded', () => {
-        getCameraDevices();
-    });
-</script>
+			// Inicia o processo quando o conteúdo da página é carregado
+			document.addEventListener('DOMContentLoaded', () => {
+				obterDispositivosCamera(); // Obtém e lista as câmeras disponíveis
+			});
+		</script>
 
 
 	
