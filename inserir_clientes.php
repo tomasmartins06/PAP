@@ -161,7 +161,7 @@
 						<a class="sidebar-right-toggle" ><i
 								class="fas fa-chevron-left"></i></a>
 					</div>
-				</header>
+				</header> 
 
 				<!-- start: page -->
 

@@ -214,7 +214,7 @@
 									<th>Fornecedor</th>
 									<th>Ações</th> 
 								</tr>
-							</thead>
+							</thead> 
 							<tbody>
 								<?php 
 									// Consulta a base de dados para obter os registos dos clientes

@@ -51,7 +51,7 @@
         }
         ?>
     </div>
- 
+  
     <script>
         // Quando a página estiver carregada, chama a função para imprimir
         window.onload = function() {

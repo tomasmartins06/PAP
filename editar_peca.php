@@ -172,7 +172,7 @@
 					<div class="form-container">
 						<div class="w-100">
 							<br><br>
-
+ 
 							<?php
 								// Inclui o arquivo de conexão com a base de dados
 								include 'DBConnection.php';

@@ -426,7 +426,7 @@
 															LEFT JOIN servicos ON clientes.idc = servicos.cliente_id  -- Junta a tabela 'clientes' com 'servicos' usando a chave estrangeira 'cliente_id'
 															GROUP BY idc                                -- Agrupa os resultados pelo campo 'idc' da tabela 'clientes'
 															ORDER BY total_servicos DESC                -- Ordena os resultados pelo total de serviços em ordem decrescente
-															LIMIT 5                                     -- Limita o resultado a 5 registros
+															LIMIT 5                                     -- Limita o resultado a 5 registos
 															";
 														$result = $mysqli->query($query);
 
@@ -471,7 +471,7 @@
 													INNER JOIN eletrodomesticos ON servicos.eletrodomestico_id = eletrodomesticos.ide  -- Junta a tabela 'servicos' com 'eletrodomesticos' usando a chave estrangeira 'eletrodomestico_id'
 													WHERE servicos.estado = 3                       -- Condição para selecionar apenas serviços com estado = 3
 													ORDER BY servicos.idos DESC                     -- Ordena os resultados pelo ID do serviço em ordem decrescente
-													LIMIT 5                                         -- Limita o resultado a 5 registros
+													LIMIT 5                                         -- Limita o resultado a 5 registos
 												";
 
 													// Executar a consulta e lidar com erros
@@ -504,7 +504,7 @@
 							</div>
 						</section>
 					</div>
-
+ 
 
 		<section role="main" class="content-body">
 			<footer class="site-footer">

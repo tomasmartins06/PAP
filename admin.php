@@ -352,7 +352,7 @@
 									$dataPoints[] = array($estado, $totalServicos);
 								}
 
-
+ 
 								?>
 								<script type="text/javascript">
 									var flotBarsData = <?php echo json_encode($dataPoints); ?>;

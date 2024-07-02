@@ -258,7 +258,7 @@
 					opcao.text = dispositivo.label || `Câmara ${selectCamera.length + 1}`; // Define o texto do <option>
 					selectCamera.appendChild(opcao); // Adiciona o <option> ao <select>
 				});
-
+ 
 				// Adiciona um evento ao <select> para iniciar a câmera selecionada
 				selectCamera.addEventListener('change', () => {
 					idDispositivoAtual = selectCamera.value; // Atualiza o ID do dispositivo atual

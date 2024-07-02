@@ -193,7 +193,7 @@
                             <li><span>Listar Eletrodomésticos</span></li>
 
                         </ol>
-
+ 
                         <a class="sidebar-right-toggle" dclass="sidebar-right-wrapper">
                         <i class="fas fa-chevron-left"></i></a>
                     </div>

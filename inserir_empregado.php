@@ -276,7 +276,7 @@
 						<h4><a class="logo">
 								<img src="img/faviicon.png" width="35" height="35" />
 							</a>Visite-nos</h4>Travessa São Romão Nº7, Barracão, Cantanhede - Coimbra, Portugal
-					</div>
+					</div> 
 					<div class="col-lg-4 col-md-6">
 						<h4>Siga-nos</h4>
 						<ul class="social-icons">

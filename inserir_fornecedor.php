@@ -177,7 +177,7 @@
 											<div class="col-lg-6">
 												<input name="nome" type="text" class="form-control">
 											</div>
-										</div>
+										</div> 
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="inputDefault">Contacto <span style="color: red;">*</span></label>

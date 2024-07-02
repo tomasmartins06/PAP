@@ -198,7 +198,7 @@
                                     </section>
                                 </form>
                             </div>
-                          
+                           
                             <script>
                                 function printQR() {
                                     // Obtém o ID do serviço da URL e codifica para enviar via parâmetro

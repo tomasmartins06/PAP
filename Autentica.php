@@ -16,7 +16,7 @@ if (empty($user) || empty($pass)) {
     header("Location: index.php?erro=1");
     exit();
 }
- 
+  
 // Executa a consulta SQL para verificar se existe um utilizador com o nome de utilizador e palavra-passe fornecidos
 $sql = mysqli_query($link, "SELECT id FROM utilizadores WHERE user = '$user' AND pass = '$pass'");
 

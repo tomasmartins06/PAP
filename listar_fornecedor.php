@@ -83,7 +83,7 @@
 		</div>
 
 		<div class="nano">
-			<div class="nano-content">
+			<div class="nano-content"> 
 				<?php
 				// Inicia a sessão PHP
 				SESSION_START();

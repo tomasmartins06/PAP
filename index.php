@@ -93,7 +93,7 @@ session_start();
                 </div>
             </div>
         </div>
-    </section>
+    </section> 
     <!-- Vendor Scripts -->
     <script src="vendor/jquery/jquery.js"></script>
     <script src="vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
