@@ -1,6 +1,6 @@
-    # FixtElectro
+    # FixElectro
 
-O “FixtElectro” é uma aplicação web projetada para simplificar a gestão de uma oficina especializada em reparação de eletrodomésticos. Este repositório contém todo o código-fonte e documentação necessários para a implementação e execução do projeto.
+O “FixElectro” é uma aplicação web projetada para simplificar a gestão de uma oficina especializada em reparação de eletrodomésticos. Este repositório contém todo o código-fonte e documentação necessários para a implementação e execução do projeto.
 
 ## Funcionalidades Principais
 
