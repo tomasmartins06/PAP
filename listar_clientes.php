@@ -161,16 +161,8 @@
 						<ul class="list-unstyled mb-2">
 							<li class="divider"></li>
 							<li>
-								<a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i
-										class="bx bx-user-circle"></i> My Profile</a>
-							</li>
-							<li>
-								<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i
-										class="bx bx-lock"></i> Lock Screen</a>
-							</li>
-							<li>
 								<a role="menuitem" tabindex="-1" href="index.php"><i class="bx bx-power-off"></i>
-									Logout</a>
+									Sair</a>
 							</li>
 						</ul>
 					</div>

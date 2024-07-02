@@ -165,7 +165,7 @@
 
                         </ol>
 
-                        <a class="sidebar-right-toggle" data-open="sidebar-right"><i
+                        <a class="sidebar-right-toggle" ><i
                                 class="fas fa-chevron-left"></i></a>
                     </div>
                 </header>

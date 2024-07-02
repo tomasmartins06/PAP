@@ -129,16 +129,8 @@
 						<ul class="list-unstyled mb-2">
 							<li class="divider"></li>
 							<li>
-								<a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i
-										class="bx bx-user-circle"></i> My Profile</a>
-							</li>
-							<li>
-								<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i
-										class="bx bx-lock"></i> Lock Screen</a>
-							</li>
-							<li>
 								<a role="menuitem" tabindex="-1" href="index.php"><i class="bx bx-power-off"></i>
-									Logout</a>
+									Sair</a>
 							</li>
 						</ul>
 					</div>
@@ -159,18 +151,14 @@
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
-							<li>
-								<a href="index.php">
-									<i class="bx bx-home-alt"></i>
-								</a>
-							</li>
+							
 
 							<li><span>Menu Serviços</span></li>
 							<li><span>Ler Código QR</span></li>
 
 						</ol>
 
-						<a class="sidebar-right-toggle" data-open="sidebar-right"><i
+						<a class="sidebar-right-toggle" ><i
 								class="fas fa-chevron-left"></i></a>
 					</div>
 				</header>
@@ -312,8 +300,8 @@
 					const canvas = document.getElementById('canvas'); // Seleciona o elemento <canvas>
 					const contexto = canvas.getContext('2d'); // Obtém o contexto 2D do canvas
 
-					// Função para detectar o código QR
-					async function detectarCodigo() {
+					// Função para detetar o código QR
+					async function detetarCodigo() {
 						// Verifica se o vídeo tem dados suficientes para processamento
 						if (video.readyState === video.HAVE_ENOUGH_DATA) {
 							canvas.width = video.videoWidth; // Define a largura do canvas com base no estilo da stream
@@ -332,9 +320,9 @@
 								}
 							}
 						}
-						requestAnimationFrame(detectarCodigo); // Continua a detectar código em cada frame de animação
+						requestAnimationFrame(detetarCodigo); // Continua a detetar código em cada frame de animação
 					}
-					detectarCodigo(); // Inicia a detecção de código QR
+					detetarCodigo(); // Inicia a deteção de código QR
 				} catch (erro) {
 					console.error('Erro ao acessar a câmera: ', erro); // Log de erro no console
 					alert('Erro ao acessar a câmera. Por favor, verifique as permissões e a conexão da câmera.'); // Alerta em caso de erro

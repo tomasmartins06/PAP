@@ -140,16 +140,8 @@
 						<ul class="list-unstyled mb-2">
 							<li class="divider"></li>
 							<li>
-								<a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i
-										class="bx bx-user-circle"></i> My Profile</a>
-							</li>
-							<li>
-								<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i
-										class="bx bx-lock"></i> Lock Screen</a>
-							</li>
-							<li>
 								<a role="menuitem" tabindex="-1" href="index.php"><i class="bx bx-power-off"></i>
-									Logout</a>
+									Sair</a>
 							</li>
 						</ul>
 					</div>
@@ -170,11 +162,7 @@
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
-							<li>
-								<a href="index.php">
-									<i class="bx bx-home-alt"></i>
-								</a>
-							</li>
+							
 
 							<li><span>Menu Serviços</span></li>
 							<li><span>Inserir Serviços</span></li>
@@ -182,7 +170,7 @@
 
 						</ol>
 
-						<a class="sidebar-right-toggle" data-open="sidebar-right"><i
+						<a class="sidebar-right-toggle" ><i
 								class="fas fa-chevron-left"></i></a>
 					</div>
 				</header>

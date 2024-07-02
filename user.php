@@ -139,63 +139,45 @@
 						<ul class="list-unstyled mb-2">
 							<li class="divider"></li>
 							<li>
-								<a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i
-										class="bx bx-user-circle"></i> My Profile</a>
-							</li>
-							<li>
-								<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i
-										class="bx bx-lock"></i> Lock Screen</a>
-							</li>
-							<li>
 								<a role="menuitem" tabindex="-1" href="index.php"><i class="bx bx-power-off"></i>
-									Logout</a>
+									Sair</a>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
-			<!-- end: search & user box -->
 		</header>
-		<!-- end: header -->
+
 
 		<div class="inner-wrapper">
-			<!-- start: sidebar ----------------->
-
-			<!-- end: sidebar -->
-
 			<section role="main" class="content-body">
 				<header class="page-header">
 					<h2>Dashboard</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
-							<li>
-								<a href="index.php">
-									<i class="bx bx-home-alt"></i>
-								</a>
-							</li>
+							
 
 							<li><span>Dashboard</span></li>
 
 						</ol>
 
-						<a class="sidebar-right-toggle" data-open="sidebar-right"><i
+						<a class="sidebar-right-toggle" ><i
 								class="fas fa-chevron-left"></i></a>
 					</div>
 				</header>
 
 				<!-- start: page -->
 				<div class="row">
-					
-					
 					<div class="row mb-3">
 						<div class="col-xl-6">
+							
 							<section class="card card-featured-left card-featured-primary mb-3">
 								<div class="card-body">
 									<div class="widget-summary">
 										<div class="widget-summary-col widget-summary-col-icon">
 											<div class="summary-icon bg-primary">
-												<i class="fas fa-life-ring"></i>
+												<i class="fas fa-user"></i> 
 											</div>
 										</div>
 										<div class="widget-summary-col">
@@ -204,29 +186,23 @@
 												<div class="info">
 													<strong class="amount">
 														<?php
-														// Conexão com o base de dados
-														$mysqli = new mysqli('localhost', 'root', '', 'pap');
-
-														// Verificar conexão
-														if ($mysqli->connect_error) {
-															die("Erro na conexão: " . $mysqli->connect_error);
-														}
-
-														// Consulta para contar o número de clientes
+														// Consulta SQL para contar o número de clientes
 														$query = "SELECT COUNT(*) AS total_clientes FROM clientes";
 														$result = $mysqli->query($query);
+
+														// Verificar se há resultados
 														if ($result->num_rows > 0) {
 															$row = $result->fetch_assoc();
-															echo $row['total_clientes'];
+															echo $row['total_clientes']; // Mostra o número total de clientes
 														} else {
-															echo '0';
+															echo '0'; // Caso não haja clientes, mostra zero
 														}
 														?>
 													</strong>
 												</div>
 											</div>
 											<div class="summary-footer">
-												<a class="text-muted text-uppercase" href="listar_clientes.php">(Ver todos)</a>
+												<a class="text-muted text-uppercase" href="listar_clientes.php">(Ver todos)</a> <!-- Link para ver todos os clientes -->
 											</div>
 										</div>
 									</div>
@@ -239,7 +215,7 @@
 									<div class="widget-summary">
 										<div class="widget-summary-col widget-summary-col-icon">
 											<div class="summary-icon bg-secondary">
-												<i class="fas fa-dollar-sign"></i>
+												<i class="fas fa-check"></i>
 											</div>
 										</div>
 										<div class="widget-summary-col">
@@ -248,21 +224,23 @@
 												<div class="info">
 													<strong class="amount">
 														<?php
-														// Consulta para contar o número de serviços concluídos
-														$query = "SELECT COUNT(*) AS total_servicos FROM servicos WHERE estado = 3";
-														$result = $mysqli->query($query);
-														if ($result->num_rows > 0) {
-															$row = $result->fetch_assoc();
-															echo $row['total_servicos'];
-														} else {
-															echo '0';
-														}
+															// Consulta SQL para contar o número de serviços concluídos
+															$query = "SELECT COUNT(*) AS total_servicos FROM servicos WHERE estado = 3";
+															$result = $mysqli->query($query);
+
+															// Verificar se há resultados
+															if ($result->num_rows > 0) {
+																$row = $result->fetch_assoc();
+																echo $row['total_servicos']; // Mostra o número total de serviços concluídos
+															} else {
+																echo '0'; // Caso não haja serviços concluídos, mostra zero
+															}
 														?>
 													</strong>
 												</div>
 											</div>
 											<div class="summary-footer">
-												<a class="text-muted text-uppercase" href="listar_servico.php">(Ver todos)</a>
+												<a class="text-muted text-uppercase" href="listar_servico.php">(Ver todos)</a> <!-- Link para ver todos os serviços -->
 											</div>
 										</div>
 									</div>
@@ -270,6 +248,7 @@
 							</section>
 						</div>
 					</div>
+
 					<div class="row">
 						<div class="col-xl-6">
 							<section class="card card-featured-left card-featured-tertiary mb-3">
@@ -277,30 +256,32 @@
 									<div class="widget-summary">
 										<div class="widget-summary-col widget-summary-col-icon">
 											<div class="summary-icon bg-tertiary">
-												<i class="fas fa-shopping-cart"></i>
+												<i class="fas fa-tv"></i> 
 											</div>
 										</div>
 										<div class="widget-summary-col">
 											<div class="summary">
-												<h4 class="title">Eletrodomésticos Registados</h4>
+												<h4 class="title">Eletrodomésticos registados</h4> 
 												<div class="info">
 													<strong class="amount">
 														<?php
-														// Consulta para contar o número de eletrodomésticos registrados
+														// Consulta SQL para contar o número de eletrodomésticos registados
 														$query = "SELECT COUNT(*) AS total_eletrodomesticos FROM eletrodomesticos";
 														$result = $mysqli->query($query);
+
+														// Verificar se há resultados
 														if ($result->num_rows > 0) {
 															$row = $result->fetch_assoc();
-															echo $row['total_eletrodomesticos'];
+															echo $row['total_eletrodomesticos']; // Mostra o número total de eletrodomésticos registados
 														} else {
-															echo '0';
+															echo '0'; // Caso não haja eletrodomésticos registados, mostra zero
 														}
 														?>
 													</strong>
 												</div>
 											</div>
 											<div class="summary-footer">
-												<a class="text-muted text-uppercase" href="listar_produto.php">(Ver todos)</a>
+												<a class="text-muted text-uppercase" href="listar_produto.php">(Ver todos)</a> <!-- Link para ver todos os eletrodomésticos -->
 											</div>
 										</div>
 									</div>
@@ -308,12 +289,13 @@
 							</section>
 						</div>
 						<div class="col-xl-6">
+
 							<section class="card card-featured-left card-featured-quaternary">
 								<div class="card-body">
 									<div class="widget-summary">
 										<div class="widget-summary-col widget-summary-col-icon">
 											<div class="summary-icon bg-quaternary">
-												<i class="fas fa-user"></i>
+												<i class="fas fa-cogs"></i> 
 											</div>
 										</div>
 										<div class="widget-summary-col">
@@ -322,21 +304,23 @@
 												<div class="info">
 													<strong class="amount">
 														<?php
-														// Consulta para somar a quantidade total de peças em estoque
+														// Consulta SQL para somar a quantidade total de peças em estoque
 														$query = "SELECT SUM(quantidade) AS total_pecas FROM pecas";
 														$result = $mysqli->query($query);
+
+														// Verificar se há resultados
 														if ($result->num_rows > 0) {
 															$row = $result->fetch_assoc();
-															echo $row['total_pecas'];
+															echo $row['total_pecas']; // Mostra o número total de peças em estoque
 														} else {
-															echo '0';
+															echo '0'; // Caso não haja peças em estoque, mostra zero
 														}
 														?>
 													</strong>
 												</div>
 											</div>
 											<div class="summary-footer">
-												<a class="text-muted text-uppercase" href="listar_peca	.php">(Ver todas)</a>
+												<a class="text-muted text-uppercase" href="listar_peca.php">(Ver todas)</a> <!-- Link para ver todas as peças -->
 											</div>
 										</div>
 									</div>
@@ -344,146 +328,176 @@
 							</section>
 						</div>
 					</div>
-				</div>
-				<?php
+
+					<!-- Script JavaScript para o gráfico de número de serviços por estado -->
+					<?php
+			
+
+					// Consulta SQL para contar serviços por estado
+					$sqlEstadoServicos = "
+						SELECT estado.estado, COUNT(*) as totalServicos  -- Seleciona o nome do estado e conta o número total de serviços por estado
+						FROM servicos                                    -- Tabela principal de onde os dados são selecionados
+						JOIN estado ON servicos.estado = estado.idt       -- Junta a tabela 'estado' com 'servicos' usando a chave estrangeira 'estado.idt'
+						GROUP BY servicos.estado                         -- Agrupa os resultados pelo campo 'estado' da tabela 'servicos'
+					";
+
+					$resultEstadoServicos = $mysqli->query($sqlEstadoServicos);
+
+					$dataPoints = array();
+
+					// Preparar os dados para o gráfico JavaScript
+					while ($row = $resultEstadoServicos->fetch_assoc()) {
+						$estado = $row['estado'];
+						$totalServicos = $row['totalServicos'];
+						$dataPoints[] = array($estado, $totalServicos);
+					}
+					?>
+
+						<script type="text/javascript">
+							// Passar dados PHP para JavaScript usando JSON
+							var flotBarsData = <?php echo json_encode($dataPoints); ?>;
+
+							$(function () {
+								// Configuração do gráfico de barras usando a biblioteca Flot
+								$.plot($("#flotBars"), [flotBarsData], {
+									series: {
+										bars: {
+											show: true,          // Mostra as barras no gráfico
+											barWidth: 0.6,      // Define a largura das barras como 0.6 da largura disponível
+											align: "center"     // Alinha as barras ao centro
+										}
+									},
+									xaxis: {
+										mode: "categories",   // Define o eixo X como categorias
+										tickLength: 0         // Define o comprimento dos ticks (marcadores) como 0 (sem ticks)
+									},
+									grid: {
+										borderWidth: 1,      // Define a largura da borda da grade como 1
+										borderColor: '#f3f3f3',  // Define a cor da borda da grade como cinza claro
+										tickColor: '#f3f3f3'     // Define a cor dos ticks (marcadores) como cinza claro
+									},
+									tooltip: true,                // Ativa a exibição de tooltips (dicas) no gráfico
+									tooltipOpts: {
+										content: "%x: %y serviços",  // Define o formato do conteúdo do tooltip com %x para o eixo X e %y para o eixo Y
+										shifts: {
+											x: -60,                 // Define o deslocamento horizontal do tooltip
+											y: 25                   // Define o deslocamento vertical do tooltip
+										},
+										defaultTheme: false        // Desativa o tema padrão do tooltip
+									}
+								});
+							});
+						</script>
 
 
-								// Consulta para contar serviços por estado
-								$sqlEstadoServicos = "SELECT estado.estado, COUNT(*) as totalServicos 
-													FROM servicos
-													JOIN estado ON servicos.estado = estado.idt
-													GROUP BY servicos.estado";
+					<div class="row">
+						<!-- Gráfico de Número de Serviços por Estado -->
+						<div class="col-lg-6">
+							<section class="card">
+								<header class="card-header">
+									<h2 class="card-title">Número de serviços por estado</h2> <!-- Título "Número de serviços por estado" -->
+								</header>
+								<div class="card-body">
+									<div class="chart chart-md" id="flotBars"></div> <!-- Elemento onde o gráfico será desenhado -->
+								</div>
+							</section>
+						</div>
 
-								$resultEstadoServicos = $mysqli->query($sqlEstadoServicos);
-
-								$dataPoints = array();
-
-								while ($row = $resultEstadoServicos->fetch_assoc()) {
-									$estado = $row['estado'];
-									$totalServicos = $row['totalServicos'];
-									$dataPoints[] = array($estado, $totalServicos);
-								}
-
-
-								?>
-								<script type="text/javascript">
-									var flotBarsData = <?php echo json_encode($dataPoints); ?>;
-
-									$(function () {
-										$.plot($("#flotBars"), [flotBarsData], {
-											series: {
-												bars: {
-													show: true,
-													barWidth: 0.6,
-													align: "center"
-												}
-											},
-											xaxis: {
-												mode: "categories",
-												tickLength: 0
-											},
-											grid: {
-												borderWidth: 1,
-												borderColor: '#f3f3f3',
-												tickColor: '#f3f3f3'
-											},
-											tooltip: true,
-											tooltipOpts: {
-												content: "%x: %y serviços",
-												shifts: {
-													x: -60,
-													y: 25
-												},
-												defaultTheme: false
-											}
-										});
-									});
-								</script>
-				
-				<div class="row">
-					<!-- Gráfico de Número de Serviços por Estado -->
-					<div class="col-lg-6">
-						<section class="card">
-							<header class="card-header">
-								<h2 class="card-title">Número de serviços por estado</h2>
-							</header>
-							<div class="card-body">
-								<div class="chart chart-md" id="flotBars"></div>
-							</div>
-						</section>
-					</div>
-
-					<!-- Top Clientes por Serviços -->
-					<div class="col-lg-6">
-						<section class="card card-featured-left card-featured-primary">
-							<div class="card-body">
-								<div class="widget-summary">
-									<div class="widget-summary-col widget-summary-col-icon">
-										<div class="summary-icon bg-primary">
-											<i class="fas fa-users"></i>
-										</div>
-									</div>
-									<div class="widget-summary-col">
-										<div class="summary">
-											<h4 class="title">Top Clientes por Serviços</h4>
-											<div class="info">
-												<ul>
-													<?php
-													$query = "SELECT nome, COUNT(idos) as total_servicos
-															FROM clientes
-															LEFT JOIN servicos ON clientes.idc = servicos.cliente_id
-															GROUP BY idc
-															ORDER BY total_servicos DESC
-															LIMIT 5";
-													$result = $mysqli->query($query);
-													while ($row = $result->fetch_assoc()) {
-														echo "<li>{$row['nome']} - {$row['total_servicos']} serviços</li>";
-													}
-													?>
-												</ul>
+						<!-- Top Clientes por Serviços -->
+						<div class="col-lg-6">
+							<section class="card card-featured-left card-featured-primary">
+								<div class="card-body">
+									<div class="widget-summary">
+										<div class="widget-summary-col widget-summary-col-icon">
+											<div class="summary-icon bg-primary">
+												<i class="fas fa-users"></i> <!-- Ícone de utilizadores -->
 											</div>
 										</div>
-										<div class="summary-footer">
-											<a class="text-muted text-uppercase" href="listar_clientes.php">(Ver todos)</a>
+										<div class="widget-summary-col">
+											<div class="summary">
+												<h4 class="title">Top Clientes por Serviços</h4> <!-- Título "Top Clientes por Serviços" -->
+												<div class="info">
+													<ul>
+														<?php
+														// Consulta SQL para listar os top clientes por serviços
+															$query = "
+															SELECT nome, COUNT(idos) as total_servicos  -- Seleciona o nome do cliente e conta o número total de serviços para cada cliente
+															FROM clientes                               -- Tabela principal de onde os dados são selecionados
+															LEFT JOIN servicos ON clientes.idc = servicos.cliente_id  -- Junta a tabela 'clientes' com 'servicos' usando a chave estrangeira 'cliente_id'
+															GROUP BY idc                                -- Agrupa os resultados pelo campo 'idc' da tabela 'clientes'
+															ORDER BY total_servicos DESC                -- Ordena os resultados pelo total de serviços em ordem decrescente
+															LIMIT 5                                     -- Limita o resultado a 5 registros
+															";
+														$result = $mysqli->query($query);
+
+														// Exibir resultados
+														while ($row = $result->fetch_assoc()) {
+															echo "<li>{$row['nome']} - {$row['total_servicos']} serviços</li>"; // Mostra o nome do cliente e o número de serviços
+														}
+														?>
+													</ul>
+												</div>
+											</div>
+											<div class="summary-footer">
+												<a class="text-muted text-uppercase" href="listar_clientes.php">(Ver todos)</a> <!-- Link para ver todos os clientes -->
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</section>
-					
-					<!-- Últimos Serviços Concluídos -->
-					
+							</section>
+						</div>
+
 						<section class="card card-featured-left card-featured-secondary">
 							<div class="card-body">
 								<div class="widget-summary">
 									<div class="widget-summary-col widget-summary-col-icon">
 										<div class="summary-icon bg-secondary">
-											<i class="fas fa-check-circle"></i>
+											<i class="fas fa-check-circle"></i> 
 										</div>
 									</div>
 									<div class="widget-summary-col">
 										<div class="summary">
-											<h4 class="title">Últimos Serviços Concluídos</h4>
+											<h4 class="title">Últimos Serviços Concluídos</h4> 
 											<div class="info">
 												<ul>
 													<?php
-													$query = "SELECT idos, nome, descricao
-														FROM servicos
-														INNER JOIN clientes ON servicos.cliente_id = clientes.idc
-														WHERE estado = 3
-														ORDER BY idos DESC
-														LIMIT 5";
+													// Consulta SQL para listar os últimos serviços concluídos
+													$query = "
+													SELECT servicos.idos,                          -- Seleciona o ID do serviço
+														clientes.nome AS cliente_nome,           -- Seleciona o nome do cliente e renomeia para 'cliente_nome'
+														eletrodomesticos.eletrodomestico AS eletrodomestico_nome  -- Seleciona o nome do eletrodoméstico e renomeia para 'eletrodomestico_nome'
+													FROM servicos                                   -- Tabela principal de onde os dados são selecionados
+													INNER JOIN clientes ON servicos.cliente_id = clientes.idc  -- Junta a tabela 'servicos' com 'clientes' usando a chave estrangeira 'cliente_id'
+													INNER JOIN eletrodomesticos ON servicos.eletrodomestico_id = eletrodomesticos.ide  -- Junta a tabela 'servicos' com 'eletrodomesticos' usando a chave estrangeira 'eletrodomestico_id'
+													WHERE servicos.estado = 3                       -- Condição para selecionar apenas serviços com estado = 3
+													ORDER BY servicos.idos DESC                     -- Ordena os resultados pelo ID do serviço em ordem decrescente
+													LIMIT 5                                         -- Limita o resultado a 5 registros
+												";
 
+													// Executar a consulta e lidar com erros
 													$result = $mysqli->query($query);
-													while ($row = $result->fetch_assoc()) {
-														echo "<li>{$row['nome']} - {$row['descricao']}</li>";
+													if (!$result) {
+														die("Erro na consulta: " . $mysqli->error);
 													}
+
+													// Verificar se há resultados
+													if ($result->num_rows > 0) {
+														// Percorre sobre os resultados
+														while ($row = $result->fetch_assoc()) {
+															echo "<li>{$row['cliente_nome']} - {$row['eletrodomestico_nome']}</li>"; // Mostra o nome do cliente e o eletrodoméstico
+														}
+													} else {
+														echo "<li>Nenhum serviço encontrado.</li>"; // Caso não haja serviços concluídos
+													}
+
+													// Liberta o resultado
+													$result->free();
 													?>
 												</ul>
 											</div>
 										</div>
 										<div class="summary-footer">
-											<a class="text-muted text-uppercase" href="listar_servico.php">(Ver todos)</a>
+											<a class="text-muted text-uppercase" href="listar_servico.php">(Ver todos)</a> <!-- Link para ver todos os serviços -->
 										</div>
 									</div>
 								</div>
@@ -491,534 +505,6 @@
 						</section>
 					</div>
 
-
-
-									
-				<div class="row pt-4">
-					<div class="col-lg-6 mb-4 mb-lg-0">
-						<section class="card">
-							<header class="card-header">
-								<div class="card-actions">
-									<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
-									<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
-								</div>
-
-								<h2 class="card-title">Best Seller</h2>
-								<p class="card-subtitle">Customize the graphs as much as you want, there are so many
-									options and features to display information using Porto Admin Template.</p>
-							</header>
-							<div class="card-body">
-
-								<!-- Flot: Basic -->
-								<div class="chart chart-md" id="flotDashBasic"></div>
-								<script>
-									var flotDashBasicData = [{
-										data: [
-											[0, 170],
-											[1, 169],
-											[2, 173],
-											[3, 188],
-											[4, 147],
-											[5, 113],
-											[6, 128],
-											[7, 169],
-											[8, 173],
-											[9, 128],
-											[10, 128]
-										],
-										label: "Series 1",
-										color: "#0088cc"
-									}, {
-										data: [
-											[0, 115],
-											[1, 124],
-											[2, 114],
-											[3, 121],
-											[4, 115],
-											[5, 83],
-											[6, 102],
-											[7, 148],
-											[8, 147],
-											[9, 103],
-											[10, 113]
-										],
-										label: "Series 2",
-										color: "#2baab1"
-									}, {
-										data: [
-											[0, 70],
-											[1, 69],
-											[2, 73],
-											[3, 88],
-											[4, 47],
-											[5, 13],
-											[6, 28],
-											[7, 69],
-											[8, 73],
-											[9, 28],
-											[10, 28]
-										],
-										label: "Series 3",
-										color: "#734ba9"
-									}];
-									// See: js/examples/examples.dashboard.js for more settings.
-								</script>
-
-							</div>
-						</section>
-					</div>
-					<div class="col-lg-6">
-						<section class="card">
-							<header class="card-header">
-								<div class="card-actions">
-									<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
-									<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
-								</div>
-								<h2 class="card-title">Server Usage</h2>
-								<p class="card-subtitle">It's easy to create custom graphs on Porto Admin Template,
-									there are several graph types that you can use.</p>
-							</header>
-							<div class="card-body">
-
-								<!-- Flot: Curves -->
-								<div class="chart chart-md" id="flotDashRealTime"></div>
-
-							</div>
-						</section>
-					</div>
-				</div>
-
-				<div class="row pt-4 mt-2">
-					<div class="col-lg-6 col-xl-3">
-						<section class="card card-transparent">
-							<header class="card-header">
-								<div class="card-actions">
-									<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
-									<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
-								</div>
-
-								<h2 class="card-title">My Profile</h2>
-							</header>
-							<div class="card-body">
-								<section class="card card-group">
-									<header class="card-header bg-primary w-100">
-
-										<div class="widget-profile-info">
-											<div class="profile-picture">
-												<img src="img/!logged-user.jpg">
-											</div>
-											<div class="profile-info">
-												<h4 class="name font-weight-semibold">John Doe</h4>
-												<h5 class="role">Utilizador</h5>
-												<div class="profile-footer">
-													<a href="#">(edit profile)</a>
-												</div>
-											</div>
-										</div>
-
-									</header>
-									<div id="accordion" class="w-100">
-										<div class="card card-accordion card-accordion-first">
-											<div class="card-header border-bottom-0">
-												<h4 class="card-title">
-													<a class="accordion-toggle" data-bs-toggle="collapse"
-														data-bs-parent="#accordion" data-bs-target="#collapse1One">
-														<i class="fas fa-check me-1"></i> Tasks
-													</a>
-												</h4>
-											</div>
-											<div id="collapse1One" class="accordion-body collapse show">
-												<div class="card-body">
-													<ul class="widget-todo-list">
-														<li>
-															<div class="checkbox-custom checkbox-default">
-																<input type="checkbox" checked="" id="todoListItem1"
-																	class="todo-check">
-																<label class="todo-label"
-																	for="todoListItem1"><span>Curabitur ac sem at nibh
-																		egestas urabitur ac sem at nibh
-																		egestas.</span></label>
-															</div>
-															<div class="todo-actions">
-																<a class="todo-remove" href="#">
-																	<i class="fas fa-times"></i>
-																</a>
-															</div>
-														</li>
-														<li>
-															<div class="checkbox-custom checkbox-default">
-																<input type="checkbox" id="todoListItem2"
-																	class="todo-check">
-																<label class="todo-label"
-																	for="todoListItem2"><span>Lorem ipsum dolor sit
-																		amet</span></label>
-															</div>
-															<div class="todo-actions">
-																<a class="todo-remove" href="#">
-																	<i class="fas fa-times"></i>
-																</a>
-															</div>
-														</li>
-														<li>
-															<div class="checkbox-custom checkbox-default">
-																<input type="checkbox" id="todoListItem3"
-																	class="todo-check">
-																<label class="todo-label"
-																	for="todoListItem3"><span>Curabitur ac sem at nibh
-																		egestas</span></label>
-															</div>
-															<div class="todo-actions">
-																<a class="todo-remove" href="#">
-																	<i class="fas fa-times"></i>
-																</a>
-															</div>
-														</li>
-														<li>
-															<div class="checkbox-custom checkbox-default">
-																<input type="checkbox" id="todoListItem4"
-																	class="todo-check">
-																<label class="todo-label"
-																	for="todoListItem4"><span>Lorem ipsum dolor sit
-																		amet</span></label>
-															</div>
-															<div class="todo-actions">
-																<a class="todo-remove" href="#">
-																	<i class="fas fa-times"></i>
-																</a>
-															</div>
-														</li>
-														<li>
-															<div class="checkbox-custom checkbox-default">
-																<input type="checkbox" id="todoListItem5"
-																	class="todo-check">
-																<label class="todo-label"
-																	for="todoListItem5"><span>Curabitur ac sem at nibh
-																		egestas.</span></label>
-															</div>
-															<div class="todo-actions">
-																<a class="todo-remove" href="#">
-																	<i class="fas fa-times"></i>
-																</a>
-															</div>
-														</li>
-														<li>
-															<div class="checkbox-custom checkbox-default">
-																<input type="checkbox" id="todoListItem6"
-																	class="todo-check">
-																<label class="todo-label"
-																	for="todoListItem6"><span>Lorem ipsum dolor sit
-																		amet</span></label>
-															</div>
-															<div class="todo-actions">
-																<a class="todo-remove" href="#">
-																	<i class="fas fa-times"></i>
-																</a>
-															</div>
-														</li>
-														<li>
-															<div class="checkbox-custom checkbox-default">
-																<input type="checkbox" id="todoListItem7"
-																	class="todo-check">
-																<label class="todo-label"
-																	for="todoListItem7"><span>Curabitur ac sem at nibh
-																		egestas.</span></label>
-															</div>
-															<div class="todo-actions">
-																<a class="todo-remove" href="#">
-																	<i class="fas fa-times"></i>
-																</a>
-															</div>
-														</li>
-													</ul>
-													<hr class="solid mt-3 mb-3">
-													<form method="get" class="form-horizontal form-bordered">
-														<div class="form-group row">
-															<div class="col-sm-12">
-																<div class="input-group mb-3">
-																	<input type="text" class="form-control">
-																	<button type="button" class="btn btn-primary"
-																		tabindex="-1">Add</button>
-																</div>
-															</div>
-														</div>
-													</form>
-												</div>
-											</div>
-										</div>
-										<div class="card card-accordion">
-											<div class="card-header border-bottom-0">
-												<h4 class="card-title">
-													<a class="accordion-toggle" data-bs-toggle="collapse"
-														data-bs-parent="#accordion" data-bs-target="#collapse1Two">
-														<i class="fas fa-comment me-1"></i> Messages
-													</a>
-												</h4>
-											</div>
-											<div id="collapse1Two" class="accordion-body collapse">
-												<div class="card-body">
-													<ul class="simple-user-list mb-3">
-														<li>
-															<figure class="image rounded">
-																<img src="img/!sample-user.jpg" alt="Joseph Doe Junior"
-																	class="rounded-circle">
-															</figure>
-															<span class="title">Joseph Doe Junior</span>
-															<span class="message">Lorem ipsum dolor sit.</span>
-														</li>
-														<li>
-															<figure class="image rounded">
-																<img src="img/!sample-user.jpg" alt="Joseph Junior"
-																	class="rounded-circle">
-															</figure>
-															<span class="title">Joseph Junior</span>
-															<span class="message">Lorem ipsum dolor sit.</span>
-														</li>
-														<li>
-															<figure class="image rounded">
-																<img src="img/!sample-user.jpg" alt="Joe Junior"
-																	class="rounded-circle">
-															</figure>
-															<span class="title">Joe Junior</span>
-															<span class="message">Lorem ipsum dolor sit.</span>
-														</li>
-														<li>
-															<figure class="image rounded">
-																<img src="img/!sample-user.jpg" alt="Joseph Doe Junior"
-																	class="rounded-circle">
-															</figure>
-															<span class="title">Joseph Doe Junior</span>
-															<span class="message">Lorem ipsum dolor sit.</span>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
-								</section>
-
-							</div>
-						</section>
-					</div>
-					<div class="col-lg-6 col-xl-3">
-						<section class="card card-transparent">
-							<header class="card-header">
-								<div class="card-actions">
-									<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
-									<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
-								</div>
-
-								<h2 class="card-title">My Stats</h2>
-							</header>
-							<div class="card-body">
-								<section class="card">
-									<div class="card-body">
-										<div class="small-chart float-end" id="sparklineBarDash"></div>
-										<script type="text/javascript">
-											var sparklineBarDashData = [5, 6, 7, 2, 0, 4, 2, 4, 2, 0, 4, 2, 4, 2, 0, 4];
-										</script>
-										<div class="h4 font-weight-bold mb-0">488</div>
-										<p class="text-3 text-muted mb-0">Average Profile Visits</p>
-									</div>
-								</section>
-								<section class="card">
-									<div class="card-body">
-										<div class="circular-bar circular-bar-xs m-0 mt-1 me-4 mb-0 float-end">
-											<div class="circular-bar-chart" data-percent="45"
-												data-plugin-options='{ "barColor": "#2baab1", "delay": 300, "size": 50, "lineWidth": 4 }'>
-												<strong>Average</strong>
-												<label><span class="percent">45</span>%</label>
-											</div>
-										</div>
-										<div class="h4 font-weight-bold mb-0">12</div>
-										<p class="text-3 text-muted mb-0">Working Projects</p>
-									</div>
-								</section>
-								<section class="card">
-									<div class="card-body">
-										<div class="small-chart float-end" id="sparklineLineDash"></div>
-										<script type="text/javascript">
-											var sparklineLineDashData = [15, 16, 17, 19, 10, 15, 13, 12, 12, 14, 16, 17];
-										</script>
-										<div class="h4 font-weight-bold mb-0">89</div>
-										<p class="text-3 text-muted mb-0">Pending Tasks</p>
-									</div>
-								</section>
-							</div>
-						</section>
-						<section class="card mb-3">
-							<header class="card-header">
-								<div class="card-actions">
-									<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
-									<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
-								</div>
-
-								<h2 class="card-title">
-									<span class="badge badge-primary font-weight-normal va-middle p-2 me-e">298</span>
-									<span class="va-middle">Friends</span>
-								</h2>
-							</header>
-							<div class="card-body">
-								<div class="content">
-									<ul class="simple-user-list">
-										<li>
-											<figure class="image rounded">
-												<img src="img/!sample-user.jpg" alt="Joseph Doe Junior"
-													class="rounded-circle">
-											</figure>
-											<span class="title">Joseph Doe Junior</span>
-											<span class="message truncate">Lorem ipsum dolor sit.</span>
-										</li>
-										<li>
-											<figure class="image rounded">
-												<img src="img/!sample-user.jpg" alt="Joseph Junior"
-													class="rounded-circle">
-											</figure>
-											<span class="title">Joseph Junior</span>
-											<span class="message truncate">Lorem ipsum dolor sit.</span>
-										</li>
-										<li>
-											<figure class="image rounded">
-												<img src="img/!sample-user.jpg" alt="Joe Junior" class="rounded-circle">
-											</figure>
-											<span class="title">Joe Junior</span>
-											<span class="message truncate">Lorem ipsum dolor sit.</span>
-										</li>
-									</ul>
-									<hr class="dotted short">
-									<div class="text-end">
-										<a class="text-uppercase text-muted" href="#">(View All)</a>
-									</div>
-								</div>
-							</div>
-							<div class="card-footer">
-								<div class="input-group">
-									<input type="text" class="form-control" name="s" id="s" placeholder="Search...">
-									<button class="btn btn-default" type="submit"><i class="bx bx-search"></i></button>
-								</div>
-							</div>
-						</section>
-					</div>
-					<div class="col-lg-12 col-xl-6">
-						<section class="card">
-							<header class="card-header card-header-transparent">
-								<div class="card-actions">
-									<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
-									<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
-								</div>
-
-								<h2 class="card-title">Company Activity</h2>
-							</header>
-							<div class="card-body">
-								<div class="timeline timeline-simple mt-3 mb-3">
-									<div class="tm-body">
-										<div class="tm-title">
-											<h5 class="m-0 pt-2 pb-2 text-dark font-weight-semibold text-uppercase">
-												November 2021</h5>
-										</div>
-										<ol class="tm-items">
-											<li>
-												<div class="tm-box">
-													<p class="text-muted mb-0">7 months ago.</p>
-													<p>
-														Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-														Maecenas hendrerit augue at leo viverra, aliquam egestas lectus
-														laoreet. Donec vehicula vestibulum ipsum, tincidunt ultrices
-														elit suscipit ac. Sed eget risus laoreet, varius nibh id, luctus
-														ligula. Nulla facilisi. <span
-															class="text-primary">#awesome</span>
-													</p>
-												</div>
-											</li>
-											<li>
-												<div class="tm-box">
-													<p class="text-muted mb-0">7 months ago.</p>
-													<p>
-														Checkout! How cool is that! Etiam efficitur, sapien eget
-														vehicula gravida, magna neque volutpat risus, vitae tempus odio
-														arcu ac elit. Aenean porta orci eu mi fermentum varius.
-														Curabitur ac sem at nibh egestas. Curabitur ac sem at nibh
-														egestas.
-													</p>
-													<div class="thumbnail-gallery">
-														<a class="img-thumbnail lightbox"
-															href="img/projects/project-4.jpg"
-															data-plugin-options='{ "type":"image" }'>
-															<img class="img-fluid" width="215"
-																src="img/projects/project-4.jpg">
-															<span class="zoom">
-																<i class="bx bx-search"></i>
-															</span>
-														</a>
-													</div>
-												</div>
-											</li>
-										</ol>
-									</div>
-								</div>
-							</div>
-						</section>
-					</div>
-				</div>
-				<div class="row pt-4 mt-1">
-    <div class="col-xl-12">
-        <section class="card">
-            <header class="card-header card-header-transparent">
-                <div class="card-actions">
-                    <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
-                    <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
-                </div>
-
-                <h2 class="card-title">Lista de Serviços</h2>
-            </header>
-            <div class="card-body">
-                <table class="table table-responsive-md table-striped mb-0">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Cliente</th>
-                            <th>Eletrodoméstico</th>
-                            <th>Descrição</th>
-                            <th>Estado</th>
-                            <th>Peças Utilizadas</th>
-                            <th>Preço Mão de Obra</th>
-                            <th>Preço Total</th>
-                        </tr>
-                    </thead>
-					<?php
-
-
-
-// Query para selecionar os serviços
-$sql = "SELECT * FROM servicos";
-
-// Conexão com o base de dados e execução da query
-
-?>
-                    <tbody>
-                        <?php
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td>" . $row['idos'] . "</td>";
-                                echo "<td>" . $row['cliente_id'] . "</td>";
-                                echo "<td>" . $row['eletrodomestico_id'] . "</td>";
-                                echo "<td>" . $row['descricao'] . "</td>";
-                                echo "<td>" . $row['estado'] . "</td>";
-                                echo "<td>" . $row['pecas_id'] . "</td>";
-                                echo "<td>" . $row['preco_mobra'] . "</td>";
-                                echo "<td>" . $row['preco_total'] . "</td>";
-                                echo "</tr>";
-                            }
-                        } else {
-                            echo "<tr><td colspan='8'>Nenhum serviço encontrado.</td></tr>";
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </div>
-</div>
 
 		<section role="main" class="content-body">
 			<footer class="site-footer">

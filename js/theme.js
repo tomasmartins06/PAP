@@ -4649,7 +4649,7 @@ window.theme.fn = {
 			};
 
 			var bind = function() {
-				$('[data-open="sidebar-right"]').on('click', function(e) {
+				$('[]').on('click', function(e) {
 					var $el = $(this);
 					e.stopPropagation();
 
