@@ -287,7 +287,7 @@
                                                     <i class="fas fa-pencil-alt" style="color: black;"></i>
                                                 </a>
                                                 <!-- Formulário para exclusão com alerta de confirmação -->
-                                                <form method="post" action="apagarproduto.php" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
+                                                <form method="post" action="apagarproduto.php" style="display:inline;" onsubmit="return confirm('O registo será apagado permanentemente, tem certeza que deseja apagar? ');">
                                                     <input type="hidden" name="id" value="<?php echo $row['ide']; ?>">
                                                     <button type="submit" class="btn btn-sm btn-sm-custom delete-btn" title="Apagar">
                                                         <i class="fas fa-trash-alt" style="color: black;"></i>

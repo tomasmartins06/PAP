@@ -83,8 +83,8 @@
 		</div>
 
 		<div class="nano">
-			<div class="nano-content"> 
-				<?php
+			<div class="nano-content">
+			<?php
 				// Inicia a sessão PHP
 				SESSION_START();
 
@@ -100,6 +100,7 @@
 					include("menuuser.php");
 				}
 			?>
+
 
 				<hr class="separator" />
 
@@ -176,13 +177,9 @@
 		<!-- end: header -->
 
 		<div class="inner-wrapper">
-			<!-- start: sidebar -->
-
-			<!-- end: sidebar -->
-
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Listar Fornecedores</h2>
+					<h2>Listar Estados</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
@@ -191,9 +188,9 @@
 									<i class="bx bx-home-alt"></i>
 								</a>
 							</li>
-
-							<li><span>Menu Fornecedores</span></li>
-							<li><span>Listar Fornecedores</span></li>
+ 
+							<li><span>Menu de Estados</span></li>
+							<li><span>Listar Estados</span></li>
 
 						</ol>
 
@@ -201,11 +198,10 @@
 								class="fas fa-chevron-left"></i></a>
 					</div>
 				</header>
-				
-				<?php include "DBConnection.php"; echo "<br>";?>
+				<?php include "DBConnection.php"; ?>
 				<section class="card">
 					<header class="card-header">
-						<h2 class="card-title">Lista de Fornecedores</h2>
+						<h2 class="card-title">Lista de Estados</h2>
 					</header>
 					<div class="card-body">
 						<div class="row">
@@ -214,10 +210,8 @@
 								<tr>
 									<!-- Cabeçalho da tabela -->
 									<th>ID</th>
-									<th>Nome</th>
-									<th>Contacto</th>
-									<th>Email</th>
-									<th>Endereço</th>
+									<th>Estado</th>
+									<th>Ações</th>
 								</tr>
 							</thead>
 
@@ -225,7 +219,7 @@
 							<tbody>
 								<?php 
 									// Consulta a base de dados para obter os registos dos clientes
-									$query  = "SELECT * FROM fornecedores ORDER BY idf";
+									$query  = "SELECT * FROM estado ORDER BY idt";
 									$result = mysqli_query($link, $query);
 									
 									// Loop para exibir cada registo na tabela
@@ -233,28 +227,26 @@
 									?>
 								<tr>
 									<!-- Exibição de dados do cliente -->
-									<td class="border-b dark:border-dark-5"><?php echo $row['idf'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['nome'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['contacto'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['email'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['endereco'] ?></td>
-
+									<td class="border-b dark:border-dark-5"><?php echo $row['idt'] ?></td>
+									<td class="border-b dark:border-dark-5"><?php echo $row['estado'] ?></td>
+						
 									<!-- Coluna de ações -->
 									<td class="actions text-left">
 										<!-- Link para a página de edição -->
-										<a href="editar_fornecedor.php?id=<?php echo $row['idf']; ?>"
+										<a href="editar_estado.php?id=<?php echo $row['idt']; ?>"
 											class="btn btn-sm btn-sm-custom" title="Editar">
 											<i class="fas fa-pencil-alt" style="color: black;"></i>
 										</a>
 
 										<!-- Formulário para exclusão com alerta de confirmação -->
-										<form method="post" action="apagarfornecedor.php" style="display:inline;"
+										<form method="post" action="apagarestado.php" style="display:inline;"
 											onsubmit="return confirm('O registo será apagado permanentemente, tem certeza que deseja apagar? ');">
-											<input type="hidden" name="idf" value="<?php echo $row['idf']; ?>">
-											<button type="submit" class="btn btn-sm btn-sm-custom delete-btn"
-												title="Apagar">
+											<input type="hidden" name="id" value="<?php echo $row['idt']; ?>">
+
+											<button type="submit" class="btn btn-sm btn-sm-custom delete-btn" title="Apagar">
 												<i class="fas fa-trash-alt" style="color: black;"></i>
 											</button>
+
 										</form>
 									</td>
 								</tr>

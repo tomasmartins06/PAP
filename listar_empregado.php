@@ -247,7 +247,7 @@
 
 						 				<!-- Formulário para exclusão com alerta de confirmação -->
 										<form method="post" action="apagarempregado.php" style="display:inline;"
-											onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
+											onsubmit="return confirm('O registo será apagado permanentemente, tem certeza que deseja apagar? ');">
 											<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 											<button type="submit" class="btn btn-sm btn-sm-custom delete-btn"
 												title="Apagar">
