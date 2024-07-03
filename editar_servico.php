@@ -129,7 +129,11 @@
 								data-lock-picture="img/!logged-user.jpg" />
 						</figure>
 						<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-							<span class="name">Administrador</span>
+							<?php if ($id == 0): ?>
+                            <span class="name">Administrador</span>
+                        <?php else: ?>
+                            <span class="name">Utilizador</span>
+                        <?php endif; ?>
 							<span class="role"></span>
 						</div>
 
@@ -189,7 +193,8 @@
 									$feletrodomestico_id = $_POST["eletrodomestico_id"];
 									$fdescricao = $_POST["descricao"];
 									$festado = $_POST["estado"];
-									$fpecas_id = implode(',', $_POST["pecas"]);
+									// Verifica se "pecas" está definido e é um array, então junta os valores em uma string separada por vírgulas
+									$fpecas_id = isset($_POST["pecas"]) && is_array($_POST["pecas"]) ? implode(',', $_POST["pecas"]) : '';
 									$fpreco_mobra = $_POST["preco_mobra"];
 									$fpreco_total = $_POST["preco_total"];
 

@@ -147,7 +147,11 @@
                                 data-lock-picture="img/!logged-user.jpg" />
                         </figure>
                         <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
+                        <?php if ($id == 0): ?>
                             <span class="name">Administrador</span>
+                        <?php else: ?>
+                            <span class="name">Utilizador</span>
+                        <?php endif; ?>
                             <span class="role"></span>
                         </div>
 
@@ -155,22 +159,14 @@
                     </a>
 
                     <div class="dropdown-menu">
-                        <ul class="list-unstyled mb-2">
-                            <li class="divider"></li>
-                            <li>
-                                <a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i
-                                        class="bx bx-user-circle"></i> My Profile</a>
-                            </li>
-                            <li>
-                                <a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i
-                                        class="bx bx-lock"></i> Lock Screen</a>
-                            </li>
-                            <li>
-                                <a role="menuitem" tabindex="-1" href="index.php"><i class="bx bx-power-off"></i>
-                                    Logout</a>
-                            </li>
-                        </ul>
-                    </div>
+						<ul class="list-unstyled mb-2">
+							<li class="divider"></li>
+							<li>
+								<a role="menuitem" tabindex="-1" href="index.php"><i class="bx bx-power-off"></i>
+									Sair</a>
+							</li>
+						</ul>
+					</div>
                 </div>
             </div>
         </header>

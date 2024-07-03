@@ -129,7 +129,11 @@
 								data-lock-picture="img/!logged-user.jpg" />
 						</figure>
 						<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-							<span class="name">Administrador</span>
+							<?php if ($id == 0): ?>
+                            <span class="name">Administrador</span>
+                        <?php else: ?>
+                            <span class="name">Utilizador</span>
+                        <?php endif; ?>
 							<span class="role"></span>
 						</div>
 

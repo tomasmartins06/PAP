@@ -150,5 +150,47 @@
 				</li>
 			</ul>
 		</li>
+
+		<li class="nav-parent">
+			<a class="nav-link">
+			<i class="fas fa-info" aria-hidden="true"></i>
+				<span>Menu de Estados</span>
+			</a>
+			<ul class="nav nav-children">
+				<li>
+					<a href="inserir_estado.php">
+						Inserir Novo Estado
+					</a>
+				</li>
+			</ul>
+			<ul class="nav nav-children">
+				<li>
+					<a href="listar_estado.php">
+						Listar Estado
+					</a>
+				</li>
+			</ul>
+		</li>
+
+		<li class="nav-parent">
+			<a class="nav-link">
+			<i class="fa-solid fa-tags" aria-hidden="true"></i>
+				<span>Menu de Gamas</span>
+			</a>
+			<ul class="nav nav-children">
+				<li>
+					<a href="inserir_gama.php">
+						Inserir Nova Gama
+					</a>
+				</li>
+			</ul>
+			<ul class="nav nav-children">
+				<li>
+					<a href="listar_gama.php">
+						Listar Gamas
+					</a>
+				</li>
+			</ul>
+		</li>
 	</ul>
 </nav> 

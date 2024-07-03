@@ -151,14 +151,14 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Inserir Clientes</h2>
+					<h2>Inserir Estado</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
 							
 
-							<li><span>Menu Clientes</span></li>
-							<li><span>Inserir Clientes</span></li>
+							<li><span>Menu de Estado</span></li>
+							<li><span>Inserir Novo Estado</span></li>
 
 						</ol>
 
@@ -172,38 +172,15 @@
 				<div class="bg-light">
 					<div class="form-container">
 						<div class="w-100">
-							<form name="form_ins_prod" id="form_ins_prod" action="inserir_clientes.php" method="post">
+							<form name="form_ins_gama" id="form_ins_gama" action="inserir_estado.php" method="post">
 								<section class="card">
 									<div class="card-body">
 										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Nome <span style="color: red;">*</span> </label>
+											<label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Nome Do Novo Estado <span style="color: red;">*</span></label>
 											<div class="col-lg-6">
-												<input name="nome" type="text" class="form-control">
+												<input name="estado" type="text" class="form-control">
 											</div>
 										</div>
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Telefone <span style="color: red;">*</span> </label>
-											<div class="col-lg-6">
-												<input name="telefone" type="number" class="form-control">
-											</div>
-										</div>
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Email</label>
-											<div class="col-lg-6">
-												<input name="email" type="email" class="form-control">
-											</div>
-										</div>
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Morada <span style="color: red;">*</span> </label>
-											<div class="col-lg-6">
-												<input name="morada" type="text" class="form-control">
-											</div>
-										</div>
-
 									</div>
 									<footer class="card-footer d-flex justify-content-end">
 										<button name="bt" class="btn btn-primary mx-2">Introduzir</button>
@@ -211,56 +188,52 @@
 									</footer>
 								</section>
 							</form>
+
 							<?php
-								
-								$fnome = $ftelefone = $femail = $fmorada = ''; // Inicia as variáveis
+							// Inclui o arquivo de conexão com o banco de dados
+							include 'DBConnection.php';
 
-									if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
-										// Verificar se todas as caixas foram preenchidas
-										if (empty($_POST["nome"]) || empty($_POST["telefone"]) || empty($_POST["morada"])) {
-											//Exibe o alerta se nao estiver as caixas todas preenchidas
-											echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-													<strong>Erro!</strong> Preencha todos os campos do formulário.
-													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-												</div>';
-										} else {
-											// Processar o formulário se todas as caixas foram preenchidas
-											$fnome = $_POST["nome"];
-											$ftelefone = $_POST["telefone"];
-											$femail = $_POST["email"];
-											$fmorada = $_POST["morada"];
+							// Verifica se o formulário foi submetido e o botão "Introduzir" foi clicado
+							if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
+								// Verifica se o campo "gama" não está vazio
+								if (empty($_POST["estado"])) {
+									// Exibe um alerta de erro se o campo não estiver preenchido
+									echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+											<strong>Erro!</strong> Preencha todos os campos do formulário.
+											<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+										</div>';
+								} else {
+									// Obtém o valor do campo "gama"
+									$estado = $_POST["estado"];
 
-											
+									// Consulta para obter o próximo ID disponível na tabela "gama"
+									$result = mysqli_query($link, "SELECT MAX(idt) AS max_idt FROM estado");
+									$row = mysqli_fetch_assoc($result);
+									$proximo_idt = $row['max_idt'] + 1;
 
-											// Verificar se o próximo valor de idc já existe na tabela
-											$result = mysqli_query($link, "SELECT MAX(idc) AS max_idc FROM clientes");
-											$row = mysqli_fetch_assoc($result);
-											$proximo_idc = $row['max_idc'] + 1;
+									// Insere os dados na tabela "gama"
+									$query = mysqli_query($link, "INSERT INTO estado (idt, estado) VALUES ('$proximo_idt', '$estado')");
 
-											// Inserir os dados para a base de dados
-											$query = mysqli_query($link, "INSERT INTO clientes (idc, nome, telefone, email, morada) 
-											VALUES ('$proximo_idc', '$fnome', '$ftelefone', '$femail', '$fmorada')");
-
-											// Exibir um alert se foi bem inserido ou não
-											if ($query) {
-												echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-														<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
-														<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-													</div>';
-											} else {
-												echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-														<strong>Erro!</strong> Houve um problema ao inserir os dados.
-														<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-													</div>';
-											}
-										}
+									// Exibe um alerta de sucesso ou erro dependendo da execução da query
+									if ($query) {
+										echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+												<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
+												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+											</div>';
+									} else {
+										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+												<strong>Erro!</strong> Houve um problema ao inserir os dados.
+												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+											</div>';
 									}
-									?>
+								}
+							}
+							?>
 
 						</div>
-			</section>
+					</div>
+				</div>
 
-		</div>
 	
 
 		<section role="main" class="content-body">

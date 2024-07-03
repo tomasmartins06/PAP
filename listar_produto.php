@@ -147,7 +147,11 @@
                                 data-lock-picture="img/!logged-user.jpg" />
                         </figure>
                         <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
+                            <?php if ($id == 0): ?>
                             <span class="name">Administrador</span>
+                        <?php else: ?>
+                            <span class="name">Utilizador</span>
+                        <?php endif; ?>
                             <span class="role"></span>
                         </div>
 
@@ -155,22 +159,14 @@
                     </a>
 
                     <div class="dropdown-menu">
-                        <ul class="list-unstyled mb-2">
-                            <li class="divider"></li>
-                            <li>
-                                <a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i
-                                        class="bx bx-user-circle"></i> My Profile</a>
-                            </li>
-                            <li>
-                                <a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i
-                                        class="bx bx-lock"></i> Lock Screen</a>
-                            </li>
-                            <li>
-                                <a role="menuitem" tabindex="-1" href="index.php"><i class="bx bx-power-off"></i>
-                                    Logout</a>
-                            </li>
-                        </ul>
-                    </div>
+						<ul class="list-unstyled mb-2">
+							<li class="divider"></li>
+							<li>
+								<a role="menuitem" tabindex="-1" href="index.php"><i class="bx bx-power-off"></i>
+									Sair</a>
+							</li>
+						</ul>
+					</div>
                 </div>
             </div>
         </header>
@@ -205,8 +201,7 @@
                         <div class="datatable-header">
                             <div class="row align-items-center mb-3">
                                 <?php
-
-                                     // Incluir a conexão com a base de dados
+                                    // Incluir a conexão com a base de dados
                                     include "DBConnection.php";
 
                                     // Consulta SQL padrão
@@ -219,33 +214,30 @@
                                     }
 
                                     // Adicione a cláusula ORDER BY para ordenar os resultados
-                                    $query = "SELECT * FROM eletrodomesticos ORDER BY ide";
+                                    $query .= " ORDER BY ide";
 
                                     // Executa a consulta SQL
                                     $result = mysqli_query($link, $query);
-
-
                                 ?>
 
                                 <form method="post" action="">
                                     <div class="form-group">
                                         <label for="filter-by" class="form-label">Filtrar por:</label>
-                                        <select id="filter-by" class="form-control select-style-1 filter-by"
-                                            name="filter-by">
+                                        <select id="filter-by" class="form-control select-style-1 filter-by" name="filter-by">
                                             <option value="" disabled selected>Gama</option>
                                             <option value="all">Todos</option>
                                             <?php
-                                                    // Consulta SQL para selecionar todos os estados distintos da tabela
-                                                    $qry = "SELECT DISTINCT gama FROM eletrodomesticos";
-                                                    // Executa a consulta SQL e armazena o resultado
-                                                    $result_states = mysqli_query($link, $qry);
-                                                    // Loop para exibir opções baseadas nos resultados da consulta
-                                                    while ($row_state = mysqli_fetch_assoc($result_states)) {
-                                                        $estado = htmlspecialchars($row_state['gama']);
-                                                        // Opção do menu suspenso
-                                                        echo "<option value='$estado'>$estado</option>";
-                                                    }
-                                                ?>
+                                                // Consulta SQL para selecionar todos os estados distintos da tabela
+                                                $qry = "SELECT DISTINCT gama FROM eletrodomesticos";
+                                                // Executa a consulta SQL e armazena o resultado
+                                                $result_states = mysqli_query($link, $qry);
+                                                // Loop para exibir opções baseadas nos resultados da consulta
+                                                while ($row_state = mysqli_fetch_assoc($result_states)) {
+                                                    $estado = htmlspecialchars($row_state['gama']);
+                                                    // Opção do menu suspenso
+                                                    echo "<option value='$estado'>$estado</option>";
+                                                }
+                                            ?>
                                         </select>
                                         <br>
                                         <button type="submit" class="btn btn-primary">Filtrar</button>
@@ -270,12 +262,10 @@
                                         <?php
                                             // Loop para exibir cada registo na tabela
                                             while ($row = mysqli_fetch_array($result)) {
-                                          ?>
+                                        ?>
                                         <tr>
                                             <!-- Dados do eletrodoméstico -->
-                                            <td>
-                                                <?php echo $row['ide'] ?>
-                                            </td>
+                                            <td><?php echo $row['ide'] ?></td>
                                             <td>
                                                 <?php
                                                     // Consulta para obter o nome do cliente
@@ -293,32 +283,28 @@
                                             <td><?php echo $row['referencia'] ?></td>
                                             <td class="actions text-left">
                                                 <!-- Link para edição -->
-                                                <a href="editar_produto.php?id=<?php echo $row['ide']; ?>"
-                                                    class="btn btn-sm btn-sm-custom" title="Editar">
+                                                <a href="editar_produto.php?id=<?php echo $row['ide']; ?>" class="btn btn-sm btn-sm-custom" title="Editar">
                                                     <i class="fas fa-pencil-alt" style="color: black;"></i>
                                                 </a>
                                                 <!-- Formulário para exclusão com alerta de confirmação -->
-                                                <form method="post" action="apagarproduto.php" style="display:inline;"
-                                                    onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
+                                                <form method="post" action="apagarproduto.php" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja apagar este registo?');">
                                                     <input type="hidden" name="id" value="<?php echo $row['ide']; ?>">
-                                                    <button type="submit" class="btn btn-sm btn-sm-custom delete-btn"
-                                                        title="Apagar">
+                                                    <button type="submit" class="btn btn-sm btn-sm-custom delete-btn" title="Apagar">
                                                         <i class="fas fa-trash-alt" style="color: black;"></i>
                                                     </button>
                                                 </form>
                                             </td>
                                         </tr>
-
                                         <?php
                                             }
                                         ?>
-
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
                 </section>
-            </section>
-        </div>
+
 
         <section role="main" class="content-body">
             <footer class="site-footer">
