@@ -220,7 +220,9 @@
 							</form>
 							<?php
 			    
-											
+
+								include 'log_function.php';
+
 
 								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
 									// Verificar se todas as caixas foram preenchidas
@@ -250,6 +252,9 @@
 
 										// Exibir um alert se foi bem inserido ou não
 										if ($query) {
+										// regista o log da ação
+										$acao = "Inserção de novo empregado";
+										registar_log($link, $acao);
 											echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
 													<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
 													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>

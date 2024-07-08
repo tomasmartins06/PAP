@@ -185,6 +185,7 @@
 
 							<?php
 								include 'DBConnection.php';
+								include 'log_function.php';
 
 								if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idos'])) {
 									$idos = $_POST['idos'];
@@ -210,6 +211,9 @@
 											WHERE idos = '$idos'";
 
 									if (mysqli_query($link, $sql)) {
+										// regista o log da edição do serviço
+										$acao = "Edição do serviço: ID $idos";
+										registar_log($link, $acao);
 										echo "Registo atualizado com sucesso!";
 										echo '<script>window.location.href = "listar_servico.php";</script>';
 										exit;
@@ -396,7 +400,7 @@
 												// Recuperar o ID do serviço
 												var idos = this.getAttribute('data-idos');
 
-												// Redirecionar para o arquivo "gerar_qr.php" com o ID do serviço como parâmetro
+												// Redirecionar para o ficheiro "gerar_qr.php" com o ID do serviço como parâmetro
 												window.location.href = 'gerar_qr.php?idos=' + idos;
 											});
 										</script>

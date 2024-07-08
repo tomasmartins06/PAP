@@ -167,46 +167,61 @@
                 </header>
 
                 <div class="bg-light">
-                        <div class="form-container">
-                            <div class="w-100">
-                                <form name="form_ins_prod" id="form_ins_prod" action="inserir_empregado.php" method="post">
-                                    <section class="card">
-                                        <div class="card-body" style="text-align: center;">
-                                            <?php
-                                            // Verifica se o parâmetro 'idos' foi passado no URL
-                                            if (isset($_GET['idos'])) {
-                                                $idos = htmlspecialchars($_GET['idos']);
-                                                $texto_qr = 'ID do Serviço: ' . $idos;
-                                                // URL para gerar o código QR com base no texto fornecido
-                                                $qr_code_url = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' . urlencode($texto_qr);
-                                                // Exibe a imagem do código QR
-                                                echo '<img src="' . $qr_code_url . '" alt="Código QR" style="width: 100%; max-width: 150px; height: auto;">';
-                                            } else {
-                                                // Mensagem caso o ID do serviço não seja fornecido
-                                                echo 'ID do serviço não fornecido.';
-                                            }
-                                            ?>
-                                        </div>
-                                        <!-- Rodapé do cartão com botão de imprimir -->
-                                        <footer class="card-footer d-flex justify-content-end mt-3">
-                                            <button type="button" class="btn btn-primary" onclick="printQR()">Imprimir</button>
-                                        </footer>
-                                    </section>
-                                </form>
-                            </div>
-                           
-                            <script>
-                                function printQR() {
-                                    // Obtém o ID do serviço da URL e codifica para enviar via parâmetro
-                                    var idos = '<?php echo htmlspecialchars($_GET['idos']); ?>';
-                                    // Abre uma nova janela para imprimir o código QR usando um script PHP separado
-                                    var printWindow = window.open('imprimir_qr.php?idos=' + encodeURIComponent(idos), '_blank', 'width=80mm,height=auto');
-                                    printWindow.focus();
-                                }
-                            </script>
-                        </div>
-                    </div>
+                    <div class="form-container">
+                        <div class="w-100">
+                            <form name="form_ins_prod" id="form_ins_prod" action="inserir_empregado.php" method="post">
+                                <section class="card">
+                                    <div class="card-body" style="text-align: center;">
+                                        <?php
+                                        include "DBConnection.php";
 
+                                        if (isset($_GET['idos'])) {
+                                            $idos = htmlspecialchars($_GET['idos']);
+
+                                            $query = "SELECT c.nome FROM servicos s
+                                                    INNER JOIN clientes c ON s.cliente_id = c.idc
+                                                    WHERE s.idos = $idos";
+                                            $resultado = mysqli_query($link, $query);
+
+                                            if ($resultado && mysqli_num_rows($resultado) > 0) {
+                                                $row = mysqli_fetch_assoc($resultado);
+                                                $nomeCliente = $row['nome'];
+                                                $texto_qr = 'ID do Serviço: ' . $idos . ' - Cliente: ' . $nomeCliente;
+                                                $qr_code_url = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' . urlencode($texto_qr);
+                                                echo '<img src="' . $qr_code_url . '" alt="Código QR" style="width: 100%; max-width: 150px; height: auto;">';
+                                                echo '<input type="hidden" id="cliente_id" value="' . htmlspecialchars($nomeCliente) . '">';
+                                            } else {
+                                                echo 'Cliente não encontrado para este serviço.';
+                                            }
+                                        } else {
+                                            echo 'ID do serviço não fornecido.';
+                                        }
+                                        ?>
+                                    </div>
+                                    <footer class="card-footer d-flex justify-content-end mt-3">
+                                        <button type="button" class="btn btn-primary" onclick="printQR()">Imprimir</button>
+                                    </footer>
+                                </section>
+                            </form>
+                        </div>
+
+                        <script>
+                            function printQR() {
+                                var idos = '<?php echo isset($_GET['idos']) ? htmlspecialchars($_GET['idos']) : ''; ?>';
+                                var cliente_id = document.getElementById('cliente_id').value; 
+
+                                var printWindow = window.open('imprimir_qr.php?idos=' + encodeURIComponent(idos) + '&cliente_id=' + encodeURIComponent(cliente_id), '_blank', 'width=800,height=600');
+
+                                if (printWindow) {
+                                    printWindow.focus();
+                                } else {
+                                    alert('Não foi possível abrir a janela de impressão. Verifique suas configurações de bloqueio de pop-ups.');
+                                }
+                            }
+                        </script>
+
+                    </div>
+                </div>
 
                 <section role="main" class="content-body">
                     <footer class="site-footer">
@@ -297,7 +312,7 @@
 
                 <!-- Examples -->
                 <script src="js/examples/examples.dashboard.js"></script>
-
+               
 </body>
 
 </html>

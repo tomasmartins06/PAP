@@ -192,5 +192,26 @@
 				</li>
 			</ul>
 		</li>
+
+		<li class="nav-parent">
+			<a class="nav-link">
+			<i class="fa fa-book" aria-hidden="true"></i>
+				<span>Outros</span>
+			</a>
+			<ul class="nav nav-children">
+				<li>
+					<a href="listar_servicocompletado.php">
+						Listar Serviços Finalizados
+					</a>
+				</li>
+			</ul>
+			<ul class="nav nav-children">
+				<li>
+					<a href="logs.php">
+						Listar Logs
+					</a>
+				</li>
+			</ul>
+		</li>
 	</ul>
 </nav> 

@@ -100,8 +100,6 @@
 					include("menuuser.php");
 				}
 			?>
-
-
 				<hr class="separator" />
 
 				<hr class="separator" />
@@ -177,84 +175,154 @@
 		<!-- end: header -->
 
 		<div class="inner-wrapper">
-			<section role="main" class="content-body">
-				<header class="page-header">
-					<h2>Listar Gamas</h2>
+			<!-- start: sidebar -->
 
-					<div class="right-wrapper text-end">
-						<ol class="breadcrumbs">
-							<li>
-								<a href="admin.html">
-									<i class="bx bx-home-alt"></i>
-								</a>
-							</li>
- 
-							<li><span>Menu de Gamas</span></li>
-							<li><span>Listar Gamas</span></li>
+			<!-- end: sidebar -->
 
-						</ol>
+            <section role="main" class="content-body">
+    <header class="page-header">
+        <h2>Listar Peças</h2>
 
-						<a class="sidebar-right-toggle" dclass="sidebar-right-wrapper"><i
-								class="fas fa-chevron-left"></i></a>
-					</div>
-				</header>
-				<?php include "DBConnection.php"; ?>
-				<section class="card">
-					<header class="card-header">
-						<h2 class="card-title">Lista de Gamas</h2>
-					</header>
-					<div class="card-body">
-						<div class="row">
-						<table class="table table-bordered table-striped mb-0" id="datatable-editable">
-							<thead>
-								<tr>
-									<!-- Cabeçalho da tabela -->
-									<th>ID</th>
-									<th>Gama</th>
-									<th>Ações</th>
-								</tr>
-							</thead>
+        <div class="right-wrapper text-end">
+            <ol class="breadcrumbs">
+                <li>
+                    <a href="admin.html">
+                        <i class="bx bx-home-alt"></i>
+                    </a>
+                </li>
 
-							<!-- Corpo da tabela -->
-							<tbody>
-								<?php 
-									// Consulta a base de dados para obter os registos dos clientes
-									$query  = "SELECT * FROM gama ORDER BY idi";
-									$result = mysqli_query($link, $query);
-									
-									// Loop para exibir cada registo na tabela
-									while($row = mysqli_fetch_array($result)){ 
-									?>
-								<tr>
-									<!-- Exibição de dados do cliente -->
-									<td class="border-b dark:border-dark-5"><?php echo $row['idi'] ?></td>
-									<td class="border-b dark:border-dark-5"><?php echo $row['gama'] ?></td>
-						
-									<!-- Coluna de ações -->
-									<td class="actions text-left">
-										<!-- Link para a página de edição -->
-										<a href="editar_gama.php?id=<?php echo $row['idi']; ?>"
-											class="btn btn-sm btn-sm-custom" title="Editar">
-											<i class="fas fa-pencil-alt" style="color: black;"></i>
-										</a>
+                <li><span>Menu Peças</span></li>
+                <li><span>Listar Peças</span></li>
+            </ol>
 
-										<!-- Formulário para exclusão com alerta de confirmação -->
-										<form method="post" action="apagargama.php" style="display:inline;"
-											onsubmit="return confirm('O registo será apagado permanentemente, tem certeza que deseja apagar? ');">
-											<input type="hidden" name="id" value="<?php echo $row['idi']; ?>">
+            <a class="sidebar-right-toggle" class="sidebar-right-wrapper">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+        </div>
+    </header>
+    <?php include "DBConnection.php"; echo "<br>"; ?>
+    <section class="card">
+        <header class="card-header">
+            <h2 class="card-title">Lista de Peças</h2>
+        </header>
+        <div class="card-body">
+            <table class="table table-bordered table-striped mb-0" id="datatable-editable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Empregado</th>
+                        <th>Eletrodoméstico</th>
+                        <th>Estado</th>
+                        <th>Peças</th>
+                        <th>Preço Mão De Obra</th>
+                        <th>Preço Total</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        $result = mysqli_query($link, "SELECT * FROM servicos WHERE estado = 3");
 
-											<button type="submit" class="btn btn-sm btn-sm-custom delete-btn" title="Apagar">
-												<i class="fas fa-trash-alt" style="color: black;"></i>
-											</button>
+                        // Loop para exibir cada registo na tabela
+                        while ($row = mysqli_fetch_array($result)) {
+                    ?>
+                    <tr>
+                        <!-- Dados do serviço -->
+                        <td><?php echo $row['idos'] ?></td>
+                        <td>
+                            <?php
+                                // Consulta para obter o nome do cliente
+                                $cliente_id = $row['cliente_id'];
+                                $query_nome = "SELECT nome FROM clientes WHERE idc = $cliente_id";
+                                $result_nome = mysqli_query($link, $query_nome);
+                                $row_nome = mysqli_fetch_assoc($result_nome);
+                                echo $row_nome ? $row_nome['nome'] : "Cliente não encontrado";
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                $empregado_id = $row['empregado_id'];
+                                $query_empregado = "SELECT user FROM utilizadores WHERE id = $empregado_id";
+                                $result_empregado = mysqli_query($link, $query_empregado);
+                                $row_empregado = mysqli_fetch_assoc($result_empregado);
+                                echo $row_empregado ? $row_empregado['user'] : "Empregado não encontrado";
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                $eletrodomestico_id = $row['eletrodomestico_id'];
+                                $query_nome = "SELECT eletrodomestico FROM eletrodomesticos WHERE ide = $eletrodomestico_id";
+                                $result_nome = mysqli_query($link, $query_nome);
+                                $row_nome = mysqli_fetch_assoc($result_nome);
+                                echo $row_nome ? $row_nome['eletrodomestico'] : "Eletrodoméstico não encontrado";
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                                $estado_id = $row['estado'];
+                                $query_estado = "SELECT estado FROM estado WHERE idt = $estado_id";
+                                $result_estado = mysqli_query($link, $query_estado);
+                                $row_estado = mysqli_fetch_assoc($result_estado);
+                                echo $row_estado ? $row_estado['estado'] : "Estado não encontrado";
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                                // Obter a string de IDs das peças
+                                $pecas_ids = $row['pecas_id'];
+                                
+                                // Separar a string em um array de IDs
+                                $pecas_ids_array = explode(',', $pecas_ids);
 
-										</form>
-									</td>
-								</tr>
-								<?php } // Fim do loop ?>
-							</tbody>
-						</table>
-					</div>
-				</section>
+                                // Inicializar um array para armazenar os nomes das peças
+                                $pecas_nomes = [];
+
+                                // Para cada ID, buscar o nome da peça correspondente
+                                foreach ($pecas_ids_array as $pecas_id) {
+                                    // Sanitizar o ID antes de usá-lo na consulta
+                                    $pecas_id = intval($pecas_id);
+                                    $query_pecas = "SELECT nome FROM pecas WHERE idp = $pecas_id";
+                                    $result_pecas = mysqli_query($link, $query_pecas);
+                                    $row_pecas = mysqli_fetch_assoc($result_pecas);
+                                    if ($row_pecas) {
+                                        $pecas_nomes[] = $row_pecas['nome'];
+                                    }
+                                }
+
+                                // Juntar os nomes das peças em uma string separada por vírgulas e exibir
+                                echo !empty($pecas_nomes) ? implode(', ', $pecas_nomes) : "Peça não encontrada";
+                            ?>
+                        </td>
+                        <td><?php echo $row['preco_mobra'] . "€"; ?></td>
+                        <td><?php echo $row['preco_total'] . "€"; ?></td>
+
+                        <td class="actions text-left">
+                            <!-- Link para edição -->
+                            <a href="editar_servico.php?id=<?php echo $row['idos']; ?>"
+                                class="btn btn-sm btn-sm-custom" title="Editar">
+                                <i class="fas fa-pencil-alt" style="color: black;"></i>
+                            </a>
+                            <!-- Formulário para exclusão com alerta de confirmação -->
+                            <form method="post" action="apagarservico.php" style="display:inline;"
+                                onsubmit="return confirm('O registo será apagado permanentemente, tem certeza que deseja apagar?');">
+                                <input type="hidden" name="id" value="<?php echo $row['idos']; ?>">
+                                <button type="submit" class="btn btn-sm btn-sm-custom delete-btn"
+                                    title="Apagar">
+                                    <i class="fas fa-trash-alt" style="color: black;"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <?php
+                        }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</section>
+
 			</section>
 		</div>
 

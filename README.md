@@ -15,12 +15,12 @@ O “FixElectro” é uma aplicação web projetada para simplificar a gestão d
 - **HTML:** Para a estruturação das páginas web.
 - **JavaScript:** Para a interação dinâmica e responsiva da aplicação.
 - **CSS:** Para a estilização e apresentação visual da aplicação.
-- **MySQL:** Para a criação e gestão do banco de dados, armazenando todas as informações dos clientes e eletrodomésticos.
+- **MySQL:** Para a criação e gestão do base de dados, armazenando todas as informações dos clientes e eletrodomésticos.
 
 ## Estrutura do Projeto
 
 A estrutura do projeto é organizada para facilitar o desenvolvimento, a manutenção e a escalabilidade da aplicação. 
 
-- **Backend:** Configurado no WAMPSERVER, utilizando PHP para interagir com o banco de dados MySQL.
+- **Backend:** Configurado no WAMPSERVER, utilizando PHP para interagir com o base de dados MySQL.
 - **Frontend:** Desenvolvido com HTML, CSS e JavaScript, proporcionando uma interface de utilizador intuitiva e amigável.
 - **Base de Dados:** Implementada em MySQL, garantindo a integridade e a segurança dos dados armazenados.

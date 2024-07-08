@@ -194,40 +194,7 @@
 											</div>
 										</div>
 										
-										<!-- <div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="quantityInput">Quantidade <span style="color: red;">*</span></label>
-											<div class="col-lg-6 d-flex">
-												<input id="quantityInput" name="quantidade" type="number"
-													class="form-control" readonly="readonly" value="0">
-												<div class="btn-group-vertical ms-2">
-													<button type="button" class="btn spinner-up btn-xs btn-default">
-														<i class="fas fa-angle-up"></i>
-													</button>
-													<button type="button" class="btn spinner-down btn-xs btn-default">
-														<i class="fas fa-angle-down"></i>
-													</button>
-												</div>
-											</div>
-												<script>
-													document.addEventListener('DOMContentLoaded', (event) => {
-														const inputQuantidade = document.getElementById('quantityInput');
-														const botaoIncremento = document.querySelector('.spinner-up');
-														const botaoDecremento = document.querySelector('.spinner-down');
-														botaoIncremento.addEventListener('click', () => {
-															let valorAtual = parseInt(inputQuantidade.value, 10);
-															inputQuantidade.value = valorAtual + 1;
-														});
-														botaoDecremento.addEventListener('click', () => {
-															let valorAtual = parseInt(inputQuantidade.value, 10);
-															if (valorAtual > 0) {
-																inputQuantidade.value = valorAtual - 1;
-															}
-														});
-													});
-												</script>
-										</div> -->
-
+									
 										<div class="form-group row pb-4">
 											<label class="col-lg-3 control-label text-lg-end pt-2"
 												for="inputDefault">Quantidade<span style="color: red;">*</span> </label>
@@ -277,47 +244,52 @@
 							</form>
 
 							<?php
-								$fidp = $fnome = $fdescricao = $fquantidade = $fpreco = $fid_fornecedor = ''; // Inicialize as variáveis
 
-								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
-									// Verificar se todas as caixas foram preenchidas
-									if (empty($_POST["nome"]) || empty($_POST["quantidade"]) || empty($_POST["preco"]) || empty($_POST["id_fornecedor"])) {
-										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-												<strong>Erro!</strong> Preencha todos os campos do formulário.
+							include 'DBConnection.php'; // Inclui o ficheiro de conexão com o base de dados aqui
+							include 'log_function.php'; // Inclui o ficheiro que contém a função registar_log
+
+							$fnome = $fdescricao = $fquantidade = $fpreco = $fid_fornecedor = '';
+
+							if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
+								// Verificar se todas as caixas foram preenchidas
+								if (empty($_POST["nome"]) || empty($_POST["quantidade"]) || empty($_POST["preco"]) || empty($_POST["id_fornecedor"])) {
+									echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+											<strong>Erro!</strong> Preencha todos os campos do formulário.
+											<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+										</div>';
+								} else {
+									// Processar o formulário se todas as caixas foram preenchidas
+									$fnome = $_POST["nome"];
+									$fdescricao = $_POST["descricao"];
+									$fquantidade = $_POST["quantidade"];
+									$fpreco = $_POST["preco"];
+									$fid_fornecedor = $_POST["id_fornecedor"];
+
+									// Verificar se o próximo valor de idp já existe na tabela
+									$result = mysqli_query($link, "SELECT MAX(idp) AS max_idp FROM pecas");
+									$row = mysqli_fetch_assoc($result);
+									$proximo_idp = $row['max_idp'] + 1;
+
+									// Inserir os dados
+									$query = mysqli_query($link, "INSERT INTO pecas (idp, nome, descricao, quantidade, preco, id_fornecedor) 
+										VALUES ('$proximo_idp', '$fnome', '$fdescricao', '$fquantidade', '$fpreco', '$fid_fornecedor') ");
+
+									// Exibir o alerta
+									if ($query) {
+										registar_log($link, "Inserção de nova peça: Nome: $fnome, Quantidade: $fquantidade, Preço: $fpreco, Fornecedor ID: $fid_fornecedor");
+										echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+												<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
 												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-											  </div>';
+											</div>';
 									} else {
-										// Processar o formulário se todas as caixas foram preenchidas
-										$fnome = $_POST["nome"];
-										$fdescricao = $_POST["descricao"];
-										$fquantidade = $_POST["quantidade"];
-										$fpreco = $_POST["preco"];
-										$fid_fornecedor = $_POST["id_fornecedor"];
-								
-										// Verificar se o próximo valor de idp já existe na tabela
-										$result = mysqli_query($link, "SELECT MAX(idp) AS max_idp FROM pecas");
-										$row = mysqli_fetch_assoc($result);
-										$proximo_idp = $row['max_idp'] + 1;
-								
-										// Inserir os dados
-										$query = mysqli_query($link, "INSERT INTO pecas (idp, nome, descricao, quantidade, preco, id_fornecedor) 
-											VALUES ('$proximo_idp', '$fnome', '$fdescricao', '$fquantidade', '$fpreco', '$fid_fornecedor') ");
-								
-										// Exibir o alerta
-										if ($query) {
-											echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-													<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
-													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-												  </div>';
-										} else {
-											echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-													<strong>Erro!</strong> Houve um problema ao inserir os dados.
-													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-												  </div>';
-										}
+										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+												<strong>Erro!</strong> Houve um problema ao inserir os dados.
+												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+											</div>';
 									}
 								}
-								?>
+							}
+							?>
 
 						</div>
 			</section>

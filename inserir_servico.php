@@ -342,18 +342,16 @@
 							</form>
 
 							<?php
-							
-								$fidos = $fcliente_id = $fempregado_id = $feletrodomestico_id = $fdescricao = $festado = $fpecas_id = $fpreco_mobra = $fpreco_total = ''; // Inicialize as variáveis
+								include 'DBConnection.php';
+								include 'log_function.php'; // ficheiro que contém a função registar_log
 
 								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
-									// Verificar se todas as caixas foram preenchidas
 									if (empty($_POST["cliente_id"]) || empty($_POST["empregado_id"]) || empty($_POST["eletrodomestico_id"]) || empty($_POST["estado"])) {
 										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
 												<strong>Erro!</strong> Preencha os campos necessários do formulário.
 												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
 											</div>';
 									} else {
-										// Processar o formulário se todas as caixas foram preenchidas
 										$fcliente_id = $_POST["cliente_id"];
 										$fempregado_id = $_POST["empregado_id"];
 										$feletrodomestico_id = $_POST["eletrodomestico_id"];
@@ -363,20 +361,17 @@
 										$fpreco_mobra = $_POST["preco_mobra"];
 										$fpreco_total = $_POST["preco_total"];
 
-										// Verificar se o próximo valor de idc já existe na tabela
 										$result = mysqli_query($link, "SELECT MAX(idos) AS max_idos FROM servicos");
 										$row = mysqli_fetch_assoc($result);
 										$proximo_idos = $row['max_idos'] + 1;
 
-										// Inserir os dados
 										$query = mysqli_query($link, "INSERT INTO servicos (idos, cliente_id, empregado_id, eletrodomestico_id, descricao, estado, pecas_id, preco_mobra, preco_total) 
 										VALUES ('$proximo_idos', '$fcliente_id', '$fempregado_id', '$feletrodomestico_id', '$fdescricao', '$festado', '$fpecas_id', '$fpreco_mobra', '$fpreco_total')");
 
-										// Exibir o alerta
 										if ($query) {
+											registar_log($link, "Inserção de novo serviço na tabela servicos");
 											echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
 													<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
-												
 													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
 												</div>';
 										} else {
@@ -387,7 +382,8 @@
 										}
 									}
 								}
-							?>
+								?>
+
 						</div>
 			</section>
 

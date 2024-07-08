@@ -31,6 +31,27 @@
 	<link rel="stylesheet" href="vendor/jquery-ui/jquery-ui.theme.css" />
 	<link rel="stylesheet" href="vendor/bootstrap-multiselect/css/bootstrap-multiselect.css" />
 	<link rel="stylesheet" href="vendor/morris/morris.css" />
+	<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="vendor/animate/animate.compat.css">
+	<link rel="stylesheet" href="vendor/font-awesome/css/all.min.css" />
+	<link rel="stylesheet" href="vendor/boxicons/css/boxicons.min.css" />
+	<link rel="stylesheet" href="vendor/magnific-popup/magnific-popup.css" />
+	<link rel="stylesheet" href="vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
+	<link rel="stylesheet" href="vendor/select2/css/select2.css" />
+	<link rel="stylesheet" href="vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
+	<link rel="stylesheet" href="vendor/datatables/media/css/dataTables.bootstrap5.css" />
+	<link rel="stylesheet" href="vendor/magnific-popup.css">
+	<script src="vendor/jquery.min.js"></script>
+	<script src="vendor/jquery.magnific-popup.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+	<!-- Inclui jQuery antes do código Magnific Popup -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+	<!-- Inclui a biblioteca Magnific Popup -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
 	<!-- Theme CSS -->
 	<link rel="stylesheet" href="css/theme.css" />
@@ -63,28 +84,40 @@
 
 		<div class="nano">
 			<div class="nano-content">
-				<?php
-						// Inicia a sessão PHP
-						SESSION_START();
+			<?php
+				// Inicia a sessão PHP
+				SESSION_START();
 
-						// Obtém o valor da variável de sessão 'iduser'
-						$id = $_SESSION['iduser'];
+				// Obtém o valor da variável de sessão 'iduser'
+				$id = $_SESSION['iduser'];
 
-						// Verifica o valor de $id para determinar qual menu incluir
-						if ($id == 0) {
-							// Se $id for igual a 0, inclui o menu de administração
-							include("menuadmin.php");
-						} else {
-							// Se $id não for igual a 0, inclui o menu do utilizador comum
-							include("menuuser.php");
-								}
-					?>
+				// Verifica o valor de $id para determinar qual menu incluir
+				if ($id == 0) {
+					// Se $id for igual a 0, inclui o menu de administração
+					include("menuadmin.php");
+				} else {
+					// Se $id não for igual a 0, inclui o menu do utilizador
+					include("menuuser.php");
+				}
+			?>
+
 
 				<hr class="separator" />
 
 				<hr class="separator" />
 
 			</div>
+
+			<script>
+				// Maintain Scroll Position
+				if (typeof localStorage !== 'undefined') {
+					if (localStorage.getItem('sidebar-left-position') !== null) {
+						var initialPosition = localStorage.getItem('sidebar-left-position'),
+							sidebarLeft = document.querySelector('#sidebar-left .nano-content');
+						sidebarLeft.scrollTop = initialPosition;
+					}
+				}
+			</script>
 
 		</div>
 
@@ -95,8 +128,7 @@
 		<header class="header">
 			<div class="logo-container">
 				<a href="Admin.php" class="logo">
-					<img src="img/logo2.png" width="120" height="35">
-
+					<img src="img/logo2.png" width="120" height="35" />
 				</a>
 
 				<div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html"
@@ -145,132 +177,101 @@
 		<!-- end: header -->
 
 		<div class="inner-wrapper">
-			<!-- start: sidebar -->
-
-			<!-- end: sidebar -->
-
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Inserir Fornecedores</h2>
+					<h2>Listar Logs</h2>
 
 					<div class="right-wrapper text-end">
 						<ol class="breadcrumbs">
-							
-
-							<li><span>Menu Fornecedores</span></li>
-							<li><span>Inserir Fornecedores</span></li>
+							<li>
+								<a href="admin.html">
+									<i class="bx bx-home-alt"></i>
+								</a>
+							</li>
+ 
+							<li><span>Listar Logs<span></li>
 
 						</ol>
 
-						<a class="sidebar-right-toggle" ><i
+						<a class="sidebar-right-toggle" dclass="sidebar-right-wrapper"><i
 								class="fas fa-chevron-left"></i></a>
 					</div>
 				</header>
+				<?php include "DBConnection.php"; ?>
+				<section class="card">
+                <header class="card-header d-flex justify-content-between align-items-center">
+                    <h2 class="card-title">Logs de Operações</h2>
+                    <form method="post" action="" onsubmit="return confirm('Tem certeza que deseja apagar todos os logs?');">
+                        <button type="submit" name="bt" class="btn btn-primary mx-2">Apagar Todos</button>
+                    </form>
+                </header>
 
-				<!-- start: page -->
+                <?php
+                // Incluir o ficheiro de conexão com o base de dados
+                include 'DBConnection.php';
 
-				<div class="bg-light">
-					<div class="form-container">
-						<div class="w-100">
-							<form name="form_ins_prod" id="form_ins_prod" action="inserir_fornecedor.php" method="post">
-								<section class="card">
-									<div class="card-body">
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Nome <span style="color: red;">*</span></label>
-											<div class="col-lg-6">
-												<input name="nome" type="text" class="form-control">
-											</div>
-										</div> 
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Contacto <span style="color: red;">*</span></label>
-											<div class="col-lg-6">
-												<input name="contacto" type="text" class="form-control">
-											</div>
-										</div>
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Email <span style="color: red;">*</span></label>
-											<div class="col-lg-6">
-												<input name="email" type="email" class="form-control">
-											</div>
-										</div>
-										<div class="form-group row pb-4">
-											<label class="col-lg-3 control-label text-lg-end pt-2"
-												for="inputDefault">Endereço <span style="color: red;">*</span></label>
-											<div class="col-lg-6">
-												<input name="endereco" type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<footer class="card-footer d-flex justify-content-end">
-										<button name="bt" class="btn btn-primary mx-2">Introduzir</button>
-										<button type="reset" class="btn btn-default mx-2">Limpar</button>
-									</footer>
-								</section>
-							</form>
-							<?php
-								// Incluir o ficheiro de conexão com o base de dados
-								include 'DBConnection.php';
-								// Incluir o ficheiro que contém a função registar_log
-								include 'log_function.php';
+                // Verifica se o formulário foi submetido e o botão "bt" foi clicado
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
+                    // Query SQL para apagar todos os registros da tabela de logs
+                    $sql = "DELETE FROM logs";
 
-								$fnome = $fcontacto = $femail = $fendereco = ''; // Inicializa as variáveis
+                    if ($link->query($sql) === TRUE) {
+                        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Sucesso!</strong> Todos os logs foram apagados com sucesso.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+                            </div>';
+                    } else {
+                        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Erro!</strong> Houve um problema ao apagar os logs: ' . $link->error . '
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+                            </div>';
+                    }
+                } ?>
+                            
+    <div class="card-body">
+        <br>
+        <div class="row">
+            <table class="table table-bordered table-striped mb-0" id="datatable-editable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ação</th>
+                        <th>Data</th>
+                        <th>Utilizador</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                   
+                    $result = mysqli_query($link, "SELECT * FROM logs ORDER BY data DESC");
 
-								// Verifica se o formulário foi submetido e o botão "Introduzir" foi clicado
-								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
-									// Verifica se todas as caixas foram preenchidas
-									if (empty($_POST["nome"]) || empty($_POST["contacto"]) || empty($_POST["email"]) || empty($_POST["endereco"])) {
-										// Exibe o alerta se não todas as caixas estiverem preenchidas
-										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-												<strong>Erro!</strong> Preencha todos os campos do formulário.
-												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-											</div>';
-									} else {
-										// Processa o formulário se todas as caixas foram preenchidas
-										$fnome = $_POST["nome"];
-										$fcontacto = $_POST["contacto"];
-										$femail = $_POST["email"];
-										$fendereco = $_POST["endereco"];
-
-										// Consulta para obter o próximo ID disponível na tabela "fornecedores"
-										$result = mysqli_query($link, "SELECT MAX(idf) AS max_idf FROM fornecedores");
-										$row = mysqli_fetch_assoc($result);
-										$proximo_idf = $row['max_idf'] + 1;
-
-										// Insere os dados na tabela "fornecedores"
-										$query = mysqli_query($link, "INSERT INTO fornecedores (idf, nome, contacto, email, endereco) 
-														VALUES ('$proximo_idf', '$fnome', '$fcontacto', '$femail', '$fendereco')");
-
-										// Verifica se a inserção foi bem-sucedida
-										if ($query) {
-											// regista o log da ação
-											$acao = "Inserção de novo fornecedor";
-											registar_log($link, $acao);
-
-											// Exibe um alerta de sucesso
-											echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-													<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
-													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-												</div>';
-										} else {
-											// Exibe um alerta de erro se houver problemas na inserção
-											echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-													<strong>Erro!</strong> Houve um problema ao inserir os dados.
-													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-												</div>';
-										}
-									}
-								}
-								?>
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr>";
+                        echo "<td>" . $row['id'] . "</td>";
+                        echo "<td>" . $row['acao'] . "</td>";
+                        echo "<td>" . $row['data'] . "</td>";
+                        echo "<td>" . $row['utilizador'] . "</td>";
+                        echo '<td class="actions text-left">';
+                        echo '<form method="post" action="apagarlog.php" style="display:inline;" onsubmit="return confirm(\'O registo será apagado permanentemente, tem certeza que deseja apagar?\');">';
+                        echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+                        echo '<button type="submit" class="btn btn-sm btn-sm-custom delete-btn" title="Apagar">';
+                        echo '<i class="fas fa-trash-alt" style="color: black;"></i>';
+                        echo '</button>';
+                        echo '</form>';
+                        echo '</td>';
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
 
 
-						</div>
 			</section>
-
 		</div>
-	
 
 		
 

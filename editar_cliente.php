@@ -177,8 +177,9 @@
 							<br><br>
 
 							<?php
-								// Inclui o arquivo de conexão com a base de dados
+								// Inclui o ficheiro de conexão com a base de dados
 								include 'DBConnection.php';
+								include 'log_function.php';
 
 								// Define o sinalizador para mostrar ou não o formulário
 								$showForm = true;
@@ -197,6 +198,9 @@
 
 									// Executa a query e verifica se foi bem sucedida
 									if (mysqli_query($link, $sql)) {
+										// regista o log da edição do serviço
+										$acao = "Edição do cliente: ID $id";
+										registar_log($link, $acao);
 										$showForm = false;
 										echo "registo atualizado com sucesso!";
 										echo '<script>window.location.href = "listar_clientes.php";</script>';

@@ -190,8 +190,10 @@
 							</form>
 
 							<?php
-							// Inclui o arquivo de conexão com o banco de dados
+							// Inclui o ficheiro de conexão com o base de dados
 							include 'DBConnection.php';
+							include 'log_function.php';
+
 
 							// Verifica se o formulário foi submetido e o botão "Introduzir" foi clicado
 							if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
@@ -216,6 +218,9 @@
 
 									// Exibe um alerta de sucesso ou erro dependendo da execução da query
 									if ($query) {
+										// regista o log da ação
+										$acao = "Inserção de novo estado";
+										registar_log($link, $acao);
 										echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
 												<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
 												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>

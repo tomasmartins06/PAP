@@ -190,45 +190,54 @@
 							</form>
 
 							<?php
-							// Inclui o arquivo de conexão com o banco de dados
-							include 'DBConnection.php';
+								// Inclui o ficheiro de conexão com o base de dados e a função registar_log
+								include 'DBConnection.php';
+								include 'log_function.php';
 
-							// Verifica se o formulário foi submetido e o botão "Introduzir" foi clicado
-							if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
-								// Verifica se o campo "gama" não está vazio
-								if (empty($_POST["gama"])) {
-									// Exibe um alerta de erro se o campo não estiver preenchido
-									echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-											<strong>Erro!</strong> Preencha todos os campos do formulário.
-											<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-										</div>';
-								} else {
-									// Obtém o valor do campo "gama"
-									$gama = $_POST["gama"];
-
-									// Consulta para obter o próximo ID disponível na tabela "gama"
-									$result = mysqli_query($link, "SELECT MAX(idi) AS max_idi FROM gama");
-									$row = mysqli_fetch_assoc($result);
-									$proximo_idi = $row['max_idi'] + 1;
-
-									// Insere os dados na tabela "gama"
-									$query = mysqli_query($link, "INSERT INTO gama (idi, gama) VALUES ('$proximo_idi', '$gama')");
-
-									// Exibe um alerta de sucesso ou erro dependendo da execução da query
-									if ($query) {
-										echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-												<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
+								// Verifica se o formulário foi submetido e o botão "Introduzir" foi clicado
+								if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["bt"])) {
+									// Verifica se o campo "gama" não está vazio
+									if (empty($_POST["gama"])) {
+										// Exibe um alerta de erro se o campo não estiver preenchido
+										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+												<strong>Erro!</strong> Preencha todos os campos do formulário.
 												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
 											</div>';
 									} else {
-										echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-												<strong>Erro!</strong> Houve um problema ao inserir os dados.
-												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
-											</div>';
+										// Obtém o valor do campo "gama"
+										$gama = $_POST["gama"];
+
+										// Consulta para obter o próximo ID disponível na tabela "gama"
+										$result = mysqli_query($link, "SELECT MAX(idi) AS max_idi FROM gama");
+										$row = mysqli_fetch_assoc($result);
+										$proximo_idi = $row['max_idi'] + 1;
+
+										// Insere os dados na tabela "gama"
+										$query = mysqli_query($link, "INSERT INTO gama (idi, gama) VALUES ('$proximo_idi', '$gama')");
+
+										// Verifica se a inserção foi bem-sucedida
+										if ($query) {
+											// regista o log da ação
+											$acao = "Inserção de nova gama";
+											registar_log($link, $acao);
+
+											// Exibe um alerta de sucesso
+											echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+													<strong>Sucesso!</strong> Os dados foram inseridos com sucesso.
+													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+												</div>';
+										} else {
+											// Exibe um alerta de erro se houver problemas na inserção
+											echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+													<strong>Erro!</strong> Houve um problema ao inserir os dados.
+													<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true" aria-label="Close"></button>
+												</div>';
+										}
 									}
 								}
-							}
-							?>
+								?>
+
+
 
 						</div>
 					</div>

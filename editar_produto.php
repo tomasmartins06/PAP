@@ -176,8 +176,9 @@
 							<br><br>
 
 							<?php
-								// Inclui o arquivo de conexão com a base de dados
+								// Inclui o ficheiro de conexão com a base de dados
 								include 'DBConnection.php';
+								include 'log_function.php';
 
 								// Define o sinalizador para mostrar ou não o formulário
 								$showForm = true;
@@ -193,12 +194,17 @@
 									$freferencia = $_POST["referencia"];
 									$fobservacoes = $_POST["observacoes"];
 									$idc = $_POST["idc"];
+									
+									
 
 									// Query SQL para atualizar o registo com base no ID
 									$sql = "UPDATE eletrodomesticos SET gama = '$fgama', eletrodomestico = '$feletrodomestico', marca = '$fmarca', modelo = '$fmodelo', referencia = '$freferencia', observacoes = '$fobservacoes', idc = '$idc' WHERE ide = $id";
 
 									// Executa a query e verifica se foi bem sucedida
 									if (mysqli_query($link, $sql)) {
+										// regista o log da edição do serviço
+										$acao = "Edição do produto: ID $id";
+										registar_log($link, $acao);
 										$showForm = false;
 										echo "Registo atualizado com sucesso!";
 										echo '<script>window.location.href = "listar_produto.php";</script>';
