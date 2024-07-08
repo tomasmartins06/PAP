@@ -181,7 +181,7 @@
 
             <section role="main" class="content-body">
     <header class="page-header">
-        <h2>Listar Peças</h2>
+        <h2>Listar Serviços Concluídos</h2>
 
         <div class="right-wrapper text-end">
             <ol class="breadcrumbs">
@@ -191,8 +191,9 @@
                     </a>
                 </li>
 
-                <li><span>Menu Peças</span></li>
-                <li><span>Listar Peças</span></li>
+   
+                <li><span>Outros</span></li>
+				<li><span>Listar Serviços Concluídos</span></li>
             </ol>
 
             <a class="sidebar-right-toggle" class="sidebar-right-wrapper">
@@ -203,7 +204,7 @@
     <?php include "DBConnection.php"; echo "<br>"; ?>
     <section class="card">
         <header class="card-header">
-            <h2 class="card-title">Lista de Peças</h2>
+            <h2 class="card-title">Lista de Serviços Concluídos</h2>
         </header>
         <div class="card-body">
             <table class="table table-bordered table-striped mb-0" id="datatable-editable">

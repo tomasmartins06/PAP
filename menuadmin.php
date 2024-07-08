@@ -201,7 +201,7 @@
 			<ul class="nav nav-children">
 				<li>
 					<a href="listar_servicocompletado.php">
-						Listar Serviços Finalizados
+						Listar Serviços Concluídos
 					</a>
 				</li>
 			</ul>

@@ -188,7 +188,7 @@
 									<i class="bx bx-home-alt"></i>
 								</a>
 							</li>
- 
+							<li><span>Outos<span></li>
 							<li><span>Listar Logs<span></li>
 
 						</ol>

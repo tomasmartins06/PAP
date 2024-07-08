@@ -250,7 +250,7 @@
 												</div>
 											</div>
 											<div class="summary-footer">
-												<a class="text-muted text-uppercase" href="listar_servico.php">(Ver todos)</a>
+												<a class="text-muted text-uppercase" href="listar_servicocompletado.php">(Ver todos)</a>
 											</div>
 										</div>
 									</div>
